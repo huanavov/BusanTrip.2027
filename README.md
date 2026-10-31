@@ -548,7 +548,7 @@
                         <div style="font-size:0.75rem; font-weight:700; color:#E88274;">JX310</div>
                         <div class="flight-line">
                             <div class="flight-time-badge">
-                                08:00 ✈ 11:15
+                                08:00 ✈ 12:00
                             </div>
                         </div>
                     </div>
@@ -646,13 +646,10 @@
             <h2 class="section-title">💰 記帳與匯率換算</h2>
 
             <div style="background:#FAF6F0; padding:12px; border-radius:12px; margin-bottom:14px; border:1px solid var(--border-color);">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                    <span style="font-size:0.8rem; font-weight:700;">💱 即時試算</span>
-                    <span id="rateStatus" style="font-size:0.7rem; color:#8C827A; background:#FFF; padding:2px 8px; border-radius:10px; border:1px solid var(--border-color);">匯率更新中...</span>
-                </div>
+                <div style="font-size:0.8rem; font-weight:700; margin-bottom:6px;">💱 即時試算 (參考匯率 0.0235)</div>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-                    <input type="number" id="calcKrw" placeholder="韓元 KRW" inputmode="numeric" pattern="[0-9]*" oninput="quickCalc('krw')" style="width:100%; min-width:0; padding:8px; border:1px solid var(--border-color); border-radius:8px;">
-                    <input type="number" id="calcTwd" placeholder="台幣 TWD" inputmode="numeric" pattern="[0-9]*" oninput="quickCalc('twd')" style="width:100%; min-width:0; padding:8px; border:1px solid var(--border-color); border-radius:8px;">
+                    <input type="number" id="calcKrw" placeholder="韓元 KRW" oninput="quickCalc('krw')" style="width:100%; min-width:0; padding:8px; border:1px solid var(--border-color); border-radius:8px;">
+                    <input type="number" id="calcTwd" placeholder="台幣 TWD" oninput="quickCalc('twd')" style="width:100%; min-width:0; padding:8px; border:1px solid var(--border-color); border-radius:8px;">
                 </div>
             </div>
 
@@ -674,9 +671,9 @@
             </div>
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:8px;">
                 <input type="text" id="accItem" placeholder="項目 (例: 豬肉湯飯)" style="width:100%; min-width:0; padding:8px; border:1px solid var(--border-color); border-radius:8px;">
-                <input type="number" id="accKrwVal" placeholder="金額 (韓元)" inputmode="numeric" pattern="[0-9]*" style="width:100%; min-width:0; padding:8px; border:1px solid var(--border-color); border-radius:8px;">
+                <input type="number" id="accKrwVal" placeholder="金額 (韓元)" style="width:100%; min-width:0; padding:8px; border:1px solid var(--border-color); border-radius:8px;">
             </div>
-            <button onclick="addExpense()" id="btnAddExpense" style="width:100%; background:var(--primary-coral); color:#FFF; border:none; padding:10px; border-radius:10px; font-weight:700; cursor:pointer;">+ 新增開銷</button>
+            <button onclick="addExpense()" style="width:100%; background:var(--primary-coral); color:#FFF; border:none; padding:10px; border-radius:10px; font-weight:700; cursor:pointer;">+ 新增開銷</button>
 
             <!-- 記帳統計與列表 -->
             <div style="margin-top:18px;">
@@ -719,7 +716,7 @@
         const itineraryData = {
             1: [
                 { time: '05:30', icon: SVG_ICONS.train, title: '家 ➔ 台中機場', desc: '機場接送' },
-                { time: '08:00', icon: SVG_ICONS.plane, title: '台中 起飛 ➔ 11:15 抵達 釜山', desc: '' },
+                { time: '08:00', icon: SVG_ICONS.plane, title: '台中 (RMQ) 起飛 ➔ 12:00 抵達 釜山 (PUS)', desc: '' },
                 { time: '', icon: SVG_ICONS.pin, title: '辦理 SES 快速通關', desc: '2F 出境大廳 Check-in D區右方' },
                 { time: '', icon: SVG_ICONS.train, title: '前往海雲臺', desc: '機場巴士 3號月台 ❘ 金海機場 → 海雲臺海水浴場，票價：₩9,500/人，於 Gate 4 附近自動售票機購票' },
                 { time: '', icon: SVG_ICONS.food, title: '廣安木烤肉', desc: '' },
@@ -770,7 +767,7 @@
             ],
             6: [
                 { time: '', icon: SVG_ICONS.train, title: '前往金海機場', desc: '' },
-                { time: '12:15', icon: SVG_ICONS.plane, title: '釜山 起飛 ➔ 14:00 抵達 台中', desc: '' }
+                { time: '12:15', icon: SVG_ICONS.plane, title: '12:15 釜山 (PUS) 起飛 ➔ 14:00 抵達 台中 (RMQ)', desc: '' }
             ]
         };
 
@@ -803,59 +800,24 @@
         }
         switchDay(1);
 
-        // 預設匯率與動態抓取
-        let currentRate = 0.0235;
-
-        async function fetchLiveExchangeRate() {
-            const statusEl = document.getElementById('rateStatus');
-            try {
-                const res = await fetch('https://open.er-api.com/v6/latest/KRW');
-                const data = await res.json();
-                if (data && data.rates && data.rates.TWD) {
-                    currentRate = data.rates.TWD;
-                    statusEl.innerText = `即時匯率 ${currentRate.toFixed(4)}`;
-                } else {
-                    statusEl.innerText = `參考匯率 ${currentRate}`;
-                }
-            } catch (err) {
-                statusEl.innerText = `參考匯率 ${currentRate}`;
-            }
-        }
-        fetchLiveExchangeRate();
-
-        // 💡 Google Cloud 試算表串接網址（已自動填入你專屬的 Google Apps Script URL）
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwzsPq52fMhvT9CPiDXuYkuKNgXd131QU6kLDL9MV61WUD3iUSFp2wJFCDKgXdE6vl-/exec";
-
-        let expenses = JSON.parse(localStorage.getItem('busan_v4_expenses')) || [];
+        const RATE = 0.0235;
+        let expenses = JSON.parse(localStorage.getItem('busan_v4_expenses')) || [
+            { day: 'D1', payer: '姐姐', item: '測試一', krw: 10000, twd: 235 }
+        ];
 
         function quickCalc(type) {
             const krwIn = document.getElementById('calcKrw');
             const twdIn = document.getElementById('calcTwd');
             if (type === 'krw') {
                 const k = parseFloat(krwIn.value) || 0;
-                twdIn.value = Math.round(k * currentRate);
+                twdIn.value = Math.round(k * RATE);
             } else {
                 const t = parseFloat(twdIn.value) || 0;
-                krwIn.value = Math.round(t / currentRate);
+                krwIn.value = Math.round(t / RATE);
             }
         }
 
-        async function fetchCloudExpenses() {
-            if (!GOOGLE_SCRIPT_URL) return;
-            try {
-                const res = await fetch(GOOGLE_SCRIPT_URL);
-                const data = await res.json();
-                if (Array.isArray(data)) {
-                    expenses = data;
-                    localStorage.setItem('busan_v4_expenses', JSON.stringify(expenses));
-                    renderExpenses();
-                }
-            } catch (e) {
-                console.log("使用本地緩存資料");
-            }
-        }
-
-        async function addExpense() {
+        function addExpense() {
             const day = document.getElementById('accDay').value;
             const payer = document.getElementById('accPayer').value;
             const item = document.getElementById('accItem').value;
@@ -866,46 +828,18 @@
                 return;
             }
 
-            const newRecord = { day, payer, item, krw, twd: Math.round(krw * currentRate), id: Date.now() };
-            expenses.push(newRecord);
+            expenses.push({ day, payer, item, krw, twd: Math.round(krw * RATE) });
             localStorage.setItem('busan_v4_expenses', JSON.stringify(expenses));
 
             document.getElementById('accItem').value = '';
             document.getElementById('accKrwVal').value = '';
             renderExpenses();
-
-            if (GOOGLE_SCRIPT_URL) {
-                try {
-                    await fetch(GOOGLE_SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ action: 'add', record: newRecord })
-                    });
-                } catch (e) {
-                    console.error("雲端同步失敗");
-                }
-            }
         }
 
-        async function deleteExpense(index) {
-            const target = expenses[index];
+        function deleteExpense(index) {
             expenses.splice(index, 1);
             localStorage.setItem('busan_v4_expenses', JSON.stringify(expenses));
             renderExpenses();
-
-            if (GOOGLE_SCRIPT_URL && target) {
-                try {
-                    await fetch(GOOGLE_SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ action: 'delete', id: target.id })
-                    });
-                } catch (e) {
-                    console.error("雲端刪除失敗");
-                }
-            }
         }
 
         function renderExpenses() {
@@ -935,9 +869,7 @@
 
             totalEl.innerText = `總計：₩ ${totalKrw.toLocaleString()}`;
         }
-
         renderExpenses();
-        fetchCloudExpenses();
 
         function copyText(id) {
             const txt = document.getElementById(id).innerText;
