@@ -81,9 +81,16 @@
             box-sizing: border-box;
         }
 
-        /* 頁首標題區 */
+        /* 頁首標題區（與日期標籤一起凍結視窗 Sticky） */
         .hero-banner {
-            padding: 24px 4px 16px 4px;
+            position: sticky;
+            top: 0;
+            z-index: 950;
+            background: rgba(252, 250, 242, 0.96);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            margin: -20px -18px 0 -18px;
+            padding: 22px 22px 10px 22px;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -290,16 +297,16 @@
             color: var(--primary-coral);
         }
 
-        /* 日期選擇 Tabs：凍結視窗 Sticky + 質感簡約風 + 連結底線滑入動態效果 */
+        /* 日期選擇 Tabs：與標題區一起凍結視窗 Sticky + 質感簡約風 + 連結底線滑入動態效果 */
         .day-tabs-wrapper {
             position: sticky;
-            top: 0;
-            z-index: 900;
-            background: rgba(252, 250, 242, 0.94);
+            top: var(--hero-sticky-h, 138px);
+            z-index: 940;
+            background: rgba(252, 250, 242, 0.96);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             margin: 0 -18px 22px -18px;
-            padding: 10px 18px 10px 18px;
+            padding: 6px 18px 10px 18px;
             border-bottom: 1px solid #EFEAE2;
         }
         .day-tabs-row {
@@ -2042,7 +2049,7 @@
     <div class="container">
         <!-- 標題區 -->
         <header class="hero-banner">
-            <div class="hero-subhead">부산의 겨울 · 2027</div>
+            <div class="hero-subhead">FAMILY TRIP·2027</div>
             <div class="title-group">
                 <h1 class="hero-title" id="floatTitle">
                     <span class="bounce-char">釜</span><span class="bounce-char">山</span><span class="bounce-char">·</span><span class="bounce-char">冬</span><span class="bounce-char">日</span><span class="bounce-char">遊</span>
@@ -2061,49 +2068,6 @@
         <div class="pages-stage">
             <!-- PAGE 1: 行程 -->
             <main id="page-itinerary" class="tab-page active">
-                <div class="card-wrapper" style="padding:16px 0;">
-                    <div class="train-viewport">
-                        <div class="capsule-svg-box">
-                            <svg width="100%" height="100%" viewBox="0 0 340 90">
-                                <path d="M0 60 Q 85 50, 170 60 T 340 55 L 340 90 L 0 90 Z" fill="#E2ECE9" opacity="0.6"/>
-                                <circle cx="280" cy="25" r="12" fill="#F4DCD0" opacity="0.8"/>
-                                <line x1="30" y1="45" x2="310" y2="45" stroke="#B8AEA3" stroke-width="1.5" stroke-dasharray="4 4"/>
-                                
-                                <line x1="45" y1="45" x2="45" y2="65" stroke="#B8AEA3" stroke-width="1.5"/>
-                                <circle cx="45" cy="45" r="3" fill="#D97A6C"/>
-                                <text x="45" y="33" font-size="9" fill="#7E756F" text-anchor="middle">尾浦</text>
-
-                                <line x1="170" y1="45" x2="170" y2="65" stroke="#B8AEA3" stroke-width="1.5"/>
-                                <circle cx="170" cy="45" r="3" fill="#D97A6C"/>
-                                <text x="170" y="33" font-size="9" fill="#7E756F" text-anchor="middle">青沙浦</text>
-
-                                <line x1="295" y1="45" x2="295" y2="65" stroke="#B8AEA3" stroke-width="1.5"/>
-                                <circle cx="295" cy="45" r="3" fill="#D97A6C"/>
-                                <text x="295" y="33" font-size="9" fill="#7E756F" text-anchor="middle">松亭</text>
-                            </svg>
-
-                            <div class="train-cars-group" id="trainCars">
-                                <svg width="24" height="20" viewBox="0 0 28 24">
-                                    <rect x="2" y="2" width="24" height="20" rx="8" fill="#F4C46C" stroke="#383431" stroke-width="1.5"/>
-                                    <rect x="6" y="5" width="16" height="9" rx="2" fill="#FFF"/>
-                                    <circle cx="14" cy="18" r="1.5" fill="#383431"/>
-                                </svg>
-                                <svg width="24" height="20" viewBox="0 0 28 24">
-                                    <rect x="2" y="2" width="24" height="20" rx="8" fill="#D97A6C" stroke="#383431" stroke-width="1.5"/>
-                                    <rect x="6" y="5" width="16" height="9" rx="2" fill="#FFF"/>
-                                    <circle cx="14" cy="18" r="1.5" fill="#383431"/>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <div class="btn-controls-row">
-                            <button class="btn-station" onclick="moveTrain(-1)">〈 上一站</button>
-                            <span class="station-name-display" id="stationLabel">尾浦 Mipo</span>
-                            <button class="btn-station" onclick="moveTrain(1)">下一站 〉</button>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="card-wrapper">
                     <div class="day-tabs-wrapper">
                         <div class="day-tabs-row">
@@ -2705,12 +2669,12 @@
                             <div style="border-right:1px solid #F2EDE4; padding-right:10px;">
                                 <div class="sheet-ticket-label">入住日期 (CHECK-IN)</div>
                                 <div class="sheet-ticket-val" style="font-size:0.86rem;">2027年1月13日 (三)</div>
-                                <div style="font-size:0.75rem; color:var(--ink-muted); font-weight:600; margin-top:2px;">（下午 3:00 後）</div>
+                                <div style="font-size:0.75rem; color:var(--ink-muted); font-weight:600; margin-top:2px;">下午 3:00 後</div>
                             </div>
                             <div style="padding-left:4px;">
                                 <div class="sheet-ticket-label">退房日期 (CHECK-OUT)</div>
                                 <div class="sheet-ticket-val" style="font-size:0.86rem;">2027年1月15日 (五)</div>
-                                <div style="font-size:0.75rem; color:var(--primary-coral); font-weight:600; margin-top:2px;">（上午 11:00 前）</div>
+                                <div style="font-size:0.75rem; color:var(--primary-coral); font-weight:600; margin-top:2px;">上午 11:00 前</div>
                             </div>
                         </div>
                         <div class="sheet-ticket-section" style="flex-direction:column; align-items:flex-start; gap:6px;">
@@ -2760,12 +2724,12 @@
                             <div style="border-right:1px solid #F2EDE4; padding-right:10px;">
                                 <div class="sheet-ticket-label">入住日期 (CHECK-IN)</div>
                                 <div class="sheet-ticket-val" style="font-size:0.86rem;">2027年1月15日 (五)</div>
-                                <div style="font-size:0.75rem; color:var(--ink-muted); font-weight:600; margin-top:2px;">（下午 5:00 後）</div>
+                                <div style="font-size:0.75rem; color:var(--ink-muted); font-weight:600; margin-top:2px;">下午 5:00 後</div>
                             </div>
                             <div style="padding-left:4px;">
                                 <div class="sheet-ticket-label">退房日期 (CHECK-OUT)</div>
                                 <div class="sheet-ticket-val" style="font-size:0.86rem;">2027年1月18日 (一)</div>
-                                <div style="font-size:0.75rem; color:var(--primary-coral); font-weight:600; margin-top:2px;">（中午 12:00 前）</div>
+                                <div style="font-size:0.75rem; color:var(--primary-coral); font-weight:600; margin-top:2px;">中午 12:00 前</div>
                             </div>
                         </div>
                         <div class="sheet-ticket-section" style="flex-direction:column; align-items:flex-start; gap:6px;">
@@ -2893,7 +2857,7 @@
 
             const typingEl = document.getElementById('typingText');
             const cursorEl = document.getElementById('typingCursor');
-            const targetPhrase = "6天5夜·Bu想San班，就去釜山";
+            const targetPhrase = "Bu想San班，就去釜山";
             if (window.gsap && typingEl) {
                 gsap.to(typingEl, {
                     duration: targetPhrase.length * 0.5,
@@ -2908,11 +2872,13 @@
                 });
             }
 
+            updateStickyHeaderOffset();
             initNavIndicator();
             initExpenseFilterNav();
             initPullToRefresh();
             initBottomSheetDrag();
             window.addEventListener('resize', () => {
+                updateStickyHeaderOffset();
                 initNavIndicator();
                 updateActiveFilterPill();
             });
@@ -2924,6 +2890,13 @@
                 }
             });
         });
+
+        function updateStickyHeaderOffset() {
+            const hero = document.querySelector('.hero-banner');
+            if (hero) {
+                document.documentElement.style.setProperty('--hero-sticky-h', hero.offsetHeight + 'px');
+            }
+        }
 
         let navIndicatorTl = null;
         const TAB_ORDER = ['itinerary', 'accounting', 'info', 'checkin'];
@@ -3077,8 +3050,59 @@
             currentStationIndex += direction;
             if (currentStationIndex < 0) currentStationIndex = 0;
             if (currentStationIndex >= stationPositions.length) currentStationIndex = stationPositions.length - 1;
-            document.getElementById('trainCars').style.left = stationPositions[currentStationIndex] + 'px';
-            document.getElementById('stationLabel').innerText = stations[currentStationIndex];
+            const trainCarsEl = document.getElementById('trainCars');
+            const stationLabelEl = document.getElementById('stationLabel');
+            if (trainCarsEl) trainCarsEl.style.left = stationPositions[currentStationIndex] + 'px';
+            if (stationLabelEl) stationLabelEl.innerText = stations[currentStationIndex];
+        }
+
+        function getTrainIllustrationHtml() {
+            const leftPos = stationPositions[currentStationIndex] || 25;
+            const labelTxt = stations[currentStationIndex] || stations[0];
+            return `
+                <div style="margin: 2px 0 22px 0;">
+                    <div class="train-viewport">
+                        <div class="capsule-svg-box">
+                            <svg width="100%" height="100%" viewBox="0 0 340 90">
+                                <path d="M0 60 Q 85 50, 170 60 T 340 55 L 340 90 L 0 90 Z" fill="#E2ECE9" opacity="0.6"/>
+                                <circle cx="280" cy="25" r="12" fill="#F4DCD0" opacity="0.8"/>
+                                <line x1="30" y1="45" x2="310" y2="45" stroke="#B8AEA3" stroke-width="1.5" stroke-dasharray="4 4"/>
+                                
+                                <line x1="45" y1="45" x2="45" y2="65" stroke="#B8AEA3" stroke-width="1.5"/>
+                                <circle cx="45" cy="45" r="3" fill="#D97A6C"/>
+                                <text x="45" y="33" font-size="9" fill="#7E756F" text-anchor="middle">尾浦</text>
+
+                                <line x1="170" y1="45" x2="170" y2="65" stroke="#B8AEA3" stroke-width="1.5"/>
+                                <circle cx="170" cy="45" r="3" fill="#D97A6C"/>
+                                <text x="170" y="33" font-size="9" fill="#7E756F" text-anchor="middle">青沙浦</text>
+
+                                <line x1="295" y1="45" x2="295" y2="65" stroke="#B8AEA3" stroke-width="1.5"/>
+                                <circle cx="295" cy="45" r="3" fill="#D97A6C"/>
+                                <text x="295" y="33" font-size="9" fill="#7E756F" text-anchor="middle">松亭</text>
+                            </svg>
+
+                            <div class="train-cars-group" id="trainCars" style="left: ${leftPos}px;">
+                                <svg width="24" height="20" viewBox="0 0 28 24">
+                                    <rect x="2" y="2" width="24" height="20" rx="8" fill="#F4C46C" stroke="#383431" stroke-width="1.5"/>
+                                    <rect x="6" y="5" width="16" height="9" rx="2" fill="#FFF"/>
+                                    <circle cx="14" cy="18" r="1.5" fill="#383431"/>
+                                </svg>
+                                <svg width="24" height="20" viewBox="0 0 28 24">
+                                    <rect x="2" y="2" width="24" height="20" rx="8" fill="#D97A6C" stroke="#383431" stroke-width="1.5"/>
+                                    <rect x="6" y="5" width="16" height="9" rx="2" fill="#FFF"/>
+                                    <circle cx="14" cy="18" r="1.5" fill="#383431"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="btn-controls-row">
+                            <button class="btn-station" onclick="moveTrain(-1)">〈 上一站</button>
+                            <span class="station-name-display" id="stationLabel">${labelTxt}</span>
+                            <button class="btn-station" onclick="moveTrain(1)">下一站 〉</button>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
         const itineraryData = {
@@ -3151,7 +3175,13 @@
 
             const container = document.getElementById('timelineContainer');
             const list = itineraryData[dayNum] || [];
-            let html = '<div class="elegant-timeline">';
+            let html = '';
+
+            if (dayNum === 2) {
+                html += getTrainIllustrationHtml();
+            }
+
+            html += '<div class="elegant-timeline">';
 
             list.forEach(item => {
                 const catKey = item.category || 'TRANSPORT';
