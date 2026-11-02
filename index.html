@@ -54,18 +54,16 @@
         html {
             background-color: var(--bg-color);
             width: 100%;
-            overflow-x: clip;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--ink-color);
             line-height: 1.65;
-            padding-bottom: 95px;
+            padding-bottom: 120px;
             min-height: 100vh;
             width: 100%;
             margin: 0 auto;
-            overflow-x: clip;
             display: block;
         }
 
@@ -2094,11 +2092,14 @@
         /* 底部導覽列 */
         .bottom-nav {
             position: fixed;
-            bottom: 12px;
-            left: 14px;
-            right: 14px;
-            background: rgba(253, 251, 247, 0.94);
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 32px);
+            max-width: 440px;
+            background: rgba(253, 251, 247, 0.95);
             backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             border: 1px solid #E5DFC9;
             border-radius: 999px;
             box-shadow: 0 8px 26px rgba(56, 52, 49, 0.08);
@@ -2106,9 +2107,7 @@
             justify-content: space-around;
             align-items: center;
             padding: 6px 6px;
-            z-index: 1000;
-            max-width: 452px;
-            margin: 0 auto;
+            z-index: 999;
         }
 
         .nav-indicator {
@@ -2604,6 +2603,314 @@
         </div>
     </div>
 
+    <!-- 底部抽屜（Bottom Sheet）：前往海雲臺 / L7 海雲臺 / Urban Groove Hotel -->
+    <div class="bottom-sheet-overlay" id="haeundaeSheetOverlay">
+        <div class="bottom-sheet-backdrop" id="haeundaeSheetBackdrop" onclick="closeBottomSheet()"></div>
+        <div class="bottom-sheet-panel" id="haeundaeSheetPanel">
+            <div class="sheet-drag-zone" id="sheetDragZone">
+                <div class="sheet-handle"></div>
+            </div>
+
+            <!-- VIEW 1: 前往海雲臺 (機場巴士) -->
+            <div class="sheet-view" id="sheet-view-haeundae">
+                <div class="sheet-header" style="border-left-color: #7BAAC8;">
+                    <div class="sheet-meta-row">
+                        <div class="sheet-meta-left">
+                            <span class="sheet-cat-box">TRANSPORT</span>
+                            <span class="sheet-time-label">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                12:15
+                            </span>
+                        </div>
+                        <button type="button" class="sheet-close-btn" onclick="closeBottomSheet()">✕</button>
+                    </div>
+                    <div class="sheet-title">前往海雲臺（機場リムジン巴士）</div>
+                </div>
+
+                <div class="sheet-scroll-body">
+                    <div class="sheet-ticket-card sheet-stagger-item">
+                        <div class="sheet-ticket-section">
+                            <div>
+                                <div class="sheet-ticket-label">BOARDING PLATFORM</div>
+                                <div class="sheet-ticket-val">金海機場 國際線 1F · 3號月台</div>
+                            </div>
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C59B7D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="14" rx="2"/>
+                                <path d="M3 11h18M8 18l-1 3M16 18l1 3"/>
+                                <circle cx="7.5" cy="14.5" r="1"/><circle cx="16.5" cy="14.5" r="1"/>
+                            </svg>
+                        </div>
+                        <div class="sheet-ticket-section">
+                            <div>
+                                <div class="sheet-ticket-label">FARE & ROUTE</div>
+                                <div class="sheet-ticket-val">₩ 9,500 / 人 · 海雲臺海水浴場下車</div>
+                            </div>
+                        </div>
+                        <div class="sheet-ticket-footer">GIMHAE INT'L AIRPORT ➔ HAEUNDAE BEACH</div>
+                    </div>
+
+                    <div class="sheet-subhead sheet-stagger-item">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+                        乘車位置示意圖 (PLATFORM MAP)
+                    </div>
+
+                    <div class="airport-map-card sheet-stagger-item">
+                        <div class="airport-map-caption">
+                            <span>國際線 1F 出境後往右走 ➔ Gate 3 外【3號 機場大巴】</span>
+                            <span style="color:#B84A39;">★ 3號月台</span>
+                        </div>
+                        <svg viewBox="0 0 680 280" width="100%" style="display:block; border-radius:6px; background:#E6E4DF;">
+                            <g transform="translate(8, 8)">
+                                <rect x="135" y="2" width="22" height="22" rx="4" fill="#FFF" stroke="#222" stroke-width="2"/>
+                                <text x="146" y="18" font-size="15" font-weight="700" text-anchor="middle" fill="#222">P</text>
+                                <text x="146" y="35" font-size="9" text-anchor="middle" fill="#333">P2 旅客停車場</text>
+
+                                <rect x="0" y="42" width="320" height="22" rx="11" fill="#8C8C8C"/>
+                                <rect x="0" y="102" width="320" height="22" rx="11" fill="#8C8C8C"/>
+
+                                <g fill="#8C8C8C">
+                                    <rect x="46" y="67" width="26" height="4"/><rect x="46" y="74" width="26" height="4"/><rect x="46" y="81" width="26" height="4"/><rect x="46" y="88" width="26" height="4"/><rect x="46" y="95" width="26" height="4"/>
+                                    <rect x="165" y="67" width="26" height="4"/><rect x="165" y="74" width="26" height="4"/><rect x="165" y="81" width="26" height="4"/><rect x="165" y="88" width="26" height="4"/><rect x="165" y="95" width="26" height="4"/>
+                                    <rect x="260" y="67" width="26" height="4"/><rect x="260" y="74" width="26" height="4"/><rect x="260" y="81" width="26" height="4"/><rect x="260" y="88" width="26" height="4"/><rect x="260" y="95" width="26" height="4"/>
+                                    <rect x="46" y="127" width="26" height="4"/><rect x="46" y="134" width="26" height="4"/><rect x="46" y="141" width="26" height="4"/><rect x="46" y="148" width="26" height="4"/><rect x="46" y="155" width="26" height="4"/>
+                                    <rect x="165" y="127" width="26" height="4"/><rect x="165" y="134" width="26" height="4"/><rect x="165" y="141" width="26" height="4"/><rect x="165" y="148" width="26" height="4"/><rect x="165" y="155" width="26" height="4"/>
+                                    <rect x="260" y="127" width="26" height="4"/><rect x="260" y="134" width="26" height="4"/><rect x="260" y="141" width="26" height="4"/><rect x="260" y="148" width="26" height="4"/><rect x="260" y="155" width="26" height="4"/>
+                                </g>
+
+                                <rect x="208" y="72" width="24" height="16" rx="4" fill="#222"/>
+                                <text x="220" y="99" font-size="8.5" text-anchor="middle" fill="#222">出租車</text>
+
+                                <rect x="0" y="164" width="320" height="100" rx="4" fill="#D5D3CE"/>
+
+                                <g font-family="sans-serif">
+                                    <text x="28" y="188" font-size="18" font-weight="700" fill="#222">🚌1</text>
+                                    <text x="32" y="201" font-size="8" text-anchor="middle" fill="#333">機場擺渡車</text>
+
+                                    <text x="86" y="188" font-size="18" font-weight="700" fill="#222">🚌2</text>
+                                    <text x="92" y="201" font-size="8" text-anchor="middle" fill="#333">市內公交車</text>
+
+                                    <rect x="136" y="168" width="54" height="38" rx="6" fill="#FCE8E4" stroke="#D97A6C" stroke-width="2"/>
+                                    <text x="146" y="188" font-size="18" font-weight="700" fill="#B84A39">🚌3</text>
+                                    <text x="163" y="201" font-size="8.5" font-weight="700" text-anchor="middle" fill="#B84A39">機場大巴</text>
+
+                                    <text x="208" y="188" font-size="18" font-weight="700" fill="#222">🚌4</text>
+                                    <text x="215" y="201" font-size="8" text-anchor="middle" fill="#333">市外公交車</text>
+
+                                    <text x="266" y="188" font-size="18" font-weight="700" fill="#222">🚌5</text>
+                                    <text x="275" y="201" font-size="8" text-anchor="middle" fill="#333">市外公交車</text>
+                                </g>
+
+                                <rect x="10" y="218" width="300" height="42" rx="3" fill="#C2C0BB"/>
+                                <g fill="#84827E" font-size="9" font-weight="600">
+                                    <rect x="38" y="210" width="44" height="15" rx="3" fill="#84827E"/><text x="60" y="221" fill="#FFF" text-anchor="middle">Gate 1</text>
+                                    <rect x="98" y="210" width="44" height="15" rx="3" fill="#84827E"/><text x="120" y="221" fill="#FFF" text-anchor="middle">Gate 2</text>
+                                    <rect x="158" y="210" width="44" height="15" rx="3" fill="#B84A39"/><text x="180" y="221" fill="#FFF" text-anchor="middle">Gate 3</text>
+                                    <rect x="218" y="210" width="44" height="15" rx="3" fill="#84827E"/><text x="240" y="221" fill="#FFF" text-anchor="middle">Gate 4</text>
+                                </g>
+                                <text x="155" y="242" font-size="13" text-anchor="middle" fill="#555">✈</text>
+                                <text x="155" y="254" font-size="9.5" font-weight="600" text-anchor="middle" fill="#444">國際航班 1號到達區</text>
+                                <text x="282" y="250" font-size="8.5" font-weight="600" text-anchor="middle" fill="#333">🎫 巴士售票處</text>
+                            </g>
+
+                            <g transform="translate(344, 8)">
+                                <rect x="215" y="2" width="22" height="22" rx="4" fill="#FFF" stroke="#222" stroke-width="2"/>
+                                <text x="226" y="18" font-size="15" font-weight="700" text-anchor="middle" fill="#222">P</text>
+                                <text x="226" y="35" font-size="9" text-anchor="middle" fill="#333">P1 旅客停車場</text>
+
+                                <rect x="0" y="42" width="320" height="22" rx="11" fill="#8C8C8C"/>
+                                <text x="14" y="57" font-size="10" fill="#FFF" font-weight="600">🚝 輕軌</text>
+                                <rect x="0" y="102" width="320" height="22" rx="11" fill="#8C8C8C"/>
+
+                                <g fill="#8C8C8C">
+                                    <rect x="52" y="67" width="26" height="4"/><rect x="52" y="74" width="26" height="4"/><rect x="52" y="81" width="26" height="4"/><rect x="52" y="88" width="26" height="4"/><rect x="52" y="95" width="26" height="4"/>
+                                    <rect x="215" y="67" width="26" height="4"/><rect x="215" y="74" width="26" height="4"/><rect x="215" y="81" width="26" height="4"/><rect x="215" y="88" width="26" height="4"/><rect x="215" y="95" width="26" height="4"/>
+                                    <rect x="52" y="127" width="26" height="4"/><rect x="52" y="134" width="26" height="4"/><rect x="52" y="141" width="26" height="4"/><rect x="52" y="148" width="26" height="4"/><rect x="52" y="155" width="26" height="4"/>
+                                    <rect x="215" y="127" width="26" height="4"/><rect x="215" y="134" width="26" height="4"/><rect x="215" y="141" width="26" height="4"/><rect x="215" y="148" width="26" height="4"/><rect x="215" y="155" width="26" height="4"/>
+                                </g>
+
+                                <rect x="0" y="164" width="320" height="100" rx="4" fill="#D5D3CE"/>
+                                <g font-family="sans-serif">
+                                    <text x="175" y="188" font-size="16" font-weight="700" fill="#222">🚌1</text>
+                                    <text x="182" y="201" font-size="7.5" text-anchor="middle" fill="#333">機場擺渡車</text>
+                                    <text x="212" y="188" font-size="16" font-weight="700" fill="#222">🚌2</text>
+                                    <text x="219" y="201" font-size="7.5" text-anchor="middle" fill="#333">市內公交車</text>
+                                    <text x="249" y="188" font-size="16" font-weight="700" fill="#222">🚌3</text>
+                                    <text x="256" y="201" font-size="7.5" text-anchor="middle" fill="#333">機場大巴</text>
+                                    <text x="284" y="188" font-size="16" font-weight="700" fill="#222">🚌4</text>
+                                    <text x="291" y="201" font-size="7.5" text-anchor="middle" fill="#333">市外公交車</text>
+                                </g>
+
+                                <rect x="10" y="218" width="300" height="42" rx="3" fill="#C2C0BB"/>
+                                <g fill="#84827E" font-size="9" font-weight="600">
+                                    <rect x="38" y="210" width="44" height="15" rx="3" fill="#84827E"/><text x="60" y="221" fill="#FFF" text-anchor="middle">Gate 1</text>
+                                    <rect x="108" y="210" width="44" height="15" rx="3" fill="#84827E"/><text x="130" y="221" fill="#FFF" text-anchor="middle">Gate 2</text>
+                                    <rect x="178" y="210" width="44" height="15" rx="3" fill="#84827E"/><text x="200" y="221" fill="#FFF" text-anchor="middle">Gate 3</text>
+                                    <rect x="242" y="210" width="44" height="15" rx="3" fill="#84827E"/><text x="264" y="221" fill="#FFF" text-anchor="middle">Gate 4</text>
+                                </g>
+                                <text x="155" y="242" font-size="13" text-anchor="middle" fill="#555">✈</text>
+                                <text x="155" y="254" font-size="9.5" font-weight="600" text-anchor="middle" fill="#444">國內航班到達區</text>
+                                <text x="292" y="244" font-size="8" font-weight="600" text-anchor="middle" fill="#333">🎫 售票處</text>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div class="sheet-subhead sheet-stagger-item">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m5 8 6 6"/>
+                            <path d="m4 14 6-6 2-3"/>
+                            <path d="M2 5h12"/>
+                            <path d="M7 2h1"/>
+                            <path d="m22 22-5-10-5 10"/>
+                            <path d="M14 18h6"/>
+                        </svg>
+                        손가락 회화 (POINT & SPEAK)
+                    </div>
+
+                    <div class="point-speak-card sheet-stagger-item" style="cursor:pointer;" onclick="openFlashcard('해운대 해수욕장 세 장 주세요', '(海雲臺海水浴場 3張)')">
+                        <span class="ps-zh">海雲臺海水浴場 3張</span>
+                        <span class="ps-kr">해운대 해수욕장 세 장 주세요</span>
+                    </div>
+                    <div class="point-speak-card sheet-stagger-item" style="cursor:pointer;" onclick="openFlashcard('해운대 해수욕장에서 내려주세요', '(在 海雲台海水浴場 下車)')">
+                        <span class="ps-zh">在 海雲台海水浴場 下車</span>
+                        <span class="ps-kr">해운대 해수욕장에서 내려주세요</span>
+                    </div>
+
+                    <div class="sheet-subhead sheet-stagger-item">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        乘車指南 (BOARDING GUIDE)
+                    </div>
+                    <div class="sheet-about-box sheet-stagger-item">
+                        【購票與候車】領取行李步出國際線 1 樓入境大廳後，請往右手邊走至 <strong>Gate 3 / Gate 4 之間</strong>的「巴士售票處」購買往海雲臺車票（₩9,500／人），再走出 Gate 3 門外的 <strong>3 號月台（機場大巴）</strong>排隊候車。
+                        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed #DFD9CE;">
+                            <div style="font-weight: 700; color: var(--ink-color); margin-bottom: 4px;">往機張（Gijang）路線停靠站</div>
+                            <div style="font-size: 0.78rem; color: var(--ink-muted); line-height: 1.6;">
+                                國際航站樓 → 國內航站樓 → 南川洞 → The Beach PRUGIO Summit → 新世界Centum City → BEXCO → 遊艇中心 → 釜山柏悅酒店 → 韓華度假村海雲臺 → 冬柏島入口 → <strong style="color: var(--primary-coral);">海雲臺海水浴場</strong> → 海雲臺溫泉十字路口 → 長山站（5號出口） → 東岩後門（Ananti Cove） → 海雲臺釜山悅榕莊
+                            </div>
+                            <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.78rem; background: #F5F0E6; padding: 8px 12px; border-radius: 6px; color: var(--ink-color);">
+                                <div><strong style="color: #8C6D46;">發車時間：</strong>11:30 / 12:19 / 12:30 / 13:10</div>
+                                <div><strong style="color: #8C6D46;">班次間隔：</strong>約 60 分鐘</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: L7 海雲臺 (L7 HAEUNDAE by LOTTE HOTELS) -->
+            <div class="sheet-view" id="sheet-view-l7hotel" style="display:none;">
+                <div class="sheet-header" style="border-left-color: #7FA98B;">
+                    <div class="sheet-meta-row">
+                        <div class="sheet-meta-left">
+                            <span class="sheet-cat-box" style="border-color:#7FA98B; color:#527D60; background:rgba(127,169,139,0.1);">HOTEL</span>
+                            <span class="sheet-time-label">住宿資訊 · 2晚</span>
+                        </div>
+                        <button type="button" class="sheet-close-btn" onclick="closeBottomSheet()">✕</button>
+                    </div>
+                    <div class="sheet-title">L7 HAEUNDAE by LOTTE HOTELS</div>
+                    <div style="font-size:0.8rem; color:var(--ink-muted); margin-top:2px;">L7 해운대 바이 롯데호텔 · ★★★★</div>
+                </div>
+
+                <div class="sheet-scroll-body">
+                    <div class="sheet-ticket-card sheet-stagger-item">
+                        <div class="sheet-ticket-section" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                            <div style="border-right:1px solid #F2EDE4; padding-right:10px;">
+                                <div class="sheet-ticket-label">入住日期 (CHECK-IN)</div>
+                                <div class="sheet-ticket-val" style="font-size:0.86rem;">2027年1月13日 (三)</div>
+                                <div style="font-size:0.75rem; color:var(--ink-muted); font-weight:600; margin-top:2px;">下午 3:00 後</div>
+                            </div>
+                            <div style="padding-left:4px;">
+                                <div class="sheet-ticket-label">退房日期 (CHECK-OUT)</div>
+                                <div class="sheet-ticket-val" style="font-size:0.86rem;">2027年1月15日 (五)</div>
+                                <div style="font-size:0.75rem; color:var(--primary-coral); font-weight:700; margin-top:2px;">上午 11:00 前</div>
+                            </div>
+                        </div>
+                        <div class="sheet-ticket-section" style="display:block;">
+                            <div class="sheet-ticket-label">ADDRESS (韓文 / 英文地址)</div>
+                            <div class="sheet-ticket-val" id="sheetAddrL7" style="font-size:0.84rem; line-height:1.45; margin-top:4px;">부산광역시 해운대구 해운대로570번길 55, 부산, 대한민국, 48094</div>
+                            <div style="font-size:0.76rem; color:var(--ink-muted); margin-top:4px; line-height:1.4;">55, Haeun-daero 570beon-gil, Haeundae-gu, Busan, Republic of Korea, 釜山, 韓國, 48094</div>
+                            <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+                                <button type="button" class="btn-copy-addr" onclick="copyText('sheetAddrL7')">複製韓文地址</button>
+                                <a href="https://naver.me/xUZ2MLSG" target="_blank" style="background:#F2EDE4; color:var(--ink-color); text-decoration:none; padding:6px 14px; border-radius:8px; font-size:0.75rem; font-weight:600;">開啟 Naver Map 導航 🔗</a>
+                            </div>
+                        </div>
+                        <div class="sheet-ticket-footer">L7 HAEUNDAE · HAEUNDAE BEACH</div>
+                    </div>
+
+                    <div class="sheet-subhead sheet-stagger-item">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>
+                        </svg>
+                        손가락 회화 (POINT & SPEAK)
+                    </div>
+                    <div class="point-speak-card sheet-stagger-item" style="cursor:pointer;" onclick="openFlashcard('해운대 L7 호텔로 가주세요', '(請載我到海雲臺 L7 飯店)')">
+                        <span class="ps-zh">請載我到海雲臺 L7 飯店</span>
+                        <span class="ps-kr">해운대 L7 호텔로 가주세요</span>
+                    </div>
+                    <div class="point-speak-card sheet-stagger-item" style="cursor:pointer;" onclick="openFlashcard('체크인 부탁합니다', '(我要辦理入住 Check-in)')">
+                        <span class="ps-zh">我要辦理入住 (Check-in)</span>
+                        <span class="ps-kr">체크인 부탁합니다</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 3: Urban Groove Hotel (Busan Seomyeon Urban Groove Hotel) -->
+            <div class="sheet-view" id="sheet-view-urbangroove" style="display:none;">
+                <div class="sheet-header" style="border-left-color: #7FA98B;">
+                    <div class="sheet-meta-row">
+                        <div class="sheet-meta-left">
+                            <span class="sheet-cat-box" style="border-color:#7FA98B; color:#527D60; background:rgba(127,169,139,0.1);">HOTEL</span>
+                            <span class="sheet-time-label">住宿資訊 · 3晚</span>
+                        </div>
+                        <button type="button" class="sheet-close-btn" onclick="closeBottomSheet()">✕</button>
+                    </div>
+                    <div class="sheet-title">Busan Seomyeon Urban Groove Hotel</div>
+                    <div style="font-size:0.8rem; color:var(--ink-muted); margin-top:2px;">부산 서면 어반 그루브 호텔</div>
+                </div>
+
+                <div class="sheet-scroll-body">
+                    <div class="sheet-ticket-card sheet-stagger-item">
+                        <div class="sheet-ticket-section" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                            <div style="border-right:1px solid #F2EDE4; padding-right:10px;">
+                                <div class="sheet-ticket-label">入住日期 (CHECK-IN)</div>
+                                <div class="sheet-ticket-val" style="font-size:0.86rem;">2027年1月15日 (五)</div>
+                                <div style="font-size:0.75rem; color:var(--ink-muted); font-weight:600; margin-top:2px;">下午 5:00 後</div>
+                            </div>
+                            <div style="padding-left:4px;">
+                                <div class="sheet-ticket-label">退房日期 (CHECK-OUT)</div>
+                                <div class="sheet-ticket-val" style="font-size:0.86rem;">2027年1月18日 (一)</div>
+                                <div style="font-size:0.75rem; color:var(--primary-coral); font-weight:700; margin-top:2px;">中午 12:00 前</div>
+                            </div>
+                        </div>
+                        <div class="sheet-ticket-section" style="display:block;">
+                            <div class="sheet-ticket-label">ADDRESS (韓文 / 英文地址)</div>
+                            <div class="sheet-ticket-val" id="sheetAddrUG" style="font-size:0.84rem; line-height:1.45; margin-top:4px;">부산광역시 부산진구 황령대로17번길 18, 부산, 대한민국, 47353</div>
+                            <div style="font-size:0.76rem; color:var(--ink-muted); margin-top:4px; line-height:1.4;">18, Hwangnyeong-daero 17beon-gil, Busanjin-gu, 釜山, 韓國, 47353</div>
+                            <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+                                <button type="button" class="btn-copy-addr" onclick="copyText('sheetAddrUG')">複製韓文地址</button>
+                                <a href="https://naver.me/xUZ2MLSG" target="_blank" style="background:#F2EDE4; color:var(--ink-color); text-decoration:none; padding:6px 14px; border-radius:8px; font-size:0.75rem; font-weight:600;">開啟 Naver Map 導航 🔗</a>
+                            </div>
+                        </div>
+                        <div class="sheet-ticket-footer">SEOMYEON · URBAN GROOVE HOTEL</div>
+                    </div>
+
+                    <div class="sheet-subhead sheet-stagger-item">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>
+                        </svg>
+                        손가락 회화 (POINT & SPEAK)
+                    </div>
+                    <div class="point-speak-card sheet-stagger-item" style="cursor:pointer;" onclick="openFlashcard('서면 어반그루브호텔로 가주세요', '(請載我到西面 Urban Groove 飯店)')">
+                        <span class="ps-zh">請載我到西面 Urban Groove 飯店</span>
+                        <span class="ps-kr">서면 어반그루브호텔로 가주세요</span>
+                    </div>
+                    <div class="point-speak-card sheet-stagger-item" style="cursor:pointer;" onclick="openFlashcard('체크인 부탁합니다', '(我要辦理入住 Check-in)')">
+                        <span class="ps-zh">我要辦理入住 (Check-in)</span>
+                        <span class="ps-kr">체크인 부탁합니다</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 全螢幕放大對話字卡 Modal（點擊任意處關閉） -->
     <div class="flashcard-overlay" id="flashcardOverlay" onclick="closeFlashcard()">
         <div class="flashcard-tap-hint">TAP TO CLOSE</div>
@@ -2613,6 +2920,43 @@
             <div class="flashcard-zh-sub" id="flashcardZhText">(請給我收據)</div>
         </div>
     </div>
+
+    <!-- 底部導覽列（行程 ➔ 記帳 ➔ 資訊 ➔ 打卡） -->
+    <nav class="bottom-nav" id="bottomNav">
+        <div class="nav-indicator" id="navIndicator"></div>
+        <div class="nav-item active" onclick="switchTab('itinerary', this)">
+            <svg width="20" height="20" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>行程</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('accounting', this)">
+            <svg width="20" height="20" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                <line x1="2" y1="10" x2="22" y2="10"></line>
+            </svg>
+            <span>記帳</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('info', this)">
+            <svg width="20" height="20" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="8" y1="13" x2="16" y2="13"></line>
+                <line x1="8" y1="17" x2="13" y2="17"></line>
+            </svg>
+            <span>資訊</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('checkin', this)">
+            <svg width="20" height="20" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>打卡</span>
+        </div>
+    </nav>
 
     <div id="toast" class="toast-msg">已複製韓文地址！</div>
 
