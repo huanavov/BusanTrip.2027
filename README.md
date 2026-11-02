@@ -2,213 +2,521 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>釜山·冬日遊</title>
-    <!-- Google Fonts: Noto Sans TC (更清晰、字距舒適的中文無襯線字體) -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Apple Touch Icon -->
+    <link id="appleTouchIcon" rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23F6F2EA'/><circle cx='22' cy='26' r='7' fill='%23F2CBCB' opacity='0.75'/><path d='M 62 24 Q 67 20 72 24 Q 77 20 82 24' stroke='%238C8278' stroke-width='2' stroke-linecap='round' fill='none'/><path d='M0 64 Q 25 60 50 64 T 100 64 L 100 100 L 0 100 Z' fill='%236B9AC4' opacity='0.35'/><path d='M0 70 Q 25 66 50 70 T 100 70 L 100 100 L 0 100 Z' fill='%233B719F'/><path d='M0 78 Q 25 74 50 78 T 100 78 L 100 100 L 0 100 Z' fill='%2328537A'/><line x1='21' y1='58' x2='21' y2='80' stroke='%237D736A' stroke-width='2.6'/><line x1='51' y1='58' x2='51' y2='80' stroke='%237D736A' stroke-width='2.6'/><line x1='81' y1='58' x2='81' y2='80' stroke='%237D736A' stroke-width='2.6'/><path d='M 14 58 L 14 38 L 36 58 Z' fill='none' stroke='%238C8278' stroke-width='2.5'/><line x1='14' y1='46' x2='36' y2='58' stroke='%238C8278' stroke-width='1.5'/><path d='M 80 58 L 80 42 L 85 42 L 85 46 L 82.5 46 L 82.5 58' fill='%238C8278'/><circle cx='82.5' cy='37' r='3.2' fill='%23D96B53'/><line x1='12' y1='58' x2='89' y2='58' stroke='%235C544C' stroke-width='3'/><line x1='12' y1='60' x2='89' y2='60' stroke='%23B5A89E' stroke-width='1.2'/><rect x='31' y='47' width='18' height='10' rx='4' fill='%23D96B53'/><rect x='52' y='47' width='18' height='10' rx='4' fill='%23E6B84D'/><rect x='35' y='50' width='10' height='4' rx='1' fill='%23FFFFFF'/><rect x='56' y='50' width='10' height='4' rx='1' fill='%23FFFFFF'/><circle cx='36' cy='57.5' r='1.5' fill='%23222'/><circle cx='44' cy='57.5' r='1.5' fill='%23222'/><circle cx='57' cy='57.5' r='1.5' fill='%23222'/><circle cx='65' cy='57.5' r='1.5' fill='%23222'/></svg>">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+    <!-- GSAP & TextPlugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Observer.min.js"></script>
     <style>
         :root {
-            --bg-color: #FFFCF6;
-            --ink-color: #2C2A29;
-            --border-color: #E8E2D9;
-            --primary-coral: #E88274;
-            --light-coral: #F8C3CD;
+            --bg-color: #FCFAF2;
+            --paper-card: #FFFFFF;
+            --ink-color: #383431;
+            --ink-muted: #8C827A;
+            --ink-light: #B5A89E;
+            --primary-coral: #D97A6C;
+            --soft-accent: #E5DFC9;
+            --accent-warm: #C59B7D;
             --soft-bg: #FAF6F0;
-            --card-bg: #FFFFFF;
-            --shadow-soft: 0 4px 18px rgba(62, 58, 57, 0.04);
-            --radius-lg: 20px;
-            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-md: 10px;
 
-            /* 釜山地鐵代表色 */
-            --metro-line-1: #F37321; /* 橘色 1號線 */
-            --metro-line-2: #33A852; /* 綠色 2號線 */
+            --metro-line-1: #F37321;
+            --metro-line-2: #33A852;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Noto Sans TC', "PingFang TC", "Microsoft JhengHei", "微軟正黑體", sans-serif;
+            font-family: 'Noto Sans TC', -apple-system, sans-serif;
             -webkit-tap-highlight-color: transparent;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
+        }
+
+        html {
+            background-color: var(--bg-color);
+            width: 100%;
+            overflow-x: hidden;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--ink-color);
             line-height: 1.65;
-            padding-bottom: 90px;
+            padding-bottom: 95px;
+            min-height: 100vh;
+            width: 100%;
+            margin: 0 auto;
+            overflow-x: hidden;
+            display: block;
         }
 
-        /* 頂端導覽 */
-        header.top-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 252, 246, 0.96);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 12px 6px;
-            z-index: 1000;
-        }
-
-        .top-nav a {
-            text-decoration: none;
-            color: var(--ink-color);
-            font-size: 0.85rem;
-            font-weight: 500;
-            padding: 6px 12px;
-            border-radius: 20px;
-            transition: all 0.2s;
-        }
-
-        .top-nav a.active {
-            background-color: var(--light-coral);
-            color: #7A3B34;
-            font-weight: 700;
+        h1, h2, h3, .serif-font {
+            font-family: 'Noto Serif TC', serif;
         }
 
         .container {
             max-width: 480px;
-            margin: 65px auto 20px auto;
-            padding: 16px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px 18px;
+            box-sizing: border-box;
         }
 
-        /* 外層卡片外觀 */
+        /* 頁首標題區 */
+        .hero-banner {
+            padding: 24px 4px 16px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .hero-subhead {
+            font-size: 0.78rem;
+            color: var(--accent-warm);
+            letter-spacing: 1.8px;
+            font-weight: 500;
+            margin: 0 0 4px 0;
+            padding: 0;
+            line-height: 1.4;
+        }
+
+        .title-group {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--ink-color);
+            letter-spacing: 1px;
+            margin: 0;
+            padding: 0;
+            line-height: 1.25;
+            display: inline-flex;
+        }
+
+        .bounce-char {
+            display: inline-block;
+            font-family: 'Noto Serif TC', serif;
+            will-change: transform;
+            transform-origin: bottom center;
+        }
+
+        .hero-title-sub {
+            position: relative;
+            display: inline-flex;
+            align-items: baseline;
+            font-size: 0.9rem;
+            color: var(--ink-muted);
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            font-family: 'Noto Sans TC', sans-serif;
+            padding-top: 10px;
+        }
+
+        .karaoke-char {
+            display: inline-block;
+            opacity: 0.45;
+            transition: color 0.2s ease, opacity 0.2s ease, text-shadow 0.2s ease;
+            white-space: pre;
+        }
+
+        .karaoke-char.lit {
+            opacity: 1;
+            color: var(--primary-coral);
+            text-shadow: 0 0 8px rgba(217, 122, 108, 0.45);
+        }
+
+        .karaoke-ball {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary-coral);
+            box-shadow: 0 0 8px rgba(217, 122, 108, 0.85), 0 0 14px rgba(197, 155, 125, 0.6);
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, 0);
+            z-index: 5;
+        }
+
+        .hero-date {
+            font-size: 0.84rem;
+            color: var(--ink-muted);
+            letter-spacing: 0.8px;
+            margin: 8px 0 8px 0;
+            padding: 0 0 0 1px;
+            line-height: 1.4;
+            align-self: flex-start;
+            text-align: left;
+        }
+
+        .hero-badge-tag {
+            display: inline-flex;
+            align-items: center;
+            background: #EFEAE2;
+            color: #6E655F;
+            font-size: 0.76rem;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 20px;
+            letter-spacing: 2.2px;
+            margin: 2px 0 4px 0;
+            min-height: 28px;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            margin-left: 2px;
+            color: var(--primary-coral);
+            font-weight: 700;
+            animation: blinkCursor 0.75s infinite;
+        }
+
+        @keyframes blinkCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* 頁籤容器與分頁切換修復 */
+        .pages-stage {
+            position: relative;
+            width: 100%;
+        }
+
+        .tab-page {
+            display: none;
+            width: 100%;
+        }
+
+        .tab-page.active {
+            display: block;
+        }
+
+        /* 簡約無框卡片容器 */
         .card-wrapper {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-soft);
+            background: transparent;
+            border-radius: 0;
+            padding: 4px 0;
+            margin-bottom: 16px;
+            box-shadow: none;
+            border: none;
         }
 
         .section-title {
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 1.05rem;
+            font-weight: 600;
             margin-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
+            color: var(--ink-color);
         }
 
-        /* 首頁膠囊列車區 */
-        .hero-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 12px;
-        }
-
-        .hero-tag {
-            color: var(--primary-coral);
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        .hero-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-top: 2px;
-        }
-
-        .hero-date {
-            font-size: 0.82rem;
-            color: #8C827A;
-        }
-
+        /* 膠囊列車動畫區 */
         .train-viewport {
             position: relative;
-            background: #F2F5F8;
+            background: #F8F5EF;
             border-radius: var(--radius-md);
-            padding: 15px 10px 5px 10px;
-            margin: 12px 0 4px 0;
+            padding: 18px 12px 12px 12px;
+            margin: 4px 0 0 0;
             overflow: hidden;
-            border: 1px solid #E5E9EE;
+            border: 1px solid #EFEAE2;
         }
 
         .capsule-svg-box {
             position: relative;
             width: 100%;
-            height: 110px;
+            height: 95px;
         }
 
-        /* 滑動軌道車廂 */
         .train-cars-group {
             position: absolute;
-            top: 28px;
-            left: 42px;
+            top: 26px;
+            left: 25px;
             display: flex;
-            gap: 4px;
-            transition: left 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            gap: 3px;
+            transition: left 0.8s cubic-bezier(0.25, 1, 0.5, 1);
             z-index: 10;
         }
 
         .btn-controls-row {
             display: flex;
             justify-content: space-between;
-            margin-top: 8px;
+            align-items: center;
+            margin-top: 10px;
+            padding: 0 10px;
         }
 
         .btn-station {
-            background: #FFF;
-            border: 1px solid var(--border-color);
-            padding: 6px 16px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 500;
+            background: none;
+            border: none;
+            font-size: 0.82rem;
+            color: var(--ink-muted);
             cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            padding: 4px 8px;
         }
 
-        /* 登機證 (Boarding Pass) 樣式 */
+        .station-name-display {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-coral);
+        }
+
+        /* 日期選擇 Tabs：質感簡約風（淡化未選、選中帶底線 + 連結底線滑入動態效果） */
+        .day-tabs-wrapper {
+            position: relative;
+            margin-bottom: 22px;
+            border-bottom: 1px solid #EFEAE2;
+            padding-bottom: 10px;
+        }
+        .day-tabs-row {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 4px;
+            text-align: center;
+        }
+
+        .day-tab-btn {
+            background: none;
+            border: none;
+            padding: 6px 2px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            opacity: 0.45;
+            transition: opacity 0.25s ease, transform 0.2s ease;
+        }
+
+        .day-tab-btn:hover {
+            opacity: 0.85;
+        }
+
+        .day-tab-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            color: var(--ink-muted);
+            letter-spacing: 0.5px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .day-tab-date {
+            font-size: 1.15rem;
+            font-family: 'Noto Serif TC', serif;
+            font-weight: 600;
+            color: var(--ink-color);
+            line-height: 1.2;
+        }
+
+        .day-tab-btn.active {
+            opacity: 1;
+        }
+
+        .day-tab-btn.active .day-tab-label {
+            color: var(--accent-warm);
+            font-weight: 700;
+        }
+
+        .day-tab-btn.active .day-tab-date {
+            color: var(--primary-coral);
+            font-weight: 700;
+        }
+
+        .day-tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 20%;
+            width: 60%;
+            height: 2.5px;
+            background-color: var(--primary-coral);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.45s cubic-bezier(.7, 0, .2, 1);
+        }
+
+        .day-tab-btn:hover::after,
+        .day-tab-btn.active::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* 參考圖風格文青簡約時間軸排版 */
+        .elegant-timeline {
+            position: relative;
+            padding-left: 68px;
+            margin-top: 10px;
+        }
+
+        .elegant-timeline::before {
+            content: '';
+            position: absolute;
+            left: 54px;
+            top: 6px;
+            bottom: 6px;
+            width: 1px;
+            background: #E5DFC9;
+        }
+
+        .etimeline-row {
+            position: relative;
+            margin-bottom: 26px;
+        }
+
+        .etimeline-time {
+            position: absolute;
+            left: -68px;
+            top: 1px;
+            width: 46px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--ink-color);
+            font-family: 'Noto Serif TC', serif;
+            text-align: right;
+            line-height: 1.3;
+        }
+
+        .etimeline-dot {
+            position: absolute;
+            left: -17px;
+            top: 6px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #FCFAF2;
+            border: 1.5px solid var(--ink-muted);
+            z-index: 2;
+        }
+
+        .etimeline-content {
+            background: transparent;
+            border: none;
+            border-left: 2.5px solid var(--cat-color, #C59B7D);
+            border-radius: 0;
+            padding: 1px 0 2px 14px;
+            box-shadow: none;
+        }
+
+        .etimeline-title {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--ink-color);
+            font-family: 'Noto Serif TC', serif;
+            line-height: 1.35;
+        }
+
+        .etimeline-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.66rem;
+            font-weight: 500;
+            color: var(--ink-muted);
+            letter-spacing: 1.4px;
+            margin-top: 3px;
+            text-transform: uppercase;
+        }
+
+        .etimeline-category svg {
+            width: 12px;
+            height: 12px;
+            stroke: var(--cat-color, #8C827A);
+            stroke-width: 1.7;
+            fill: none;
+            opacity: 0.9;
+            flex-shrink: 0;
+        }
+
+        .etimeline-desc {
+            font-size: 0.8rem;
+            color: var(--ink-muted);
+            margin-top: 5px;
+            line-height: 1.55;
+        }
+
+        .metro-badge-oval {
+            display: inline-flex;
+            align-items: center;
+            padding: 1px 8px;
+            border-radius: 10px;
+            color: #FFF;
+            font-size: 0.68rem;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* 航班資訊卡 */
         .boarding-pass {
-            background: #FAF8F5;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
+            background: #FAF8F4;
+            border-radius: 14px;
             overflow: hidden;
             margin-bottom: 14px;
-            position: relative;
+            border: 1px solid #EFEAE2;
         }
 
         .ticket-header {
             background: #E5DFC9;
-            color: #5C5248;
-            padding: 8px 14px;
+            color: #5C544C;
+            padding: 8px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.78rem;
-            font-weight: 700;
+            font-size: 0.75rem;
+            font-weight: 600;
             letter-spacing: 1px;
         }
 
         .ticket-body {
-            padding: 16px;
+            padding: 18px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
+        .airport-col-left {
+            width: 78px;
+            flex: 0 0 78px;
+            text-align: left;
+        }
+
+        .airport-col-right {
+            width: 78px;
+            flex: 0 0 78px;
+            text-align: right;
+        }
+
         .airport-code {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--ink-color);
             line-height: 1.1;
+            font-family: 'Noto Serif TC', serif;
         }
 
         .airport-name {
-            font-size: 0.72rem;
-            color: #8C827A;
+            font-size: 0.75rem;
+            color: var(--ink-muted);
+            margin-top: 2px;
         }
 
         .flight-path {
@@ -219,29 +527,26 @@
 
         .flight-line {
             height: 1px;
-            background: #CBD5E1;
+            background: #D8D0C5;
             position: relative;
             margin: 14px 0;
         }
 
         .flight-time-badge {
             position: absolute;
-            top: -11px;
+            top: -10px;
             left: 50%;
             transform: translateX(-50%);
             font-size: 0.7rem;
-            color: #475569;
-            background: #FAF8F5;
-            padding: 0 6px;
+            color: #6E6358;
+            background: #FAF8F4;
+            padding: 0 8px;
             white-space: nowrap;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 3px;
+            font-weight: 500;
         }
 
         .ticket-footer {
-            border-top: 1.5px dashed var(--border-color);
+            border-top: 1px dashed #E8E2D8;
             padding: 10px 16px;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -250,138 +555,91 @@
             background: #FFF;
         }
 
-        .field-label { color: #A0958D; font-size: 0.68rem; display: block; }
-        .field-val { font-weight: 700; color: var(--ink-color); }
+        .field-label { color: var(--ink-light); font-size: 0.65rem; display: block; letter-spacing: 0.5px; }
+        .field-val { font-weight: 600; color: var(--ink-color); margin-top: 1px; }
 
-        /* 日期選擇 Tabs */
-        .day-tabs-row {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-            margin-bottom: 20px;
-            scrollbar-width: none;
+        /* 住宿資訊 */
+        .hotel-card {
+            background: #FAF8F4;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 14px;
+            border: 1px solid #EFEAE2;
         }
-        .day-tabs-row::-webkit-scrollbar { display: none; }
 
-        .day-tab-btn {
-            flex: 0 0 auto;
+        .hotel-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--ink-color);
+        }
+
+        .hotel-name a {
+            color: var(--ink-color);
+            text-decoration: none;
+        }
+
+        .hotel-subtext {
+            font-size: 0.76rem;
+            color: var(--ink-muted);
+            margin-top: 2px;
+        }
+
+        .hotel-addr-box {
+            font-size: 0.8rem;
             background: #FFF;
-            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0 8px 0;
+            color: #554F4A;
+            line-height: 1.4;
+        }
+
+        .btn-copy-addr {
+            background: var(--accent-warm);
+            color: #FFF;
+            border: none;
             padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: var(--ink-color);
+            border-radius: 8px;
+            font-size: 0.75rem;
             cursor: pointer;
-            transition: all 0.2s;
         }
 
-        .day-tab-btn.active {
-            background: var(--primary-coral);
-            color: #FFF;
-            border-color: var(--primary-coral);
-            font-weight: 700;
-        }
-
-        /* 貫穿線軸 */
-        .minimal-timeline {
-            position: relative;
-            padding-left: 28px;
-            margin-left: 8px;
-        }
-
-        .minimal-timeline::before {
-            content: '';
-            position: absolute;
-            left: 10px;
-            top: 10px;
-            bottom: 10px;
-            width: 2px;
-            background: #E5DFC9;
-        }
-
-        .timeline-row {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .timeline-node-icon {
-            position: absolute;
-            left: -28px;
-            top: 2px;
-            width: 22px;
-            height: 22px;
-            background: var(--bg-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-        }
-
-        .row-header {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-        }
-
-        .row-time {
-            font-size: 0.82rem;
-            font-weight: 700;
-            color: #8C827A;
-            min-width: 42px;
-        }
-
-        .row-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--ink-color);
-        }
-
-        .row-subdesc {
-            font-size: 0.8rem;
-            color: #6E655F;
-            margin-top: 3px;
-            line-height: 1.5;
-        }
-
-        /* 地鐵路線橢圓底框 */
-        .metro-badge-oval {
-            display: inline-flex;
-            align-items: center;
-            padding: 2px 10px;
-            border-radius: 12px;
-            color: #FFF;
-            font-size: 0.72rem;
-            font-weight: 700;
-            margin-top: 4px;
-        }
-
-        /* 記帳區塊 (完整適配手機排版) */
+        /* 記帳頁面 */
         .expense-card-item {
             background: #FAF6F0;
-            border-radius: 14px;
+            border: 1px solid #EFEAE2;
+            border-radius: 12px;
             padding: 12px 14px;
             margin-bottom: 10px;
             position: relative;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 12px;
         }
 
         .expense-left {
             display: flex;
-            align-items: center;
-            gap: 8px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 7px;
             flex: 1;
             min-width: 0;
-            overflow: hidden;
+        }
+
+        .expense-title-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            min-width: 0;
         }
 
         .day-chip {
-            font-size: 0.72rem;
-            padding: 2px 8px;
-            border-radius: 8px;
-            font-weight: 700;
+            font-size: 0.7rem;
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-weight: 600;
             flex-shrink: 0;
         }
 
@@ -393,388 +651,1416 @@
         .day-chip-D6 { background: #EFEBE9; color: #5D4037; }
 
         .expense-name {
-            font-size: 0.88rem;
-            font-weight: 700;
+            font-size: 0.9rem;
+            font-weight: 600;
             color: var(--ink-color);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .expense-right {
-            text-align: right;
-            padding-right: 18px;
-            flex-shrink: 0;
-        }
-
         .payer-tag {
             display: inline-block;
-            font-size: 0.68rem;
-            padding: 1px 8px;
-            border-radius: 10px;
-            font-weight: 700;
+            font-size: 0.65rem;
+            padding: 1px 7px;
+            border-radius: 8px;
+            font-weight: 600;
             margin-bottom: 2px;
         }
 
-        .payer-tag-媽媽 { background: #FCE8E6; color: #C5221F; }
-        .payer-tag-姐姐 { background: #E8F0FE; color: #1A73E8; }
-        .payer-tag-妹妹 { background: #E6F4EA; color: #137333; }
+        .payer-tag-珍 { background: #FCE8E6; color: #C5221F; }
+        .payer-tag-倫 { background: #FFF5D6; color: #B7791F; }
+        .payer-tag-婷 { background: #E6F4EA; color: #137333; }
 
         .expense-krw {
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 700;
             color: var(--ink-color);
+            line-height: 1.25;
         }
 
         .expense-twd {
             font-size: 0.72rem;
-            color: #8C827A;
+            color: var(--ink-muted);
+            margin-top: 1px;
         }
 
-        .btn-del-x {
-            position: absolute;
-            top: 8px;
-            right: 10px;
-            background: none;
-            border: none;
-            color: #B5A89E;
-            font-size: 0.85rem;
+        /* 長按確認刪除按鈕（Hold to Confirm）：移至左側項目下方，不擠壓右側金額 */
+        .expense-right {
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .btn-hold-del {
+            position: relative;
+            transform: scale(1);
+            background: #FFFFFF;
+            border: 1px solid #E2D9C8;
+            color: var(--ink-muted);
+            font-size: 0.66rem;
+            font-weight: 500;
+            padding: 2px 9px;
+            border-radius: 999px;
             cursor: pointer;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
         }
 
-        .btn-copy-addr {
+        .btn-hold-del .hold-fill {
+            position: absolute;
+            inset: 0;
             background: var(--primary-coral);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.22s ease-out;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .btn-hold-del .hold-label {
+            position: relative;
+            z-index: 1;
+            pointer-events: none;
+            transition: color 0.2s ease;
+        }
+
+        .btn-hold-del.holding {
+            transform: scale(0.94);
+            border-color: var(--primary-coral);
+        }
+
+        .btn-hold-del.holding .hold-fill {
+            transform: scaleX(1);
+            transition: transform 1.2s linear;
+        }
+
+        .btn-hold-del.holding .hold-label,
+        .btn-hold-del.confirmed .hold-label {
+            color: #FFFFFF;
+        }
+
+        .btn-hold-del.confirmed .hold-fill {
+            transform: scaleX(1);
+            transition: none;
+        }
+
+        /* 記帳日期與付款人雙欄對齊列 */
+        .date-payer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            align-items: start;
+            margin-bottom: 14px;
+        }
+
+        /* 自訂下拉選單展開（Dropdown Reveal） */
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+            z-index: 30;
+        }
+
+        .dropdown-trigger {
+            width: 100%;
+            height: 44px;
+            padding: 0 12px;
+            border: 1px solid #E5E0D5;
+            border-radius: 10px;
+            background: #FFFFFF;
+            color: var(--ink-color);
+            font-size: 0.84rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .dropdown-trigger:hover {
+            border-color: var(--accent-warm);
+        }
+
+        .dropdown-arrow {
+            width: 16px;
+            height: 16px;
+            stroke: var(--ink-muted);
+            transition: transform 0.35s cubic-bezier(.3, 1.3, .5, 1);
+        }
+
+        .custom-dropdown.open .dropdown-arrow {
+            transform: rotate(180deg);
+            stroke: var(--primary-coral);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: #FFFFFF;
+            border: 1px solid #E5DFC9;
+            border-radius: 12px;
+            box-shadow: 0 10px 28px rgba(56, 52, 49, 0.1);
+            padding: 6px;
+            list-style: none;
+            transform-origin: top center;
+            transform: scaleY(0.6);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: transform 0.38s cubic-bezier(.3, 1.3, .5, 1), opacity 0.25s ease, visibility 0.25s;
+        }
+
+        .custom-dropdown.open .dropdown-menu {
+            transform: scaleY(1);
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .dropdown-option {
+            padding: 9px 12px;
+            border-radius: 8px;
+            font-size: 0.84rem;
+            font-weight: 500;
+            color: var(--ink-color);
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: opacity 0.28s ease, transform 0.28s cubic-bezier(.3, 1.3, .5, 1), background-color 0.2s ease, color 0.2s ease;
+            transition-delay: 0s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .custom-dropdown.open .dropdown-option {
+            opacity: 1;
+            transform: translateY(0);
+            transition-delay: calc(var(--i) * 0.05s);
+        }
+
+        .dropdown-option:hover {
+            background: #FAF6F0;
+            color: var(--primary-coral);
+        }
+
+        .dropdown-option.selected {
+            background: #F4EFE6;
+            color: var(--primary-coral);
+            font-weight: 700;
+        }
+
+        /* 記帳人圓形按鈕（Social Icon Fill 社群圖示填滿動態效果） */
+        .payer-section-label {
+            font-size: 0.75rem;
+            color: var(--ink-muted);
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .payer-circles-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            height: 44px;
+        }
+
+        .payer-circle-btn {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1.5px solid #D8D0C5;
+            background: #FAF8F4;
+            cursor: pointer;
+            overflow: hidden;
+            display: grid;
+            place-items: center;
+            padding: 0;
+            outline: none;
+            transition: transform 0.45s cubic-bezier(.25, 1, .5, 1), border-color 0.45s ease, box-shadow 0.45s ease;
+        }
+
+        .payer-circle-btn .fill-bg {
+            position: absolute;
+            inset: 0;
+            background: var(--primary-coral);
+            border-radius: 50%;
+            transform: translateY(101%);
+            transition: transform 0.45s cubic-bezier(.4, 0, .2, 1);
+            z-index: 0;
+        }
+
+        .payer-circle-btn .icon-stack {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            place-items: center;
+        }
+
+        .payer-circle-btn .payer-char {
+            grid-area: 1 / 1;
+            font-family: 'Noto Serif TC', serif;
+            font-size: 0.96rem;
+            font-weight: 700;
+            transition: transform 0.45s cubic-bezier(.4, 0, .2, 1), opacity 0.45s ease;
+        }
+
+        .payer-circle-btn .payer-char.char-default {
+            color: var(--ink-muted);
+            transform: translateY(0);
+        }
+
+        .payer-circle-btn .payer-char.char-inverse {
+            color: #FFFFFF;
+            transform: translateY(130%);
+        }
+
+        .payer-circle-btn:hover,
+        .payer-circle-btn.active {
+            transform: translateY(-3px);
+            border-color: var(--primary-coral);
+            box-shadow: 0 6px 14px rgba(217, 122, 108, 0.22);
+        }
+
+        .payer-circle-btn:hover .fill-bg,
+        .payer-circle-btn.active .fill-bg {
+            transform: translateY(0);
+        }
+
+        .payer-circle-btn:hover .payer-char.char-default,
+        .payer-circle-btn.active .payer-char.char-default {
+            transform: translateY(-130%);
+        }
+
+        .payer-circle-btn:hover .payer-char.char-inverse,
+        .payer-circle-btn.active .payer-char.char-inverse {
+            transform: translateY(0);
+        }
+
+        /* 新增開銷紀錄 Loading Button 動態 */
+        .loading-btn-wrap {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .btn-submit-expense {
+            position: relative;
+            width: 100%;
+            height: 44px;
+            background: var(--accent-warm);
             color: #FFF;
             border: none;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.75rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.88rem;
             cursor: pointer;
-            margin-top: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(197, 155, 125, 0.25);
         }
 
-        footer {
-            text-align: center;
-            font-size: 0.75rem;
-            color: #B5A89E;
-            margin-top: 30px;
+        .btn-submit-expense .btn-text {
+            white-space: nowrap;
         }
+
+        .btn-submit-expense .btn-spinner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .btn-submit-expense .btn-check {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* 記帳天數分類：選單滑塊跟隨（Sliding Nav Highlight） */
+        .expense-filter-nav {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #FAF6F0;
+            border: 1px solid #EFEAE2;
+            border-radius: 999px;
+            padding: 4px;
+            margin-bottom: 14px;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .expense-filter-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .expense-filter-pill {
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            left: 0;
+            width: 0;
+            background: var(--accent-warm);
+            border-radius: 999px;
+            z-index: 0;
+            pointer-events: none;
+            box-shadow: 0 2px 8px rgba(197, 155, 125, 0.28);
+            transition: transform 0.4s cubic-bezier(.2, .9, .3, 1.1), width 0.4s cubic-bezier(.2, .9, .3, 1.1);
+        }
+
+        .expense-filter-btn {
+            position: relative;
+            z-index: 1;
+            flex: 1 0 auto;
+            background: none;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: var(--ink-muted);
+            cursor: pointer;
+            text-align: center;
+            white-space: nowrap;
+            transition: color 0.25s ease;
+        }
+
+        .expense-filter-btn.pill-focus {
+            color: #FFFFFF;
+        }
+
+        /* 下拉重新整理（Pull to Refresh） */
+        .ptr-wrapper {
+            position: relative;
+            overflow: hidden;
+            touch-action: pan-y;
+        }
+
+        .ptr-indicator {
+            position: absolute;
+            top: 4px;
+            left: 0;
+            right: 0;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .ptr-spinner-box {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            border: 1px solid #EFEAE2;
+            box-shadow: 0 4px 12px rgba(56, 52, 49, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.6);
+        }
+
+        .ptr-spinner-svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--primary-coral);
+            stroke-width: 2.2;
+            fill: none;
+            stroke-linecap: round;
+        }
+
+        .ptr-content {
+            position: relative;
+            z-index: 2;
+            will-change: transform;
+        }
+
+        /* 美食打卡清單 */
+        .checkin-card {
+            background: #FAF8F4;
+            border: 1px solid #EFEAE2;
+            border-radius: 14px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            transition: box-shadow 0.25s ease, border-color 0.25s ease, background-color 0.2s ease;
+        }
+
+        .checkin-card.expanded {
+            background: #FFFFFF;
+            border-color: #DFD7C8;
+            box-shadow: 0 4px 14px rgba(56, 52, 49, 0.05);
+        }
+
+        .checkin-header {
+            display: flex;
+            align-items: center;
+            padding: 13px 14px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+
+        .checkin-header:hover {
+            background: #F4F0E8;
+        }
+
+        .checkin-card.expanded .checkin-header {
+            background: #FAF8F4;
+        }
+
+        .checkin-checkbox {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            border: 1.5px solid var(--accent-warm);
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: #FFF;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checkin-card.checked .checkin-checkbox {
+            background: var(--accent-warm);
+            border-color: var(--accent-warm);
+        }
+
+        .checkin-card.checked .checkin-checkbox::after {
+            content: '✓';
+            color: #FFF;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .checkin-text {
+            font-size: 0.92rem;
+            color: var(--ink-color);
+            flex: 1;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .checkin-card.checked .checkin-text {
+            text-decoration: line-through;
+            color: var(--ink-light);
+        }
+
+        .checkin-arrow {
+            font-size: 0.72rem;
+            color: var(--ink-light);
+            margin-left: 8px;
+            transition: transform 0.28s cubic-bezier(0.25, 1, 0.5, 1), color 0.2s ease;
+        }
+
+        .checkin-card.expanded .checkin-arrow {
+            transform: rotate(90deg);
+            color: var(--accent-warm);
+        }
+
+        .checkin-body {
+            display: none;
+            padding: 12px 14px 14px 14px;
+            border-top: 1px dashed #E5DFC9;
+            background: #FFFFFF;
+        }
+
+        .checkin-card.expanded .checkin-body {
+            display: block;
+            animation: slideDown 0.22s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .checkin-note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .checkin-note-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-warm);
+            letter-spacing: 0.5px;
+        }
+
+        .checkin-del-btn {
+            background: none;
+            border: none;
+            color: var(--ink-light);
+            font-size: 0.72rem;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+
+        .checkin-del-btn:hover {
+            color: var(--primary-coral);
+            background: #FAF6F0;
+        }
+
+        .checkin-note-input {
+            width: 100%;
+            min-height: 64px;
+            padding: 9px 11px;
+            border: 1px solid #EFEAE2;
+            border-radius: 10px;
+            background: #FAF8F4;
+            color: var(--ink-color);
+            font-size: 0.82rem;
+            line-height: 1.55;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .checkin-note-input:focus {
+            border-color: var(--accent-warm);
+            background: #FFF;
+        }
+
+        /* 底部導覽列 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 12px;
+            left: 14px;
+            right: 14px;
+            background: rgba(253, 251, 247, 0.94);
+            backdrop-filter: blur(14px);
+            border: 1px solid #E5DFC9;
+            border-radius: 999px;
+            box-shadow: 0 8px 26px rgba(56, 52, 49, 0.08);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 6px 6px;
+            z-index: 1000;
+            max-width: 452px;
+            margin: 0 auto;
+        }
+
+        .nav-indicator {
+            position: absolute;
+            top: 5px;
+            bottom: 5px;
+            left: 0;
+            width: 64px;
+            background: #EFEAE2;
+            border: 1px solid rgba(197, 155, 125, 0.35);
+            border-radius: 999px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .nav-item {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #7D756D;
+            font-size: 0.74rem;
+            font-family: 'Noto Sans TC', sans-serif;
+            font-weight: 400;
+            gap: 3px;
+            cursor: pointer;
+            width: 20%;
+            padding: 5px 0;
+            border-radius: 999px;
+            transition: color 0.25s ease;
+        }
+
+        .nav-item svg {
+            stroke: #7D756D;
+            stroke-width: 1.6;
+            fill: none;
+            will-change: transform;
+        }
+
+        .nav-item.active {
+            color: #383431;
+            font-weight: 700;
+        }
+
+        .nav-item.active svg {
+            stroke: var(--primary-coral);
+        }
+
+        .toast-msg {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(56, 52, 49, 0.9);
+            color: #FFF;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 2000;
+        }
+        .toast-msg.show { opacity: 1; }
     </style>
 </head>
 <body>
 
-    <header class="top-nav">
-        <a href="#home" class="active">首頁</a>
-        <a href="#flights">航班</a>
-        <a href="#itinerary">行程</a>
-        <a href="#hotel">住宿</a>
-        <a href="#accounting">記帳</a>
-    </header>
-
     <div class="container">
-
-        <!-- 首頁區塊 -->
-        <section id="home" class="card-wrapper">
-            <div class="hero-header">
-                <div>
-                    <span class="hero-tag">2027 WINTER TRIP</span>
-                    <h1 class="hero-title">釜山·冬日遊</h1>
-                    <div class="hero-date">2027.01.13 (三) - 01.18 (一) · 6天5夜</div>
-                </div>
+        <!-- 標題區 -->
+        <header class="hero-banner">
+            <div class="hero-subhead">부산의 겨울 · 2027</div>
+            <div class="title-group">
+                <h1 class="hero-title" id="floatTitle">
+                    <span class="bounce-char">釜</span><span class="bounce-char">山</span><span class="bounce-char">·</span><span class="bounce-char">冬</span><span class="bounce-char">日</span><span class="bounce-char">遊</span>
+                </h1>
+                <span class="hero-title-sub" id="karaokeSub">
+                    <span class="karaoke-ball" id="karaokeBall"></span>
+                    <span class="karaoke-char">부</span><span class="karaoke-char">산</span><span class="karaoke-char"> </span><span class="karaoke-char">·</span><span class="karaoke-char"> </span><span class="karaoke-char">B</span><span class="karaoke-char">U</span><span class="karaoke-char">S</span><span class="karaoke-char">A</span><span class="karaoke-char">N</span>
+                </span>
             </div>
+            <div class="hero-date">2027.01.13 (三) - 01.18 (一)</div>
+            <div class="hero-badge-tag">
+                <span id="typingText"></span><span class="typing-cursor" id="typingCursor">|</span>
+            </div>
+        </header>
 
-            <div class="train-viewport">
-                <div class="capsule-svg-box">
-                    <svg width="100%" height="100%" viewBox="0 0 340 110">
-                        <path d="M0 80 Q 85 72, 170 80 T 340 80 L 340 110 L 0 110 Z" fill="#DCE9F5"/>
-                        <polygon points="15,80 20,70 25,80" fill="#CBD5E1"/>
-                        <polygon points="310,80 317,68 324,80" fill="#CBD5E1"/>
+        <div class="pages-stage">
+            <!-- PAGE 1: 行程 -->
+            <main id="page-itinerary" class="tab-page active">
+                <div class="card-wrapper" style="padding:16px;">
+                    <div class="train-viewport">
+                        <div class="capsule-svg-box">
+                            <svg width="100%" height="100%" viewBox="0 0 340 90">
+                                <path d="M0 60 Q 85 50, 170 60 T 340 55 L 340 90 L 0 90 Z" fill="#E2ECE9" opacity="0.6"/>
+                                <circle cx="280" cy="25" r="12" fill="#F4DCD0" opacity="0.8"/>
+                                <line x1="30" y1="45" x2="310" y2="45" stroke="#B8AEA3" stroke-width="1.5" stroke-dasharray="4 4"/>
+                                
+                                <line x1="45" y1="45" x2="45" y2="65" stroke="#B8AEA3" stroke-width="1.5"/>
+                                <circle cx="45" cy="45" r="3" fill="#D97A6C"/>
+                                <text x="45" y="33" font-size="9" fill="#7E756F" text-anchor="middle">尾浦</text>
 
-                        <line x1="45" y1="58" x2="295" y2="58" stroke="#8C827A" stroke-width="2" stroke-dasharray="3 3"/>
-                        
-                        <line x1="45" y1="58" x2="45" y2="80" stroke="#8C827A" stroke-width="2"/>
-                        <circle cx="45" cy="58" r="4" fill="#E88274"/>
-                        <text x="45" y="44" font-size="10" fill="#7E756F" text-anchor="middle">尾浦 Mipo</text>
+                                <line x1="170" y1="45" x2="170" y2="65" stroke="#B8AEA3" stroke-width="1.5"/>
+                                <circle cx="170" cy="45" r="3" fill="#D97A6C"/>
+                                <text x="170" y="33" font-size="9" fill="#7E756F" text-anchor="middle">青沙浦</text>
 
-                        <line x1="170" y1="58" x2="170" y2="80" stroke="#8C827A" stroke-width="2"/>
-                        <circle cx="170" cy="58" r="4" fill="#E88274"/>
-                        <text x="170" y="44" font-size="10" fill="#7E756F" text-anchor="middle">青沙浦 Cheongsapo</text>
+                                <line x1="295" y1="45" x2="295" y2="65" stroke="#B8AEA3" stroke-width="1.5"/>
+                                <circle cx="295" cy="45" r="3" fill="#D97A6C"/>
+                                <text x="295" y="33" font-size="9" fill="#7E756F" text-anchor="middle">松亭</text>
+                            </svg>
 
-                        <line x1="295" y1="58" x2="295" y2="80" stroke="#8C827A" stroke-width="2"/>
-                        <circle cx="295" cy="58" r="4" fill="#E88274"/>
-                        <text x="295" y="44" font-size="10" fill="#7E756F" text-anchor="middle">松亭 Songjeong</text>
-                    </svg>
+                            <div class="train-cars-group" id="trainCars">
+                                <svg width="24" height="20" viewBox="0 0 28 24">
+                                    <rect x="2" y="2" width="24" height="20" rx="8" fill="#F4C46C" stroke="#383431" stroke-width="1.5"/>
+                                    <rect x="6" y="5" width="16" height="9" rx="2" fill="#FFF"/>
+                                    <circle cx="14" cy="18" r="1.5" fill="#383431"/>
+                                </svg>
+                                <svg width="24" height="20" viewBox="0 0 28 24">
+                                    <rect x="2" y="2" width="24" height="20" rx="8" fill="#D97A6C" stroke="#383431" stroke-width="1.5"/>
+                                    <rect x="6" y="5" width="16" height="9" rx="2" fill="#FFF"/>
+                                    <circle cx="14" cy="18" r="1.5" fill="#383431"/>
+                                </svg>
+                            </div>
+                        </div>
 
-                    <div class="train-cars-group" id="trainCars">
-                        <svg width="28" height="24" viewBox="0 0 28 24">
-                            <rect x="2" y="2" width="24" height="20" rx="6" fill="#FFC72C" stroke="#2C2A29" stroke-width="2"/>
-                            <rect x="6" y="5" width="16" height="10" rx="2" fill="#FFF" stroke="#2C2A29" stroke-width="1.5"/>
-                            <circle cx="14" cy="18" r="2" fill="#2C2A29"/>
-                        </svg>
-                        <svg width="28" height="24" viewBox="0 0 28 24">
-                            <rect x="2" y="2" width="24" height="20" rx="6" fill="#E88274" stroke="#2C2A29" stroke-width="2"/>
-                            <rect x="6" y="5" width="16" height="10" rx="2" fill="#FFF" stroke="#2C2A29" stroke-width="1.5"/>
-                            <circle cx="14" cy="18" r="2" fill="#2C2A29"/>
-                        </svg>
+                        <div class="btn-controls-row">
+                            <button class="btn-station" onclick="moveTrain(-1)">〈 上一站</button>
+                            <span class="station-name-display" id="stationLabel">尾浦 Mipo</span>
+                            <button class="btn-station" onclick="moveTrain(1)">下一站 〉</button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="btn-controls-row">
-                    <button class="btn-station" onclick="moveTrain(-1)">⬅️ 上一站</button>
-                    <button class="btn-station" onclick="moveTrain(1)">下一站 ➡️</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- 航班資訊 -->
-        <section id="flights" class="card-wrapper">
-            <h2 class="section-title">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-coral);"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5 5.3 6.7c-.8-.2-1.6.1-2.1.8l-.6.8c-.3.4-.2.9.2 1.2l5.6 4.1-3.2 3.2-2.3-.6c-.4-.1-.8.1-1.1.4l-.4.4c-.3.3-.3.8 0 1.1l2.8 2.8c.3.3.8.3 1.1 0l.4-.4c.3-.3.5-.7.4-1.1l-.6-2.3 3.2-3.2 4.1 5.6c.3.4.8.5 1.2.2l.8-.6c.7-.5 1-1.3.8-2.1z"/></svg>
-                航班資訊
-            </h2>
-
-            <!-- 去程 -->
-            <div class="boarding-pass">
-                <div class="ticket-header">
-                    <span>BOARDING PASS ✈</span>
-                    <span>RMQ ➔ PUS</span>
-                </div>
-                <div class="ticket-body">
-                    <div>
-                        <div class="airport-code">RMQ</div>
-                        <div class="airport-name">台中 RMQ</div>
+                <div class="card-wrapper">
+                    <div class="day-tabs-wrapper">
+                        <div class="day-tabs-row">
+                            <button class="day-tab-btn active" onclick="switchDay(1)">
+                                <span class="day-tab-label">Wed</span>
+                                <span class="day-tab-date">13</span>
+                            </button>
+                            <button class="day-tab-btn" onclick="switchDay(2)">
+                                <span class="day-tab-label">Thu</span>
+                                <span class="day-tab-date">14</span>
+                            </button>
+                            <button class="day-tab-btn" onclick="switchDay(3)">
+                                <span class="day-tab-label">Fri</span>
+                                <span class="day-tab-date">15</span>
+                            </button>
+                            <button class="day-tab-btn" onclick="switchDay(4)">
+                                <span class="day-tab-label">Sat</span>
+                                <span class="day-tab-date">16</span>
+                            </button>
+                            <button class="day-tab-btn" onclick="switchDay(5)">
+                                <span class="day-tab-label">Sun</span>
+                                <span class="day-tab-date">17</span>
+                            </button>
+                            <button class="day-tab-btn" onclick="switchDay(6)">
+                                <span class="day-tab-label">Mon</span>
+                                <span class="day-tab-date">18</span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="flight-path">
-                        <div style="font-size:0.75rem; font-weight:700; color:#E88274;">JX310</div>
-                        <div class="flight-line">
-                            <div class="flight-time-badge">
-                                08:00 ✈ 11:15
+
+                    <div id="timelineContainer"></div>
+                </div>
+            </main>
+
+            <!-- PAGE 2: 航班 -->
+            <main id="page-flights" class="tab-page">
+                <div class="card-wrapper">
+                    <h2 class="section-title serif-font">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent-warm)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5 5.3 6.7c-.8-.2-1.6.1-2.1.8l-.6.8c-.3.4-.2.9.2 1.2l5.6 4.1-3.2 3.2-2.3-.6c-.4-.1-.8.1-1.1.4l-.4.4c-.3.3-.3.8 0 1.1l2.8 2.8c.3.3.8.3 1.1 0l.4-.4c.3-.3.5-.7.4-1.1l-.6-2.3 3.2-3.2 4.1 5.6c.3.4.8.5 1.2.2l.8-.6c.7-.5 1-1.3.8-2.1z"/>
+                        </svg>
+                        航班資訊
+                    </h2>
+
+                    <div class="boarding-pass">
+                        <div class="ticket-header">
+                            <span>BOARDING PASS</span>
+                            <span>RMQ ➔ PUS</span>
+                        </div>
+                        <div class="ticket-body">
+                            <div class="airport-col-left">
+                                <div class="airport-code">RMQ</div>
+                                <div class="airport-name">台中</div>
+                            </div>
+                            <div class="flight-path">
+                            <div style="font-size:0.75rem; font-weight:700; color:var(--primary-coral);">JX310</div>
+                            <div class="flight-line">
+                                <div class="flight-time-badge">08:00 ➔ 11:15</div>
+                            </div>
+                        </div>
+                        <div class="airport-col-right">
+                                <div class="airport-code">PUS</div>
+                                <div class="airport-name">金海</div>
+                            </div>
+                        </div>
+                        <div class="ticket-footer">
+                            <div><span class="field-label">FLIGHT / DATE</span><span class="field-val">JX 310 · 01/13</span></div>
+                            <div><span class="field-label">TERMINAL</span><span class="field-val">2</span></div>
+                            <div><span class="field-label">SEAT</span><span class="field-val">--</span></div>
+                        </div>
+                    </div>
+
+                    <div class="boarding-pass">
+                        <div class="ticket-header" style="background:#DDE2E6; color:#475569;">
+                            <span>BOARDING PASS</span>
+                            <span>PUS ➔ RMQ</span>
+                        </div>
+                        <div class="ticket-body">
+                            <div class="airport-col-left">
+                                <div class="airport-code">PUS</div>
+                                <div class="airport-name">金海</div>
+                            </div>
+                            <div class="flight-path">
+                                <div style="font-size:0.75rem; font-weight:700; color:#475569;">JX311</div>
+                                <div class="flight-line">
+                                    <div class="flight-time-badge" style="color:#475569;">12:15 ➔ 14:00</div>
+                                </div>
+                            </div>
+                            <div class="airport-col-right">
+                                <div class="airport-code">RMQ</div>
+                                <div class="airport-name">台中</div>
+                            </div>
+                        </div>
+                        <div class="ticket-footer">
+                            <div><span class="field-label">FLIGHT / DATE</span><span class="field-val">JX 311 · 01/18</span></div>
+                            <div><span class="field-label">TERMINAL</span><span class="field-val">International</span></div>
+                            <div><span class="field-label">SEAT</span><span class="field-val">--</span></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- PAGE 3: 住宿 -->
+            <main id="page-hotel" class="tab-page">
+                <div class="card-wrapper">
+                    <h2 class="section-title serif-font">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent-warm)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                        住宿資訊
+                    </h2>
+
+                    <div class="hotel-card">
+                        <div class="hotel-name">
+                            <a href="https://naver.me/xUZ2MLSG" target="_blank">L7 海雲臺 (L7 Haeundae) 🔗</a>
+                        </div>
+                        <div class="hotel-subtext">2027/01/13 ~ 01/15 (2晚)</div>
+                        <div class="hotel-addr-box" id="addr1">부산 해운대구 해운대로570번길 55</div>
+                        <button class="btn-copy-addr" onclick="copyText('addr1')">複製韓文地址</button>
+                    </div>
+
+                    <div class="hotel-card">
+                        <div class="hotel-name">
+                            <a href="https://naver.me/xwoh8zFn" target="_blank">Urban Groove Hotel 🔗</a>
+                        </div>
+                        <div class="hotel-subtext">2027/01/15 ~ 01/18 (3晚)</div>
+                        <div class="hotel-addr-box" id="addr2">부산 부산진구 황령대로17번길 18 어반그루브호텔</div>
+                        <button class="btn-copy-addr" onclick="copyText('addr2')">複製韓文地址</button>
+                    </div>
+                </div>
+            </main>
+
+            <!-- PAGE 4: 記帳 -->
+            <main id="page-accounting" class="tab-page">
+                <div class="card-wrapper">
+                    <h2 class="section-title serif-font">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent-warm)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2"/>
+                            <path d="M6 8h4"/>
+                            <path d="M14 16h4"/>
+                            <path d="M6 12h12"/>
+                        </svg>
+                        記帳與匯率換算
+                    </h2>
+
+                    <div style="padding: 2px 0 16px 0; border-bottom: 1px dashed #E5DFC9; margin-bottom: 14px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                            <span style="font-size:0.75rem; color:var(--ink-muted); font-weight:700;">即時試算</span>
+                            <span id="rateBadge" style="background:#FFFFFF; border:1px solid #E5E0D5; padding:2px 10px; border-radius:20px; font-size:0.7rem; color:var(--ink-muted);">即時匯率 0.0243</span>
+                        </div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                            <input type="number" inputmode="numeric" pattern="[0-9]*" id="calcKrw" placeholder="韓元 KRW" oninput="quickCalc('krw')" style="width:100%; height:42px; padding:0 12px; border:1px solid #E5E0D5; border-radius:10px; outline:none; background:#FFF; font-size:0.84rem;">
+                            <input type="number" inputmode="numeric" pattern="[0-9]*" id="calcTwd" placeholder="台幣 TWD" oninput="quickCalc('twd')" style="width:100%; height:42px; padding:0 12px; border:1px solid #E5E0D5; border-radius:10px; outline:none; background:#FFF; font-size:0.84rem;">
+                        </div>
+                    </div>
+
+                    <!-- 記帳日期 與 誰付的錢：雙欄對齊排列 -->
+                    <input type="hidden" id="accDay" value="D1">
+                    <input type="hidden" id="accPayer" value="珍">
+                    <div class="date-payer-grid">
+                        <div>
+                            <span class="payer-section-label">消費日期</span>
+                            <div class="custom-dropdown" id="dayDropdown">
+                                <button type="button" class="dropdown-trigger" onclick="toggleDayDropdown(event)">
+                                    <span id="dayDropdownLabel">Day 1 ❘ 1/13</span>
+                                    <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-option selected" style="--i:0" onclick="selectDayOption('D1', 'Day 1 ❘ 1/13', this)"><span>Day 1 ❘ 1/13</span><span>Wed</span></li>
+                                    <li class="dropdown-option" style="--i:1" onclick="selectDayOption('D2', 'Day 2 ❘ 1/14', this)"><span>Day 2 ❘ 1/14</span><span>Thu</span></li>
+                                    <li class="dropdown-option" style="--i:2" onclick="selectDayOption('D3', 'Day 3 ❘ 1/15', this)"><span>Day 3 ❘ 1/15</span><span>Fri</span></li>
+                                    <li class="dropdown-option" style="--i:3" onclick="selectDayOption('D4', 'Day 4 ❘ 1/16', this)"><span>Day 4 ❘ 1/16</span><span>Sat</span></li>
+                                    <li class="dropdown-option" style="--i:4" onclick="selectDayOption('D5', 'Day 5 ❘ 1/17', this)"><span>Day 5 ❘ 1/17</span><span>Sun</span></li>
+                                    <li class="dropdown-option" style="--i:5" onclick="selectDayOption('D6', 'Day 6 ❘ 1/18', this)"><span>Day 6 ❘ 1/18</span><span>Mon</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span class="payer-section-label">誰付的錢 (付款人)</span>
+                            <div class="payer-circles-row" id="payerCircles">
+                                <button type="button" class="payer-circle-btn active" onclick="selectPayer('珍', this)">
+                                    <span class="fill-bg"></span>
+                                    <span class="icon-stack">
+                                        <span class="payer-char char-default">珍</span>
+                                        <span class="payer-char char-inverse">珍</span>
+                                    </span>
+                                </button>
+                                <button type="button" class="payer-circle-btn" onclick="selectPayer('倫', this)">
+                                    <span class="fill-bg"></span>
+                                    <span class="icon-stack">
+                                        <span class="payer-char char-default">倫</span>
+                                        <span class="payer-char char-inverse">倫</span>
+                                    </span>
+                                </button>
+                                <button type="button" class="payer-circle-btn" onclick="selectPayer('婷', this)">
+                                    <span class="fill-bg"></span>
+                                    <span class="icon-stack">
+                                        <span class="payer-char char-default">婷</span>
+                                        <span class="payer-char char-inverse">婷</span>
+                                    </span>
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div style="text-align:right;">
-                        <div class="airport-code">PUS</div>
-                        <div class="airport-name">金海 PUS</div>
-                    </div>
-                </div>
-                <div class="ticket-footer">
-                    <div><span class="field-label">FLIGHT / DATE</span><span class="field-val">JX 310 · 01/13</span></div>
-                    <div><span class="field-label">TERMINAL</span><span class="field-val">Terminal 2</span></div>
-                    <div><span class="field-label">SEAT</span><span class="field-val">--</span></div>
-                </div>
-            </div>
 
-            <!-- 回程 -->
-            <div class="boarding-pass">
-                <div class="ticket-header" style="background:#CBD5E1; color:#334155;">
-                    <span>BOARDING PASS ✈</span>
-                    <span>PUS ➔ RMQ</span>
-                </div>
-                <div class="ticket-body">
-                    <div>
-                        <div class="airport-code">PUS</div>
-                        <div class="airport-name">金海 PUS</div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:14px;">
+                        <input type="text" id="accItem" placeholder="項目 (例: 豬肉湯飯)" style="width:100%; height:42px; padding:0 12px; border:1px solid #E5E0D5; border-radius:10px; font-size:0.84rem; background:#FFF; outline:none;">
+                        <input type="number" inputmode="numeric" pattern="[0-9]*" id="accKrwVal" placeholder="金額 (韓元)" style="width:100%; height:42px; padding:0 12px; border:1px solid #E5E0D5; border-radius:10px; font-size:0.84rem; background:#FFF; outline:none;">
                     </div>
-                    <div class="flight-path">
-                        <div style="font-size:0.75rem; font-weight:700; color:#475569;">JX310</div>
-                        <div class="flight-line">
-                            <div class="flight-time-badge" style="color:#475569;">
-                                12:15 ✈ 14:00
+
+                    <!-- 新增開銷紀錄：按鈕載入成功（Loading Button）動態 -->
+                    <div class="loading-btn-wrap">
+                        <button id="addExpenseBtn" onclick="addExpense()" class="btn-submit-expense">
+                            <span class="btn-text">+ 新增開銷紀錄</span>
+                            <svg class="btn-spinner" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="9" stroke="rgba(255,255,255,0.3)" stroke-width="2.5"></circle>
+                                <path d="M12 3a9 9 0 0 1 9 9" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"></path>
+                            </svg>
+                            <svg class="btn-check" viewBox="0 0 24 24" fill="none">
+                                <path id="btnCheckPath" d="M5 13l4 4L19 7" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="24" stroke-dashoffset="24"></path>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div style="margin-top:20px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                            <span style="font-weight:600; font-size:0.88rem;">消費明細</span>
+                            <span style="font-weight:700; color:var(--primary-coral); font-size:0.92rem;" id="totalKrwDisplay">總計：₩ 0</span>
+                        </div>
+
+                        <!-- 記帳天數分類（選單滑塊跟隨 Sliding Nav Highlight） -->
+                        <div class="expense-filter-nav" id="expenseFilterNav">
+                            <div class="expense-filter-pill" id="expenseFilterPill"></div>
+                            <button type="button" class="expense-filter-btn active pill-focus" data-day="ALL" onclick="setExpenseDayFilter('ALL', this)">全部</button>
+                            <button type="button" class="expense-filter-btn" data-day="D1" onclick="setExpenseDayFilter('D1', this)">Day1</button>
+                            <button type="button" class="expense-filter-btn" data-day="D2" onclick="setExpenseDayFilter('D2', this)">Day2</button>
+                            <button type="button" class="expense-filter-btn" data-day="D3" onclick="setExpenseDayFilter('D3', this)">Day3</button>
+                            <button type="button" class="expense-filter-btn" data-day="D4" onclick="setExpenseDayFilter('D4', this)">Day4</button>
+                            <button type="button" class="expense-filter-btn" data-day="D5" onclick="setExpenseDayFilter('D5', this)">Day5</button>
+                            <button type="button" class="expense-filter-btn" data-day="D6" onclick="setExpenseDayFilter('D6', this)">Day6</button>
+                        </div>
+
+                        <!-- 下拉重新整理（Pull to Refresh）區域 -->
+                        <div class="ptr-wrapper" id="ptrWrapper">
+                            <div class="ptr-indicator">
+                                <div class="ptr-spinner-box" id="ptrSpinnerBox">
+                                    <svg class="ptr-spinner-svg" id="ptrSpinnerSvg" viewBox="0 0 24 24">
+                                        <path d="M21 12a9 9 0 1 1-2.64-6.36"/>
+                                        <polyline points="21 3 21 9 15 9"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ptr-content" id="ptrContent">
+                                <div id="expenseList">載入中...</div>
                             </div>
                         </div>
                     </div>
-                    <div style="text-align:right;">
-                        <div class="airport-code">RMQ</div>
-                        <div class="airport-name">台中 RMQ</div>
-                    </div>
                 </div>
-                <div class="ticket-footer">
-                    <div><span class="field-label">FLIGHT / DATE</span><span class="field-val">JX 310 · 01/18</span></div>
-                    <div><span class="field-label">TERMINAL</span><span class="field-val">Terminal 1</span></div>
-                    <div><span class="field-label">SEAT</span><span class="field-val">--</span></div>
+            </main>
+
+            <!-- PAGE 5: 打卡清單 -->
+            <main id="page-checkin" class="tab-page">
+                <div class="card-wrapper">
+                    <h2 class="section-title serif-font">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent-warm)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+                            <path d="M7 2v20"/>
+                            <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
+                        </svg>
+                        美食打卡清單
+                    </h2>
+                    <div id="checkinList">載入中...</div>
                 </div>
-            </div>
-        </section>
-
-        <!-- 每日行程 -->
-        <section id="itinerary" class="card-wrapper">
-            <h2 class="section-title">🗺️ 每日行程</h2>
-
-            <div class="day-tabs-row">
-                <button class="day-tab-btn active" onclick="switchDay(1)">D1 · 01/13</button>
-                <button class="day-tab-btn" onclick="switchDay(2)">D2 · 01/14</button>
-                <button class="day-tab-btn" onclick="switchDay(3)">D3 · 01/15</button>
-                <button class="day-tab-btn" onclick="switchDay(4)">D4 · 01/16</button>
-                <button class="day-tab-btn" onclick="switchDay(5)">D5 · 01/17</button>
-                <button class="day-tab-btn" onclick="switchDay(6)">D6 · 01/18</button>
-            </div>
-
-            <div id="timelineContainer">
-                <!-- 動態注入行程 -->
-            </div>
-        </section>
-
-        <!-- 住宿資訊 -->
-        <section id="hotel" class="card-wrapper">
-            <h2 class="section-title">🏨 住宿資訊</h2>
-
-            <div style="background:#FAF8F5; border:1px solid var(--border-color); border-radius:14px; padding:14px; margin-bottom:12px;">
-                <div style="font-weight:700; font-size:0.95rem;">
-                    <a href="https://naver.me/xUZ2MLSG" target="_blank" style="color:var(--primary-coral); text-decoration:none;">L7 海雲臺 (L7 Haeundae) 🔗</a>
-                </div>
-                <div style="font-size:0.78rem; color:#8C827A;">2027/01/13 ~ 01/15 (2晚)</div>
-                <div style="font-size:0.82rem; background:#FFF; padding:8px; border-radius:8px; margin:6px 0; border:1px solid #EFEAE4;" id="addr1">
-                    부산 해운대구 해운대로570번길 55
-                </div>
-                <button class="btn-copy-addr" onclick="copyText('addr1')">📋 複製韓文地址</button>
-            </div>
-
-            <div style="background:#FAF8F5; border:1px solid var(--border-color); border-radius:14px; padding:14px;">
-                <div style="font-weight:700; font-size:0.95rem;">
-                    <a href="https://naver.me/xwoh8zFn" target="_blank" style="color:var(--primary-coral); text-decoration:none;">Urban Groove Hotel 🔗</a>
-                </div>
-                <div style="font-size:0.78rem; color:#8C827A;">2027/01/15 ~ 01/18 (3晚)</div>
-                <div style="font-size:0.82rem; background:#FFF; padding:8px; border-radius:8px; margin:6px 0; border:1px solid #EFEAE4;" id="addr2">
-                    부산 부산진구 황령대로17번길 18 어반그루브호텔
-                </div>
-                <button class="btn-copy-addr" onclick="copyText('addr2')">📋 複製韓文地址</button>
-            </div>
-        </section>
-
-        <!-- 記帳與匯率換算 -->
-        <section id="accounting" class="card-wrapper">
-            <h2 class="section-title">💰 記帳與匯率換算</h2>
-
-            <div style="background:#FAF6F0; padding:12px; border-radius:12px; margin-bottom:14px; border:1px solid var(--border-color);">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                    <span style="font-size:0.8rem; font-weight:700;">💱 即時試算</span>
-                    <span id="rateStatus" style="font-size:0.7rem; color:#8C827A; background:#FFF; padding:2px 8px; border-radius:10px; border:1px solid var(--border-color);">匯率更新中...</span>
-                </div>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-                    <input type="number" id="calcKrw" placeholder="韓元 KRW" inputmode="numeric" pattern="[0-9]*" oninput="quickCalc('krw')" style="width:100%; min-width:0; padding:8px; border:1px solid var(--border-color); border-radius:8px;">
-                    <input type="number" id="calcTwd" placeholder="台幣 TWD" inputmode="numeric" pattern="[0-9]*" oninput="quickCalc('twd')" style="width:100%; min-width:0; padding:8px; border:1px solid var(--border-color); border-radius:8px;">
-                </div>
-            </div>
-
-            <!-- 新增記帳欄位 -->
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:8px;">
-                <select id="accDay" style="width:100%; min-width:0; padding:8px; border:1px solid var(--border-color); border-radius:8px; background:#FFF;">
-                    <option value="D1">D1 · 01/13</option>
-                    <option value="D2">D2 · 01/14</option>
-                    <option value="D3">D3 · 01/15</option>
-                    <option value="D4">D4 · 01/16</option>
-                    <option value="D5">D5 · 01/17</option>
-                    <option value="D6">D6 · 01/18</option>
-                </select>
-                <select id="accPayer" style="width:100%; min-width:0; padding:8px; border:1px solid var(--border-color); border-radius:8px; background:#FFF;">
-                    <option value="媽媽">媽媽</option>
-                    <option value="姐姐">姐姐</option>
-                    <option value="妹妹">妹妹</option>
-                </select>
-            </div>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:8px;">
-                <input type="text" id="accItem" placeholder="項目 (例: 豬肉湯飯)" style="width:100%; min-width:0; padding:8px; border:1px solid var(--border-color); border-radius:8px;">
-                <input type="number" id="accKrwVal" placeholder="金額 (韓元)" inputmode="numeric" pattern="[0-9]*" style="width:100%; min-width:0; padding:8px; border:1px solid var(--border-color); border-radius:8px;">
-            </div>
-            <button onclick="addExpense()" id="btnAddExpense" style="width:100%; background:var(--primary-coral); color:#FFF; border:none; padding:10px; border-radius:10px; font-weight:700; cursor:pointer;">+ 新增開銷</button>
-
-            <!-- 記帳統計與列表 -->
-            <div style="margin-top:18px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span style="font-weight:700; font-size:0.9rem;">消費明細</span>
-                    <span style="font-weight:700; color:var(--primary-coral); font-size:0.95rem;" id="totalKrwDisplay">總計：₩ 0</span>
-                </div>
-                <div id="expenseList">
-                    <!-- 明細 -->
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            2027 Busan Winter Trip · Travel Planner
-        </footer>
-
+            </main>
+        </div>
     </div>
 
+    <!-- 底部固定導覽列 -->
+    <nav class="bottom-nav" id="bottomNav">
+        <div class="nav-indicator" id="navIndicator"></div>
+        <div class="nav-item active" onclick="switchTab('itinerary', this)">
+            <svg width="20" height="20" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>行程</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('flights', this)">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5 5.3 6.7c-.8-.2-1.6.1-2.1.8l-.6.8c-.3.4-.2.9.2 1.2l5.6 4.1-3.2 3.2-2.3-.6c-.4-.1-.8.1-1.1.4l-.4.4c-.3.3-.3.8 0 1.1l2.8 2.8c.3.3.8.3 1.1 0l.4-.4c.3-.3.5-.7.4-1.1l-.6-2.3 3.2-3.2 4.1 5.6c.3.4.8.5 1.2.2l.8-.6c.7-.5 1-1.3.8-2.1z"/></svg>
+            <span>航班</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('hotel', this)">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>住宿</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('accounting', this)">
+            <svg width="20" height="20" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h4"/><path d="M14 16h4"/><path d="M6 12h12"/></svg>
+            <span>記帳</span>
+        </div>
+        <div class="nav-item" onclick="switchTab('checkin', this)">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>打卡</span>
+        </div>
+    </nav>
+
+    <div id="toast" class="toast-msg">已複製韓文地址！</div>
+
     <script>
+        let headerAnimTl = null;
+
+        // 執行 1 次「釜山·冬日遊」逐字彈跳 + 接續執行「부산 · BUSAN」卡拉OK小球動畫
+        function playOnceBounce() {
+            const bounceChars = document.querySelectorAll('.bounce-char');
+            const karaokeChars = Array.from(document.querySelectorAll('#karaokeSub .karaoke-char'));
+            const ball = document.getElementById('karaokeBall');
+            if (!window.gsap) return;
+
+            if (headerAnimTl) headerAnimTl.kill();
+            gsap.killTweensOf(bounceChars);
+            if (ball) gsap.killTweensOf(ball);
+
+            karaokeChars.forEach(c => c.classList.remove('lit'));
+            if (ball) gsap.set(ball, { opacity: 0, scale: 0.6 });
+
+            headerAnimTl = gsap.timeline();
+
+            bounceChars.forEach((charEl, idx) => {
+                headerAnimTl.fromTo(charEl, 
+                    { scaleX: 1, scaleY: 1, y: 0 },
+                    {
+                        keyframes: [
+                            { scaleX: 1.15, scaleY: 0.82, y: 4, duration: 0.15, ease: "power1.in" },
+                            { scaleX: 0.88, scaleY: 1.22, y: -18, duration: 0.35, ease: "power2.out" },
+                            { scaleX: 1.05, scaleY: 0.94, y: 0, duration: 0.25, ease: "bounce.out" },
+                            { scaleX: 1, scaleY: 1, y: 0, duration: 0.2 }
+                        ],
+                        ease: "none"
+                    },
+                    idx * 0.12
+                );
+            });
+
+            const targetChars = karaokeChars.filter(c => c.textContent.trim() !== '');
+            if (ball && targetChars.length > 0) {
+                const startTime = bounceChars.length * 0.12 + 0.75;
+                const firstCenter = targetChars[0].offsetLeft + targetChars[0].offsetWidth / 2;
+
+                headerAnimTl.set(ball, { x: firstCenter, y: -10, opacity: 1, scale: 1 }, startTime);
+
+                targetChars.forEach((charEl, i) => {
+                    const stepTime = startTime + i * 0.38;
+                    const centerX = charEl.offsetLeft + charEl.offsetWidth / 2;
+
+                    if (i > 0) {
+                        headerAnimTl.to(ball, {
+                            x: centerX,
+                            duration: 0.38,
+                            ease: "power1.inOut"
+                        }, stepTime - 0.38);
+
+                        headerAnimTl.to(ball, {
+                            keyframes: [
+                                { y: -14, scaleX: 0.9, scaleY: 1.1, duration: 0.19, ease: "power1.out" },
+                                { y: 2, scaleX: 1.2, scaleY: 0.8, duration: 0.19, ease: "power1.in" }
+                            ]
+                        }, stepTime - 0.38);
+                    } else {
+                        headerAnimTl.fromTo(ball,
+                            { y: -14, opacity: 0, scale: 0.5 },
+                            { y: 2, opacity: 1, scale: 1, duration: 0.22, ease: "power1.in" },
+                            stepTime - 0.22
+                        );
+                    }
+
+                    headerAnimTl.call(() => {
+                        charEl.classList.add('lit');
+                    }, null, stepTime);
+                });
+
+                const endTime = startTime + (targetChars.length - 1) * 0.38 + 0.25;
+                headerAnimTl.to(ball, {
+                    y: -8,
+                    opacity: 0,
+                    scale: 0.4,
+                    duration: 0.3,
+                    ease: "power2.out"
+                }, endTime);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.gsap && window.TextPlugin) {
+                gsap.registerPlugin(TextPlugin);
+            }
+            if (window.gsap && window.Observer) {
+                gsap.registerPlugin(Observer);
+            }
+
+            playOnceBounce();
+
+            // 打字速度調整為 0.5 秒打一個字
+            const typingEl = document.getElementById('typingText');
+            const cursorEl = document.getElementById('typingCursor');
+            const targetPhrase = "6天5夜·Bu想San班，就去釜山";
+            if (window.gsap && typingEl) {
+                gsap.to(typingEl, {
+                    duration: targetPhrase.length * 0.5,
+                    text: { value: targetPhrase, delimiter: "" },
+                    ease: "none",
+                    onComplete: () => {
+                        if (cursorEl) {
+                            cursorEl.style.animation = 'none';
+                            cursorEl.style.opacity = '0';
+                        }
+                    }
+                });
+            }
+
+            initNavIndicator();
+            initExpenseFilterNav();
+            initPullToRefresh();
+            window.addEventListener('resize', () => {
+                initNavIndicator();
+                updateActiveFilterPill();
+            });
+
+            document.addEventListener('click', (e) => {
+                const dd = document.getElementById('dayDropdown');
+                if (dd && !dd.contains(e.target)) {
+                    dd.classList.remove('open');
+                }
+            });
+        });
+
+        let navIndicatorTl = null;
+        const TAB_ORDER = ['itinerary', 'flights', 'hotel', 'accounting', 'checkin'];
+        let currentTabIndex = 0;
+
+        function initNavIndicator() {
+            const activeItem = document.querySelector('.bottom-nav .nav-item.active');
+            const indicator = document.getElementById('navIndicator');
+            if (activeItem && indicator && window.gsap) {
+                gsap.set(indicator, {
+                    x: activeItem.offsetLeft,
+                    width: activeItem.offsetWidth
+                });
+            }
+        }
+
+        // Apple Touch Icon 自動轉換
+        (function setupAppleTouchIcon() {
+            const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 100 100"><rect width="100" height="100" rx="22" fill="#F6F2EA"/><circle cx="22" cy="26" r="7" fill="#F2CBCB" opacity="0.75"/><path d="M 62 24 Q 67 20 72 24 Q 77 20 82 24" stroke="#8C8278" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M0 64 Q 25 60 50 64 T 100 64 L 100 100 L 0 100 Z" fill="#6B9AC4" opacity="0.35"/><path d="M0 70 Q 25 66 50 70 T 100 70 L 100 100 L 0 100 Z" fill="#3B719F"/><path d="M0 78 Q 25 74 50 78 T 100 78 L 100 100 L 0 100 Z" fill="#28537A"/><line x1="21" y1="58" x2="21" y2="80" stroke="#7D736A" stroke-width="2.6"/><line x1="51" y1="58" x2="51" y2="80" stroke="#7D736A" stroke-width="2.6"/><line x1="81" y1="58" x2="81" y2="80" stroke="#7D736A" stroke-width="2.6"/><path d="M 14 58 L 14 38 L 36 58 Z" fill="none" stroke="#8C8278" stroke-width="2.5"/><line x1="14" y1="46" x2="36" y2="58" stroke="#8C8278" stroke-width="1.5"/><path d="M 80 58 L 80 42 L 85 42 L 85 46 L 82.5 46 L 82.5 58" fill="#8C8278"/><circle cx="82.5" cy="37" r="3.2" fill="#D96B53"/><line x1="12" y1="58" x2="89" y2="58" stroke="#5C544C" stroke-width="3"/><line x1="12" y1="60" x2="89" y2="60" stroke="#B5A89E" stroke-width="1.2"/><rect x="31" y="47" width="18" height="10" rx="4" fill="#D96B53"/><rect x="52" y="47" width="18" height="10" rx="4" fill="#E6B84D"/><rect x="35" y="50" width="10" height="4" rx="1" fill="#FFFFFF"/><rect x="56" y="50" width="10" height="4" rx="1" fill="#FFFFFF"/><circle cx="36" cy="57.5" r="1.5" fill="#222"/><circle cx="44" cy="57.5" r="1.5" fill="#222"/><circle cx="57" cy="57.5" r="1.5" fill="#222"/><circle cx="65" cy="57.5" r="1.5" fill="#222"/></svg>`;
+            const img = new Image();
+            const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(svgBlob);
+            img.onload = function () {
+                const canvas = document.createElement('canvas');
+                canvas.width = 180;
+                canvas.height = 180;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, 180, 180);
+                URL.revokeObjectURL(url);
+                try {
+                    const pngDataUrl = canvas.toDataURL('image/png');
+                    const iconLink = document.getElementById('appleTouchIcon');
+                    if (iconLink) iconLink.href = pngDataUrl;
+                } catch (e) {}
+            };
+            img.src = url;
+        })();
+
+        function switchTab(tabId, el) {
+            const prevActive = document.querySelector('.bottom-nav .nav-item.active');
+            const indicator = document.getElementById('navIndicator');
+            const newTabIndex = TAB_ORDER.indexOf(tabId);
+            const d = newTabIndex >= currentTabIndex ? 1 : -1;
+            const oldPage = document.querySelector('.tab-page.active');
+            const newPage = document.getElementById('page-' + tabId);
+
+            if (prevActive === el) return;
+
+            if (window.gsap && indicator && prevActive && prevActive !== el) {
+                const oldLeft = prevActive.offsetLeft;
+                const oldWidth = prevActive.offsetWidth;
+                const newLeft = el.offsetLeft;
+                const newWidth = el.offsetWidth;
+
+                const stretchLeft = Math.min(oldLeft, newLeft);
+                const stretchWidth = Math.max(oldLeft + oldWidth, newLeft + newWidth) - stretchLeft;
+
+                if (navIndicatorTl) navIndicatorTl.kill();
+                navIndicatorTl = gsap.timeline();
+                navIndicatorTl
+                    .to(indicator, {
+                        x: stretchLeft,
+                        width: stretchWidth,
+                        duration: 0.18,
+                        ease: "power2.in"
+                    })
+                    .to(indicator, {
+                        x: newLeft,
+                        width: newWidth,
+                        duration: 0.34,
+                        ease: "power3.out"
+                    });
+
+                const iconSvg = el.querySelector('svg');
+                if (iconSvg) {
+                    gsap.fromTo(iconSvg,
+                        { scale: 0.7 },
+                        { scale: 1, duration: 0.45, ease: "back.out(3)" }
+                    );
+                }
+            }
+
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            el.classList.add('active');
+            currentTabIndex = newTabIndex;
+
+            // 修復分頁切換：確保絕對定位切換流暢且互不干擾
+            if (window.gsap && oldPage && newPage && oldPage !== newPage) {
+                gsap.killTweensOf([oldPage, newPage]);
+                
+                document.querySelectorAll('.tab-page').forEach(p => {
+                    p.classList.remove('active');
+                    gsap.set(p, { clearProps: "all" });
+                });
+
+                newPage.classList.add('active');
+                gsap.set(newPage, { opacity: 0, xPercent: 20 * d });
+
+                gsap.to(newPage, {
+                    opacity: 1,
+                    xPercent: 0,
+                    duration: 0.38,
+                    ease: "power2.out",
+                    onComplete: () => {
+                        gsap.set(newPage, { clearProps: "all" });
+                    }
+                });
+            } else {
+                document.querySelectorAll('.tab-page').forEach(page => page.classList.remove('active'));
+                if (newPage) newPage.classList.add('active');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            playOnceBounce();
+
+            if (tabId === 'accounting') {
+                requestAnimationFrame(() => updateActiveFilterPill());
+                fetchCloudExpenses();
+            }
+            if (tabId === 'checkin') {
+                renderCheckin();
+            }
+        }
+
         const SVG_ICONS = {
-            plane: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8C827A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5 5.3 6.7c-.8-.2-1.6.1-2.1.8l-.6.8c-.3.4-.2.9.2 1.2l5.6 4.1-3.2 3.2-2.3-.6c-.4-.1-.8.1-1.1.4l-.4.4c-.3.3-.3.8 0 1.1l2.8 2.8c.3.3.8.3 1.1 0l.4-.4c.3-.3.5-.7.4-1.1l-.6-2.3 3.2-3.2 4.1 5.6c.3.4.8.5 1.2.2l.8-.6c.7-.5 1-1.3.8-2.1z"/></svg>`,
-            train: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8C827A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 11h16M12 3v8M8 19l-2 3M16 19l2 3"/><circle cx="8" cy="15" r="1"/><circle cx="16" cy="15" r="1"/></svg>`,
-            hotel: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8C827A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/></svg>`,
-            food: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8C827A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>`,
-            pin: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8C827A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`,
-            shop: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8C827A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>`
+            plane: `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5 5.3 6.7c-.8-.2-1.6.1-2.1.8l-.6.8c-.3.4-.2.9.2 1.2l5.6 4.1-3.2 3.2-2.3-.6c-.4-.1-.8.1-1.1.4l-.4.4c-.3.3-.3.8 0 1.1l2.8 2.8c.3.3.8.3 1.1 0l.4-.4c.3-.3.5-.7.4-1.1l-.6-2.3 3.2-3.2 4.1 5.6c.3.4.8.5 1.2.2l.8-.6c.7-.5 1-1.3.8-2.1z"/></svg>`,
+            train: `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 11h16M12 3v8M8 19l-2 3M16 19l2 3"/><circle cx="8" cy="15" r="1"/><circle cx="16" cy="15" r="1"/></svg>`,
+            hotel: `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/></svg>`,
+            food: `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>`,
+            pin: `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>`,
+            car: `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>`,
+            spa: `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5c0 2.5-2 2.5-2 5"/><path d="M12 4c0 2.5-2 2.5-2 5"/><path d="M16 5c0 2.5-2 2.5-2 5"/><path d="M4 14c0 3.5 3.6 6 8 6s8-2.5 8-6H4Z"/></svg>`,
+            shop: `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg>`
         };
 
+        const CATEGORY_COLORS = {
+            FLIGHT: '#7BAAC8',        // 交通（藍色）
+            TRANSPORT: '#7BAAC8',     // 交通（藍色）
+            FOOD: '#E0B456',          // 飲食（黃色）
+            SIGHTSEEING: '#A78EC2',   // 景點（紫色）
+            ENTERTAINMENT: '#D98A6C', // 娛樂（暖橘紅）
+            EXPERIENCE: '#6BA6A8',    // 體驗（湖水青）
+            HOTEL: '#7FA98B',         // 住宿（綠色）
+            SHOPPING: '#E0959E'       // 購物（粉色）
+        };
+
+        const stations = ["尾浦 Mipo", "青沙浦 Cheongsapo", "松亭 Songjeong"];
+        const stationPositions = [25, 145, 265];
         let currentStationIndex = 0;
-        const stationPositions = [20, 145, 270];
         
         function moveTrain(direction) {
             currentStationIndex += direction;
             if (currentStationIndex < 0) currentStationIndex = 0;
             if (currentStationIndex >= stationPositions.length) currentStationIndex = stationPositions.length - 1;
             document.getElementById('trainCars').style.left = stationPositions[currentStationIndex] + 'px';
+            document.getElementById('stationLabel').innerText = stations[currentStationIndex];
         }
 
+        // 行程資料：第一行行程名稱、第二行縮小版透明感icon+類別、第三行備註說明（無說明則不顯示第三行）
         const itineraryData = {
             1: [
-                { time: '05:30', icon: SVG_ICONS.train, title: '家 ➔ 台中機場', desc: '機場接送' },
-                { time: '08:00', icon: SVG_ICONS.plane, title: '台中 起飛 ➔ 11:15 抵達 釜山', desc: '' },
-                { time: '', icon: SVG_ICONS.pin, title: '辦理 SES 快速通關', desc: '2F 出境大廳 Check-in D區右方' },
-                { time: '', icon: SVG_ICONS.train, title: '前往海雲臺', desc: '機場巴士 3號月台 ❘ 金海機場 → 海雲臺海水浴場，票價：₩9,500/人，於 Gate 4 附近自動售票機購票' },
-                { time: '', icon: SVG_ICONS.food, title: '廣安木烤肉', desc: '' },
-                { time: '', icon: SVG_ICONS.shop, title: 'E-MART 海雲臺店', desc: '', metro: '海雲台 → 中洞 7號出口', metroName: '釜山2號線', metroColor: 'var(--metro-line-2)' },
-                { time: '', icon: SVG_ICONS.shop, title: '海雲台市場', desc: '海鮮蔥餅、名品糖餅（蜂蜜起司口味）' },
-                { time: '', icon: SVG_ICONS.food, title: '東大門獵奇辣炒年糕', desc: '推薦 玫瑰奶油辣炒年糕+寬粉+起司' },
-                { time: '', icon: SVG_ICONS.hotel, title: 'L7 海雲臺', desc: '' }
+                { time: '05:30', category: 'TRANSPORT', icon: SVG_ICONS.train, title: '家 ➔ 台中機場', desc: '機場接送' },
+                { time: '08:00', category: 'FLIGHT', icon: SVG_ICONS.plane, title: '出發 (JX310)', desc: '台中 ➔ 11:15 抵達 釜山' },
+                { time: '11:30', category: 'EXPERIENCE', icon: SVG_ICONS.pin, title: '辦理 SES 快速通關', desc: '2F 出境大廳 Check-in D區右方' },
+                { time: '12:15', category: 'TRANSPORT', icon: SVG_ICONS.train, title: '前往海雲臺', desc: '機場巴士 3號月台 ❘ 票價：₩9,500/人' },
+                { time: '13:30', category: 'FOOD', icon: SVG_ICONS.food, title: '廣安木烤肉', desc: '' },
+                { time: '15:30', category: 'SHOPPING', icon: SVG_ICONS.shop, title: 'E-MART 海雲臺店', desc: '', metro: '海雲台 → 中洞 7號出口', metroName: '釜山2號線', metroColor: 'var(--metro-line-2)' },
+                { time: '17:30', category: 'SHOPPING', icon: SVG_ICONS.shop, title: '海雲台市場', desc: '海鮮蔥餅、名品糖餅' },
+                { time: '19:30', category: 'FOOD', icon: SVG_ICONS.food, title: '東大門獵奇辣炒年糕', desc: '推薦 玫瑰奶油辣炒年糕+寬粉+起司' },
+                { time: '21:00', category: 'HOTEL', icon: SVG_ICONS.hotel, title: 'L7 海雲臺 Check-in', desc: '' }
             ],
             2: [
-                { time: '', icon: SVG_ICONS.food, title: '極東豬肉湯飯', desc: '' },
-                { time: '', icon: SVG_ICONS.food, title: 'Strut Coffee / Mega Coffee', desc: '世界百大咖啡，推薦 千層蛋塔' },
-                { time: '', icon: SVG_ICONS.train, title: '天空膠囊列車', desc: '尾浦 ➔ 青沙浦' },
-                { time: '', icon: SVG_ICONS.pin, title: '灌籃高手平交道 / 天空步道', desc: '' },
-                { time: '', icon: SVG_ICONS.food, title: '道熙家', desc: '推薦綜合烤海鮮' },
-                { time: '', icon: SVG_ICONS.pin, title: 'Skyline Luge 斜坡滑車', desc: '' },
-                { time: '', icon: SVG_ICONS.shop, title: 'Lotte Outlet', desc: '' },
-                { time: '', icon: SVG_ICONS.food, title: 'Solsot 釜飯', desc: '推薦牛排、鮭魚、鮑魚干貝釜飯' },
-                { time: '', icon: SVG_ICONS.food, title: 'Puraduk 炸雞', desc: '推薦 烤玉米起司、青陽辣椒美乃滋口味' }
+                { time: '08:00', category: 'FOOD', icon: SVG_ICONS.food, title: '極東豬肉湯飯', desc: '' },
+                { time: '09:00', category: 'FOOD', icon: SVG_ICONS.food, title: 'Strut Coffee / Mega Coffee', desc: '推薦 千層蛋塔' },
+                { time: '09:30', category: 'TRANSPORT', icon: SVG_ICONS.train, title: '天空膠囊列車', desc: '尾浦 ➔ 青沙浦' },
+                { time: '11:00', category: 'SIGHTSEEING', icon: SVG_ICONS.pin, title: '灌籃高手平交道 / 天空步道', desc: '' },
+                { time: '12:00', category: 'FOOD', icon: SVG_ICONS.food, title: '道熙家', desc: '推薦 綜合烤海鮮' },
+                { time: '14:00', category: 'ENTERTAINMENT', icon: SVG_ICONS.car, title: 'Skyline Luge 斜坡滑車', desc: '' },
+                { time: '16:00', category: 'SHOPPING', icon: SVG_ICONS.shop, title: 'Lotte Outlet', desc: '' },
+                { time: '17:00', category: 'FOOD', icon: SVG_ICONS.food, title: 'Solsot 釜飯', desc: '推薦牛排、鮭魚釜飯' },
+                { time: '21:00', category: 'FOOD', icon: SVG_ICONS.food, title: 'Puraduk 炸雞', desc: '推薦 烤玉米起司口味' }
             ],
             3: [
-                { time: '', icon: SVG_ICONS.food, title: 'Working Holiday', desc: '推薦 Galette、濃湯、法式吐司' },
-                { time: '', icon: SVG_ICONS.pin, title: 'Spa Land 汗蒸幕', desc: '' },
-                { time: '', icon: SVG_ICONS.shop, title: '新世界百貨', desc: '需先至 3F 外國人服務中心辦會員卡領折價券' },
-                { time: '', icon: SVG_ICONS.train, title: '前往西面', desc: '', metro: '海雲臺 ➔ 西面', metroName: '釜山2號線', metroColor: 'var(--metro-line-2)' },
-                { time: '', icon: SVG_ICONS.shop, title: '西面商圈逛街', desc: 'Musinsa、大創、Davich眼鏡店' },
-                { time: '', icon: SVG_ICONS.food, title: '83 獬豸', desc: 'CatchTable 現場預約' },
-                { time: '', icon: SVG_ICONS.hotel, title: 'Urban Groove Hotel', desc: '' }
+                { time: '09:30', category: 'FOOD', icon: SVG_ICONS.food, title: 'Working Holiday', desc: '推薦 Galette、濃湯' },
+                { time: '11:00', category: 'EXPERIENCE', icon: SVG_ICONS.spa, title: 'Spa Land 汗蒸幕', desc: '' },
+                { time: '14:00', category: 'SHOPPING', icon: SVG_ICONS.shop, title: '新世界百貨', desc: '3F 外國人服務中心領折價券' },
+                { time: '16:00', category: 'TRANSPORT', icon: SVG_ICONS.train, title: '前往西面', desc: '', metro: '海雲臺 ➔ 西面', metroName: '釜山2號線', metroColor: 'var(--metro-line-2)' },
+                { time: '17:00', category: 'SHOPPING', icon: SVG_ICONS.shop, title: '西面商圈逛街', desc: 'Musinsa、大創' },
+                { time: '19:00', category: 'FOOD', icon: SVG_ICONS.food, title: '83 獬豸', desc: 'CatchTable 現場預約' },
+                { time: '21:00', category: 'HOTEL', icon: SVG_ICONS.hotel, title: 'Urban Groove Hotel Check-in', desc: '' }
             ],
             4: [
-                { time: '', icon: SVG_ICONS.food, title: 'Isaac Toast', desc: '', metro: '凡內谷 ➔ 西面 9號出口', metroName: '釜山1號線', metroColor: 'var(--metro-line-1)' },
-                { time: '', icon: SVG_ICONS.food, title: 'OOZY Coffee', desc: '推薦石榴冰茶、草莓牛奶' },
-                { time: '', icon: SVG_ICONS.food, title: 'All Sunday 西面店', desc: '💡 早上買口味較多，買完先回飯店放' },
-                { time: '', icon: SVG_ICONS.train, title: '前往甘川洞文化村', desc: '', metro: '凡內谷 ➔ 土城 6號出口', metroName: '釜山1號線', metroColor: 'var(--metro-line-1)' },
-                { time: '', icon: SVG_ICONS.pin, title: '甘川洞文化村', desc: '襪子店、拍照打卡' },
-                { time: '', icon: SVG_ICONS.food, title: '李在模披薩', desc: '推薦 Crust 雙重起司餅皮' },
-                { time: '', icon: SVG_ICONS.shop, title: '南浦洞', desc: 'BIFF廣場、光復路時尚街、富平/國際市場' },
-                { time: '', icon: SVG_ICONS.pin, title: '廣安里 M 無人機燈光秀', desc: '表演時間：19:00 及 21:00' },
-                { time: '', icon: SVG_ICONS.food, title: '石雞', desc: '', metro: '西面 ➔ 金蓮山 1號出口', metroName: '釜山2號線', metroColor: 'var(--metro-line-2)' }
+                { time: '09:00', category: 'FOOD', icon: SVG_ICONS.food, title: 'Isaac Toast', desc: '', metro: '凡內谷 ➔ 西面 9號出口', metroName: '釜山1號線', metroColor: 'var(--metro-line-1)' },
+                { time: '09:30', category: 'FOOD', icon: SVG_ICONS.food, title: 'OOZY Coffee', desc: '推薦 石榴冰茶' },
+                { time: '10:00', category: 'FOOD', icon: SVG_ICONS.food, title: 'All Sunday 西面店', desc: '買完先回飯店放' },
+                { time: '11:00', category: 'TRANSPORT', icon: SVG_ICONS.train, title: '前往甘川洞文化村', desc: '', metro: '凡內谷 ➔ 土城 6號出口', metroName: '釜山1號線', metroColor: 'var(--metro-line-1)' },
+                { time: '12:00', category: 'SIGHTSEEING', icon: SVG_ICONS.pin, title: '甘川洞文化村', desc: '襪子店、拍照打卡' },
+                { time: '14:00', category: 'FOOD', icon: SVG_ICONS.food, title: '李在模披薩', desc: '推薦 雙重起司餅皮' },
+                { time: '16:00', category: 'SHOPPING', icon: SVG_ICONS.shop, title: '南浦洞商圈', desc: 'BIFF廣場、光復路' },
+                { time: '19:00', category: 'SIGHTSEEING', icon: SVG_ICONS.pin, title: '廣安里 M 無人機燈光秀', desc: '19:00 及 21:00' },
+                { time: '19:30', category: 'FOOD', icon: SVG_ICONS.food, title: '石雞', desc: '' }
             ],
             5: [
-                { time: '', icon: SVG_ICONS.food, title: 'Egg Drop', desc: '', metro: '凡內谷 ➔ 西面 9號出口', metroName: '釜山1號線', metroColor: 'var(--metro-line-1)' },
-                { time: '', icon: SVG_ICONS.train, title: '前往松島', desc: '', metro: '西面 ➔ 札嘎其，抵達後轉搭計程車約 6 分', metroName: '釜山1號線', metroColor: 'var(--metro-line-1)' },
-                { time: '', icon: SVG_ICONS.pin, title: '松島海上纜車', desc: '' },
-                { time: '', icon: SVG_ICONS.pin, title: '白淺灘文化村', desc: '' },
-                { time: '', icon: SVG_ICONS.pin, title: 'Arte Museum', desc: '' },
-                { time: '', icon: SVG_ICONS.food, title: 'Momos Coffee', desc: '世界百大咖啡，推薦 無花果奶油乳酪麵包' },
-                { time: '', icon: SVG_ICONS.shop, title: '樂天超市 光復店', desc: '' }
+                { time: '08:30', category: 'FOOD', icon: SVG_ICONS.food, title: 'Egg Drop', desc: '', metro: '凡內谷 ➔ 西面 9號出口', metroName: '釜山1號線', metroColor: 'var(--metro-line-1)' },
+                { time: '09:30', category: 'TRANSPORT', icon: SVG_ICONS.train, title: '前往松島', desc: '', metro: '西面 ➔ 札嘎其，轉搭計程車', metroName: '釜山1號線', metroColor: 'var(--metro-line-1)' },
+                { time: '10:30', category: 'SIGHTSEEING', icon: SVG_ICONS.pin, title: '松島海上纜車', desc: '' },
+                { time: '12:30', category: 'SIGHTSEEING', icon: SVG_ICONS.pin, title: '白淺灘文化村', desc: '' },
+                { time: '15:00', category: 'SIGHTSEEING', icon: SVG_ICONS.pin, title: 'Arte Museum', desc: '' },
+                { time: '17:00', category: 'FOOD', icon: SVG_ICONS.food, title: 'Momos Coffee', desc: '推薦 無花果奶油乳酪麵包' },
+                { time: '19:00', category: 'SHOPPING', icon: SVG_ICONS.shop, title: '樂天超市 光復店', desc: '' }
             ],
             6: [
-                { time: '', icon: SVG_ICONS.train, title: '前往金海機場', desc: '' },
-                { time: '12:15', icon: SVG_ICONS.plane, title: '釜山 起飛 ➔ 14:00 抵達 台中', desc: '' }
+                { time: '10:00', category: 'TRANSPORT', icon: SVG_ICONS.train, title: '前往金海機場', desc: '' },
+                { time: '12:15', category: 'FLIGHT', icon: SVG_ICONS.plane, title: '回程 (JX311)', desc: '釜山起飛 ➔ 14:00 抵達 台中' }
             ]
         };
 
+        let currentDayNum = 1;
         function switchDay(dayNum) {
+            const isSameDay = dayNum === currentDayNum;
+            currentDayNum = dayNum;
+
             document.querySelectorAll('.day-tab-btn').forEach((btn, idx) => {
                 if (idx + 1 === dayNum) btn.classList.add('active');
                 else btn.classList.remove('active');
@@ -782,129 +2068,440 @@
 
             const container = document.getElementById('timelineContainer');
             const list = itineraryData[dayNum] || [];
-            let html = '<div class="minimal-timeline">';
+            let html = '<div class="elegant-timeline">';
 
             list.forEach(item => {
+                const catKey = item.category || 'TRANSPORT';
+                const catColor = CATEGORY_COLORS[catKey] || '#C59B7D';
                 html += `
-                    <div class="timeline-row">
-                        <div class="timeline-node-icon">${item.icon}</div>
-                        <div class="row-header">
-                            ${item.time ? `<span class="row-time" style="font-size:0.82rem;">${item.time}</span>` : ''}
-                            <span class="row-title">${item.title}</span>
+                    <div class="etimeline-row">
+                        <div class="etimeline-time">${item.time || ''}</div>
+                        <div class="etimeline-dot"></div>
+                        <div class="etimeline-content" style="--cat-color: ${catColor};">
+                            <div class="etimeline-title">${item.title}</div>
+                            <div class="etimeline-category">${item.icon || ''}<span>${catKey}</span></div>
+                            ${item.metro ? `<div style="margin-top:4px;"><div class="metro-badge-oval" style="background:${item.metroColor};">${item.metroName || '地鐵'}</div> <span style="font-size:0.75rem; color:var(--ink-muted);">${item.metro}</span></div>` : ''}
+                            ${item.desc ? `<div class="etimeline-desc">${item.desc}</div>` : ''}
                         </div>
-                        ${item.metro ? `<div style="margin-top:4px;"><div class="metro-badge-oval" style="background:${item.metroColor};">${item.metroName || '地鐵'}</div> <span style="font-size:0.78rem; color:#6E655F;">${item.metro}</span></div>` : ''}
-                        ${item.desc ? `<div class="row-subdesc">${item.desc}</div>` : ''}
                     </div>
                 `;
             });
 
             html += '</div>';
+
+            if (window.gsap && !isSameDay && container.children.length > 0) {
+                gsap.fromTo(container,
+                    { opacity: 0, y: 8 },
+                    { opacity: 1, y: 0, duration: 0.3, ease: "power2.out", clearProps: "all" }
+                );
+            }
             container.innerHTML = html;
         }
         switchDay(1);
 
-        // 預設匯率與動態抓取
-        let currentRate = 0.0235;
+        // 記帳日期下拉選單（Dropdown Reveal）控制
+        function toggleDayDropdown(e) {
+            e.stopPropagation();
+            const dd = document.getElementById('dayDropdown');
+            if (dd) dd.classList.toggle('open');
+        }
 
-        async function fetchLiveExchangeRate() {
-            const statusEl = document.getElementById('rateStatus');
-            try {
-                const res = await fetch('https://open.er-api.com/v6/latest/KRW');
-                const data = await res.json();
-                if (data && data.rates && data.rates.TWD) {
-                    currentRate = data.rates.TWD;
-                    statusEl.innerText = `即時匯率 ${currentRate.toFixed(4)}`;
-                } else {
-                    statusEl.innerText = `參考匯率 ${currentRate}`;
+        function selectDayOption(val, label, el) {
+            document.getElementById('accDay').value = val;
+            document.getElementById('dayDropdownLabel').textContent = label;
+            document.querySelectorAll('#dayDropdown .dropdown-option').forEach(opt => opt.classList.remove('selected'));
+            if (el) el.classList.add('selected');
+            document.getElementById('dayDropdown').classList.remove('open');
+        }
+
+        // 記帳人圓形按鈕選擇（珍 / 倫 / 婷）
+        function selectPayer(payerName, btnEl) {
+            document.getElementById('accPayer').value = payerName;
+            document.querySelectorAll('#payerCircles .payer-circle-btn').forEach(b => b.classList.remove('active'));
+            if (btnEl) btnEl.classList.add('active');
+        }
+
+        let RATE = 0.0243;
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzBHHj0ZD4xK0ZdIWZ2LMeiG_FKV8z3LNT-jWgTseRVoleSri2itZBBRJBs-Ag7eDE74g/exec";
+        const LOCAL_STORAGE_KEY = 'busan_v2_expenses_clean';
+        let expenses = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || '[]');
+        let isWritingLock = false;
+        let currentExpenseFilter = 'ALL';
+
+        // 記帳天數分類：選單滑塊跟隨（Sliding Nav Highlight）
+        function moveFilterPillTo(targetBtn) {
+            const pill = document.getElementById('expenseFilterPill');
+            const nav = document.getElementById('expenseFilterNav');
+            if (!pill || !targetBtn || !nav) return;
+
+            pill.style.width = `${targetBtn.offsetWidth}px`;
+            pill.style.transform = `translateX(${targetBtn.offsetLeft}px)`;
+
+            nav.querySelectorAll('.expense-filter-btn').forEach(btn => {
+                if (btn === targetBtn) btn.classList.add('pill-focus');
+                else btn.classList.remove('pill-focus');
+            });
+        }
+
+        function updateActiveFilterPill() {
+            const activeBtn = document.querySelector('#expenseFilterNav .expense-filter-btn.active');
+            if (activeBtn) moveFilterPillTo(activeBtn);
+        }
+
+        function initExpenseFilterNav() {
+            const nav = document.getElementById('expenseFilterNav');
+            if (!nav) return;
+            const buttons = nav.querySelectorAll('.expense-filter-btn');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('pointerenter', () => {
+                    moveFilterPillTo(btn);
+                });
+            });
+
+            nav.addEventListener('pointerleave', () => {
+                updateActiveFilterPill();
+            });
+
+            updateActiveFilterPill();
+        }
+
+        function setExpenseDayFilter(dayCode, btnEl) {
+            currentExpenseFilter = dayCode;
+            const nav = document.getElementById('expenseFilterNav');
+            if (nav) {
+                nav.querySelectorAll('.expense-filter-btn').forEach(b => b.classList.remove('active'));
+            }
+            if (btnEl) {
+                btnEl.classList.add('active');
+                moveFilterPillTo(btnEl);
+            }
+            renderExpenses();
+        }
+
+        // 下拉重新整理（Pull to Refresh）動態效果
+        function initPullToRefresh() {
+            const wrapper = document.getElementById('ptrWrapper');
+            const content = document.getElementById('ptrContent');
+            const spinnerBox = document.getElementById('ptrSpinnerBox');
+            const spinnerSvg = document.getElementById('ptrSpinnerSvg');
+            if (!wrapper || !content || !spinnerBox || !spinnerSvg || !window.gsap) return;
+
+            let pullRaw = 0;
+            let isPulling = false;
+            let isRefreshing = false;
+            const THRESHOLD = 62;
+
+            function onStart() {
+                if (isRefreshing) return;
+                const pageAcc = document.getElementById('page-accounting');
+                if (!pageAcc || !pageAcc.classList.contains('active')) return;
+                if (window.scrollY > 10) return;
+                pullRaw = 0;
+                isPulling = true;
+            }
+
+            function onMove(deltaY) {
+                if (!isPulling || isRefreshing) return;
+                if (window.scrollY > 10 && pullRaw <= 0) {
+                    isPulling = false;
+                    return;
                 }
-            } catch (err) {
-                statusEl.innerText = `參考匯率 ${currentRate}`;
+                pullRaw += deltaY;
+                if (pullRaw < 0) pullRaw = 0;
+
+                // 越拉阻力越大（阻尼係數與非線性衰減）
+                const dampedY = Math.min(115, Math.pow(pullRaw, 0.78) * 2.1);
+                const progress = Math.min(1, dampedY / THRESHOLD);
+
+                gsap.set(content, { y: dampedY });
+                gsap.set(spinnerBox, {
+                    opacity: progress,
+                    scale: 0.55 + 0.45 * progress,
+                    y: Math.min(10, dampedY * 0.12)
+                });
+                gsap.set(spinnerSvg, { rotation: dampedY * 3.4 });
+            }
+
+            function onRelease() {
+                if (!isPulling || isRefreshing) return;
+                isPulling = false;
+                const currentY = gsap.getProperty(content, "y") || 0;
+
+                if (currentY >= THRESHOLD) {
+                    isRefreshing = true;
+                    gsap.to(content, { y: 52, duration: 0.25, ease: "power2.out" });
+                    gsap.to(spinnerBox, { opacity: 1, scale: 1, duration: 0.2 });
+
+                    const spinTween = gsap.to(spinnerSvg, {
+                        rotation: "+=360",
+                        duration: 0.65,
+                        ease: "linear",
+                        repeat: -1
+                    });
+
+                    fetchCloudExpenses().finally(() => {
+                        setTimeout(() => {
+                            spinTween.kill();
+                            const tl = gsap.timeline({
+                                onComplete: () => {
+                                    isRefreshing = false;
+                                    pullRaw = 0;
+                                }
+                            });
+
+                            tl.to(spinnerBox, { opacity: 0, scale: 0.5, duration: 0.25, ease: "power2.in" }, 0)
+                              .to(content, { y: 0, duration: 0.5, ease: "power3.out" }, 0)
+                              .call(() => {
+                                  // 最新一筆資料短暫高亮後淡回
+                                  const items = document.querySelectorAll('#expenseList .expense-card-item');
+                                  const newestItem = items.length > 0 ? items[items.length - 1] : null;
+                                  if (newestItem) {
+                                      gsap.fromTo(newestItem,
+                                          { backgroundColor: "#F5E1DA", borderColor: "#D97A6C" },
+                                          { backgroundColor: "#FAF6F0", borderColor: "#EFEAE2", duration: 1.1, ease: "power2.out" }
+                                      );
+                                  }
+                              }, null, 0.22);
+                        }, 450);
+                    });
+                } else {
+                    pullRaw = 0;
+                    gsap.to(content, { y: 0, duration: 0.4, ease: "power3.out" });
+                    gsap.to(spinnerBox, { opacity: 0, scale: 0.5, duration: 0.25 });
+                }
+            }
+
+            if (window.Observer) {
+                Observer.create({
+                    target: wrapper,
+                    type: "touch,pointer",
+                    onPress: () => onStart(),
+                    onDrag: (self) => {
+                        if (self.deltaY > 0 || pullRaw > 0) {
+                            onMove(self.deltaY);
+                        }
+                    },
+                    onRelease: () => onRelease(),
+                    onStop: () => onRelease()
+                });
             }
         }
-        fetchLiveExchangeRate();
 
-        // 💡 Google Cloud 試算表串接網址（已自動填入你專屬的 Google Apps Script URL）
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwzsPq52fMhvT9CPiDXuYkuKNgXd131QU6kLDL9MV61WUD3iUSFp2wJFCDKgXdE6vl-/exec";
+        function normalizeItem(raw) {
+            if (!raw) return null;
+            if (Array.isArray(raw)) {
+                const possibleId = String(raw[0] ?? '').trim();
+                const day = String(raw[1] || raw[0] || 'D1').trim();
+                let payer = String(raw[2] || raw[1] || '珍').trim();
+                const item = String(raw[3] || raw[2] || '').trim();
+                const krw = parseFloat(String(raw[4] || raw[3] || '0').replace(/,/g, '')) || 0;
+                const twd = parseFloat(String(raw[5] || raw[4] || '0').replace(/,/g, '')) || Math.round(krw * RATE);
+                if (!item || item === '項目' || item === 'item' || krw <= 0) return null;
+                const id = possibleId || ('exp_' + day + '_' + payer + '_' + item + '_' + krw);
+                return { id, day, payer, item, krw, twd };
+            }
+            if (typeof raw !== 'object') return null;
+            const day = String(raw.day || raw.date || raw['日期'] || raw['天數'] || 'D1').trim();
+            let payer = String(raw.payer || raw.who || raw['分帳人'] || raw['付款人'] || '珍').trim();
+            const item = String(raw.item || raw.desc || raw.name || raw['項目'] || '').trim();
+            if (item === '項目' || item === 'item') return null;
+            const krwRaw = raw.krw !== undefined ? raw.krw : (raw.amount !== undefined ? raw.amount : raw['金額']);
+            const krw = parseFloat(String(krwRaw).replace(/,/g, '')) || 0;
+            const twdRaw = raw.twd !== undefined ? raw.twd : raw['台幣'];
+            const twd = parseFloat(String(twdRaw).replace(/,/g, '')) || Math.round(krw * RATE);
+            if (!item || krw <= 0) return null;
+            const rawId = raw.id !== undefined && raw.id !== null ? String(raw.id).trim() : '';
+            const id = rawId || ('exp_' + day + '_' + payer + '_' + item + '_' + krw);
+            return { id, day, payer, item, krw, twd };
+        }
 
-        let expenses = JSON.parse(localStorage.getItem('busan_v4_expenses')) || [];
+        async function fetchLiveRate() {
+            try {
+                const response = await fetch('https://api.exchangerate-api.com/v4/latest/KRW');
+                const data = await response.json();
+                if (data && data.rates && data.rates.TWD) {
+                    RATE = data.rates.TWD;
+                    document.getElementById('rateBadge').innerText = `即時匯率 ${RATE.toFixed(4)}`;
+                }
+            } catch (err) {}
+            renderExpenses();
+            fetchCloudExpenses();
+        }
+
+        async function fetchCloudExpenses() {
+            if (isWritingLock) return;
+            try {
+                const res = await fetch(`${GOOGLE_SCRIPT_URL}?action=get&t=${Date.now()}`, {
+                    method: 'GET',
+                    redirect: 'follow',
+                    cache: 'no-store'
+                });
+                const text = await res.text();
+                const parsed = JSON.parse(text);
+                const rawList = Array.isArray(parsed)
+                    ? parsed
+                    : (Array.isArray(parsed.data) ? parsed.data : (Array.isArray(parsed.records) ? parsed.records : (Array.isArray(parsed.expenses) ? parsed.expenses : null)));
+
+                if (Array.isArray(rawList)) {
+                    const normalized = rawList.map(normalizeItem).filter(Boolean);
+                    expenses = normalized;
+                    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(expenses));
+                    renderExpenses();
+                }
+            } catch (e) {
+                renderExpenses();
+            }
+        }
 
         function quickCalc(type) {
             const krwIn = document.getElementById('calcKrw');
             const twdIn = document.getElementById('calcTwd');
             if (type === 'krw') {
                 const k = parseFloat(krwIn.value) || 0;
-                twdIn.value = Math.round(k * currentRate);
+                twdIn.value = Math.round(k * RATE);
             } else {
                 const t = parseFloat(twdIn.value) || 0;
-                krwIn.value = Math.round(t / currentRate);
+                krwIn.value = Math.round(t / RATE);
             }
         }
 
-        async function fetchCloudExpenses() {
-            if (!GOOGLE_SCRIPT_URL) return;
-            try {
-                const res = await fetch(GOOGLE_SCRIPT_URL);
-                const data = await res.json();
-                if (Array.isArray(data)) {
-                    expenses = data;
-                    localStorage.setItem('busan_v4_expenses', JSON.stringify(expenses));
-                    renderExpenses();
+        async function syncToCloud(payloadObj) {
+            const params = new URLSearchParams();
+            Object.keys(payloadObj).forEach(k => {
+                if (typeof payloadObj[k] !== 'object') {
+                    params.append(k, payloadObj[k]);
                 }
-            } catch (e) {
-                console.log("使用本地緩存資料");
+            });
+            params.append('t', Date.now());
+            const targetUrl = `${GOOGLE_SCRIPT_URL}?${params.toString()}`;
+            const jsonBody = JSON.stringify(payloadObj);
+
+            try {
+                await fetch(targetUrl, {
+                    method: 'POST',
+                    redirect: 'follow',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: jsonBody
+                });
+            } catch (err) {
+                try {
+                    await fetch(targetUrl, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: jsonBody
+                    });
+                } catch (e2) {}
             }
         }
 
+        let isAddBtnAnimating = false;
         async function addExpense() {
+            if (isAddBtnAnimating) return;
+
             const day = document.getElementById('accDay').value;
             const payer = document.getElementById('accPayer').value;
-            const item = document.getElementById('accItem').value;
-            const krw = parseFloat(document.getElementById('accKrwVal').value);
+            const item = document.getElementById('accItem').value.trim();
+            const krwInput = document.getElementById('accKrwVal');
+            const krw = parseFloat(krwInput.value);
 
-            if (!item || !krw) {
-                alert('請完整輸入項目名稱與金額！');
+            if (!item || isNaN(krw) || krw <= 0) {
+                showToast('請完整填寫項目與金額！');
                 return;
             }
 
-            const newRecord = { day, payer, item, krw, twd: Math.round(krw * currentRate), id: Date.now() };
-            expenses.push(newRecord);
-            localStorage.setItem('busan_v4_expenses', JSON.stringify(expenses));
+            isAddBtnAnimating = true;
+            const btn = document.getElementById('addExpenseBtn');
+            const btnText = btn.querySelector('.btn-text');
+            const btnSpinner = btn.querySelector('.btn-spinner');
+            const btnCheck = btn.querySelector('.btn-check');
+            const checkPath = document.getElementById('btnCheckPath');
+            const fullWidth = btn.offsetWidth;
 
-            document.getElementById('accItem').value = '';
-            document.getElementById('accKrwVal').value = '';
+            if (window.gsap && btn) {
+                const tl = gsap.timeline();
+                tl.to(btn, { scale: 0.95, duration: 0.1, ease: "power1.out" })
+                  .to(btnText, { opacity: 0, duration: 0.15 }, "<")
+                  .fromTo(btn, { width: fullWidth }, { width: 44, scale: 1, duration: 0.4, ease: "power2.inOut" })
+                  .to(btnSpinner, { opacity: 1, duration: 0.15 }, "-=0.15")
+                  .fromTo(btnSpinner, { rotation: 0 }, { rotation: 360, duration: 0.55, ease: "linear" }, "<")
+                  .to(btnSpinner, { opacity: 0, duration: 0.12 })
+                  .set(btnCheck, { opacity: 1 })
+                  .fromTo(checkPath, { strokeDashoffset: 24 }, { strokeDashoffset: 0, duration: 0.3, ease: "power2.out" })
+                  .fromTo(btn, { scale: 0.9 }, { scale: 1, duration: 0.35, ease: "back.out(2.5)" }, "<")
+                  .to(btnCheck, { opacity: 0, duration: 0.2, delay: 0.8 })
+                  .to(btn, { width: fullWidth, duration: 0.38, ease: "power2.inOut", onComplete: () => {
+                      gsap.set(btn, { clearProps: "width,scale" });
+                  }}, "-=0.05")
+                  .to(btnText, { opacity: 1, duration: 0.2, onComplete: () => {
+                      isAddBtnAnimating = false;
+                  }}, "-=0.15");
+            } else {
+                isAddBtnAnimating = false;
+            }
+
+            const uniqueId = 'exp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+            const twd = Math.round(krw * RATE);
+            const newExp = { id: uniqueId, day, payer, item, krw, twd };
+            
+            isWritingLock = true;
+            expenses.push(newExp);
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(expenses));
             renderExpenses();
 
-            if (GOOGLE_SCRIPT_URL) {
-                try {
-                    await fetch(GOOGLE_SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ action: 'add', record: newRecord })
-                    });
-                } catch (e) {
-                    console.error("雲端同步失敗");
-                }
+            document.getElementById('accItem').value = '';
+            krwInput.value = '';
+            showToast('雲端同步中...');
+
+            try {
+                await syncToCloud({
+                    action: 'add',
+                    record: {
+                        id: uniqueId,
+                        day: day,
+                        payer: payer,
+                        item: item,
+                        krw: krw,
+                        twd: twd
+                    }
+                });
+                showToast('雲端同步成功！');
+            } catch (e) {
+                showToast('已儲存至本地');
+            } finally {
+                setTimeout(() => {
+                    isWritingLock = false;
+                    fetchCloudExpenses();
+                }, 4000);
             }
         }
 
         async function deleteExpense(index) {
             const target = expenses[index];
-            expenses.splice(index, 1);
-            localStorage.setItem('busan_v4_expenses', JSON.stringify(expenses));
-            renderExpenses();
+            if (!target) return;
 
-            if (GOOGLE_SCRIPT_URL && target) {
-                try {
-                    await fetch(GOOGLE_SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ action: 'delete', id: target.id })
-                    });
-                } catch (e) {
-                    console.error("雲端刪除失敗");
-                }
+            isWritingLock = true;
+            expenses.splice(index, 1);
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(expenses));
+            renderExpenses();
+            showToast('雲端同步刪除中...');
+            
+            try {
+                await syncToCloud({
+                    action: 'delete',
+                    id: String(target.id || ''),
+                    index: index,
+                    row: index + 2
+                });
+                showToast('已從雲端移除紀錄');
+            } catch (e) {
+                showToast('已移除紀錄');
+            } finally {
+                setTimeout(() => {
+                    isWritingLock = false;
+                    fetchCloudExpenses();
+                }, 4000);
             }
         }
 
@@ -914,35 +2511,216 @@
             listEl.innerHTML = '';
             let totalKrw = 0;
 
-            expenses.forEach((exp, idx) => {
-                totalKrw += exp.krw;
+            const filteredList = (expenses || [])
+                .map((exp, realIdx) => ({ exp, realIdx }))
+                .filter(entry => currentExpenseFilter === 'ALL' || entry.exp.day === currentExpenseFilter);
+
+            if (filteredList.length === 0) {
+                const emptyText = currentExpenseFilter === 'ALL' ? '尚無記帳紀錄' : `尚無 ${currentExpenseFilter.replace('D', 'Day ')} 記帳紀錄`;
+                listEl.innerHTML = `<div style="text-align:center; padding:20px; color:var(--ink-muted); font-size:0.8rem;">${emptyText}</div>`;
+                totalEl.innerText = '總計：₩ 0';
+                return;
+            }
+
+            filteredList.forEach(({ exp, realIdx }) => {
+                const krwVal = parseFloat(exp.krw) || 0;
+                const twdVal = parseFloat(exp.twd) || Math.round(krwVal * RATE);
+                totalKrw += krwVal;
                 const div = document.createElement('div');
                 div.className = 'expense-card-item';
                 div.innerHTML = `
                     <div class="expense-left">
-                        <span class="day-chip day-chip-${exp.day}">${exp.day}</span>
-                        <span class="expense-name">${exp.item}</span>
+                        <div class="expense-title-row">
+                            <span class="day-chip day-chip-${exp.day}">${exp.day}</span>
+                            <span class="expense-name">${exp.item}</span>
+                        </div>
+                        <button type="button" class="btn-hold-del" title="長按 1.2 秒刪除">
+                            <span class="hold-fill"></span>
+                            <span class="hold-label">長按刪除 ✕</span>
+                        </button>
                     </div>
                     <div class="expense-right">
                         <div class="payer-tag payer-tag-${exp.payer}">${exp.payer}</div>
-                        <div class="expense-krw">₩ ${exp.krw.toLocaleString()}</div>
-                        <div class="expense-twd">約 NT$ ${exp.twd.toLocaleString()}</div>
+                        <div class="expense-krw">₩ ${Number(krwVal).toLocaleString()}</div>
+                        <div class="expense-twd">約 NT$ ${Number(twdVal).toLocaleString()}</div>
                     </div>
-                    <button class="btn-del-x" onclick="deleteExpense(${idx})">✕</button>
                 `;
+
+                const holdBtn = div.querySelector('.btn-hold-del');
+                const holdLabel = holdBtn.querySelector('.hold-label');
+                let holdTimer = null;
+                let isConfirmed = false;
+
+                const startHold = (e) => {
+                    if (isConfirmed) return;
+                    if (e.button !== undefined && e.button !== 0) return;
+                    holdBtn.classList.add('holding');
+                    holdTimer = setTimeout(() => {
+                        isConfirmed = true;
+                        holdBtn.classList.remove('holding');
+                        holdBtn.classList.add('confirmed');
+                        holdLabel.textContent = '已刪除 ✓';
+                        if (window.gsap) {
+                            gsap.fromTo(holdBtn,
+                                { scale: 0.9 },
+                                { scale: 1.06, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" }
+                            );
+                        }
+                        setTimeout(() => {
+                            deleteExpense(realIdx);
+                        }, 320);
+                    }, 1200);
+                };
+
+                const cancelHold = () => {
+                    if (isConfirmed) return;
+                    if (holdTimer) {
+                        clearTimeout(holdTimer);
+                        holdTimer = null;
+                    }
+                    holdBtn.classList.remove('holding');
+                };
+
+                holdBtn.addEventListener('pointerdown', startHold);
+                holdBtn.addEventListener('pointerup', cancelHold);
+                holdBtn.addEventListener('pointerleave', cancelHold);
+                holdBtn.addEventListener('pointercancel', cancelHold);
+
                 listEl.appendChild(div);
             });
 
             totalEl.innerText = `總計：₩ ${totalKrw.toLocaleString()}`;
         }
 
-        renderExpenses();
-        fetchCloudExpenses();
+        const DEFAULT_CHECKIN_DATA = [
+            { name: '東大門獵奇辣炒年糕', checked: false, note: '必點：玫瑰奶油辣炒年糕 + 寬粉 + 起司' },
+            { name: 'Puraduk 炸雞', checked: false, note: '必點：烤玉米起司口味、青陽辣椒美乃滋' },
+            { name: 'What the burger', checked: false, note: '備註：手工漢堡人氣店' },
+            { name: 'All Sunday', checked: false, note: '備註：西面店早上買口味較齊全，買完可先回飯店放' },
+            { name: 'OOZY Coffee', checked: false, note: '必點：石榴冰茶、草莓牛奶' },
+            { name: '李在模披薩', checked: false, note: '必點：Crust 雙重起司餅皮' },
+            { name: '83 獬豸', checked: false, note: '備註：可用 CatchTable 現場預約' },
+            { name: 'Working Holiday', checked: false, note: '必點：Galette、濃湯、法式吐司' },
+            { name: 'Yoajung', checked: false, note: '必點：優格冰淇淋 + 蜂巢蜜配料' }
+        ];
+
+        const CHECKIN_STORAGE_KEY = 'busan_v2_checkin_items_clean_v3';
+        let checkinItems = JSON.parse(localStorage.getItem(CHECKIN_STORAGE_KEY) || 'null');
+        if (!checkinItems || !Array.isArray(checkinItems) || checkinItems.some(i => i.name === '12345')) {
+            checkinItems = JSON.parse(JSON.stringify(DEFAULT_CHECKIN_DATA));
+            localStorage.setItem(CHECKIN_STORAGE_KEY, JSON.stringify(checkinItems));
+        }
+        let expandedCheckinMap = {};
+
+        function saveCheckinData() {
+            localStorage.setItem(CHECKIN_STORAGE_KEY, JSON.stringify(checkinItems));
+        }
+
+        function deleteCheckinItem(idx, e) {
+            e.stopPropagation();
+            if (confirm('確定要刪除這個打卡項目嗎？')) {
+                checkinItems.splice(idx, 1);
+                saveCheckinData();
+                renderCheckin();
+                showToast('已刪除項目');
+            }
+        }
+
+        function renderCheckin() {
+            const container = document.getElementById('checkinList');
+            if (!container) return;
+            container.innerHTML = '';
+
+            checkinItems.forEach((item, idx) => {
+                const isExpanded = !!expandedCheckinMap[idx];
+                const card = document.createElement('div');
+                card.className = `checkin-card ${item.checked ? 'checked' : ''} ${isExpanded ? 'expanded' : ''}`;
+
+                const header = document.createElement('div');
+                header.className = 'checkin-header';
+                header.onclick = () => toggleExpandCheckin(idx);
+
+                const checkbox = document.createElement('div');
+                checkbox.className = 'checkin-checkbox';
+                checkbox.onclick = (e) => {
+                    e.stopPropagation();
+                    toggleCheckin(idx);
+                };
+
+                const title = document.createElement('div');
+                title.className = 'checkin-text';
+                title.textContent = item.name;
+
+                const arrow = document.createElement('div');
+                arrow.className = 'checkin-arrow';
+                arrow.textContent = '▶';
+
+                header.appendChild(checkbox);
+                header.appendChild(title);
+                header.appendChild(arrow);
+
+                const body = document.createElement('div');
+                body.className = 'checkin-body';
+
+                const noteHeader = document.createElement('div');
+                noteHeader.className = 'checkin-note-header';
+
+                const noteLabel = document.createElement('span');
+                noteLabel.className = 'checkin-note-label';
+                noteLabel.textContent = '簡介／備註';
+
+                const delBtn = document.createElement('button');
+                delBtn.className = 'checkin-del-btn';
+                delBtn.textContent = '刪除此項目';
+                delBtn.onclick = (e) => deleteCheckinItem(idx, e);
+
+                noteHeader.appendChild(noteLabel);
+                noteHeader.appendChild(delBtn);
+
+                const textarea = document.createElement('textarea');
+                textarea.className = 'checkin-note-input';
+                textarea.placeholder = '備註：必點品項、營業時間或分店資訊...';
+                textarea.value = item.note || '';
+                textarea.readOnly = true;
+
+                body.appendChild(noteHeader);
+                body.appendChild(textarea);
+
+                card.appendChild(header);
+                card.appendChild(body);
+                container.appendChild(card);
+            });
+        }
+
+        function toggleCheckin(idx) {
+            if (!checkinItems[idx]) return;
+            checkinItems[idx].checked = !checkinItems[idx].checked;
+            saveCheckinData();
+            renderCheckin();
+        }
+
+        function toggleExpandCheckin(idx) {
+            expandedCheckinMap[idx] = !expandedCheckinMap[idx];
+            renderCheckin();
+        }
+
+        renderCheckin();
+        fetchLiveRate();
+        setInterval(() => {
+            fetchCloudExpenses();
+        }, 10000);
 
         function copyText(id) {
             const txt = document.getElementById(id).innerText;
             navigator.clipboard.writeText(txt);
-            alert('已複製韓文地址：\n' + txt);
+            showToast('已複製韓文地址！');
+        }
+
+        function showToast(text) {
+            const toast = document.getElementById('toast');
+            toast.innerText = text;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
         }
     </script>
 </body>
