@@ -1133,6 +1133,140 @@
             border-radius: 6px;
         }
 
+        /* 對話卡片（參考圖二）與全螢幕放大字卡（參考圖一） */
+        .convo-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .convo-card {
+            position: relative;
+            background: #FFFFFF;
+            border: 1px solid #EAE4D8;
+            border-left: 4.5px solid var(--convo-bar, #383431);
+            border-radius: 4px;
+            padding: 15px 18px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(56, 52, 49, 0.025);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+        }
+
+        .convo-card:hover {
+            background: #FDFBF7;
+            box-shadow: 0 4px 14px rgba(56, 52, 49, 0.06);
+        }
+
+        .convo-card:active {
+            transform: scale(0.985);
+        }
+
+        .convo-cat-label {
+            font-size: 0.72rem;
+            color: var(--ink-muted);
+            font-family: 'Noto Serif TC', serif;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .convo-kr-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--ink-color);
+            font-family: 'Noto Serif TC', serif;
+            line-height: 1.35;
+            margin-bottom: 5px;
+        }
+
+        .convo-zh-text {
+            font-size: 0.8rem;
+            color: var(--ink-muted);
+        }
+
+        /* 全螢幕放大字卡 Modal (參考圖一) */
+        .flashcard-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            background: #FCFAF2;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 32px 26px;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .flashcard-overlay.open {
+            display: flex;
+        }
+
+        .flashcard-tap-hint {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 0.78rem;
+            color: #B5A89E;
+            letter-spacing: 3.5px;
+            margin-bottom: 36px;
+            text-transform: uppercase;
+        }
+
+        .flashcard-frame {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            border-top: 2px solid #2C2927;
+            border-bottom: 2px solid #2C2927;
+            padding: 72px 18px 64px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 310px;
+        }
+
+        .flashcard-stamp {
+            position: absolute;
+            top: 18px;
+            right: 14px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1.6px solid rgba(201, 130, 122, 0.72);
+            color: #C9827A;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Noto Serif TC', serif;
+            font-size: 0.74rem;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: 1px;
+            transform: rotate(6deg);
+            pointer-events: none;
+        }
+
+        .flashcard-kr-huge {
+            font-family: 'Noto Serif TC', serif;
+            font-size: clamp(2.15rem, 8.5vw, 3.1rem);
+            font-weight: 700;
+            color: #1F1D1B;
+            line-height: 1.38;
+            word-break: keep-all;
+            margin-bottom: 18px;
+        }
+
+        .flashcard-zh-sub {
+            font-size: 0.95rem;
+            color: var(--ink-muted);
+            font-weight: 500;
+            letter-spacing: 0.8px;
+        }
+
         /* 緊急聯絡 & 支援資訊卡（韓國版，參照圖五設計） */
         .emergency-title {
             font-size: 1.05rem;
@@ -2049,7 +2183,7 @@
     <div class="container">
         <!-- 標題區 -->
         <header class="hero-banner">
-            <div class="hero-subhead">FAMILY TRIP·2027</div>
+            <div class="hero-subhead">2027·FAMILY TRIP</div>
             <div class="title-group">
                 <h1 class="hero-title" id="floatTitle">
                     <span class="bounce-char">釜</span><span class="bounce-char">山</span><span class="bounce-char">·</span><span class="bounce-char">冬</span><span class="bounce-char">日</span><span class="bounce-char">遊</span>
@@ -2369,6 +2503,34 @@
                         </div>
                     </div>
 
+                    <!-- 對話卡片（點擊放大為全螢幕字卡） -->
+                    <h2 class="section-title serif-font" style="margin-top: 26px;">
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="var(--accent-warm)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        對話卡片
+                    </h2>
+
+                    <div class="convo-card-list">
+                        <div class="convo-card" style="--convo-bar: #383431;" onclick="openFlashcard('영수증 주세요.', '(請給我收據)')">
+                            <div class="convo-cat-label">給司機 (TO DRIVER)</div>
+                            <div class="convo-kr-text">영수증 주세요.</div>
+                            <div class="convo-zh-text">(請給我收據)</div>
+                        </div>
+
+                        <div class="convo-card" style="--convo-bar: #9E968E;" onclick="openFlashcard('화장실이 어디예요?', '(廁所在哪裡？)')">
+                            <div class="convo-cat-label">詢問 (INQUIRY)</div>
+                            <div class="convo-kr-text">화장실이 어디예요?</div>
+                            <div class="convo-zh-text">(廁所在哪裡？)</div>
+                        </div>
+
+                        <div class="convo-card" style="--convo-bar: #C59B7D;" onclick="openFlashcard('세 명이고, 먹고 갈게요.', '(三位用餐，內用)')">
+                            <div class="convo-cat-label">餐廳 (RESTAURANT)</div>
+                            <div class="convo-kr-text">세 명이고, 먹고 갈게요.</div>
+                            <div class="convo-zh-text">(三位用餐，內用)</div>
+                        </div>
+                    </div>
+
                     <!-- 緊急聯絡 & 支援資訊卡（韓國版本，參考圖五） -->
                     <h2 class="emergency-title">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8E2424" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
@@ -2442,322 +2604,13 @@
         </div>
     </div>
 
-    <!-- 底部固定導覽列：行程 ➔ 記帳 ➔ 資訊 ➔ 打卡 -->
-    <nav class="bottom-nav" id="bottomNav">
-        <div class="nav-indicator" id="navIndicator"></div>
-        <div class="nav-item active" onclick="switchTab('itinerary', this)">
-            <svg width="20" height="20" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <span>行程</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('accounting', this)">
-            <svg width="20" height="20" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h4"/><path d="M14 16h4"/><path d="M6 12h12"/></svg>
-            <span>記帳</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('info', this)">
-            <svg width="20" height="20" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
-            <span>資訊</span>
-        </div>
-        <div class="nav-item" onclick="switchTab('checkin', this)">
-            <svg width="20" height="20" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span>打卡</span>
-        </div>
-    </nav>
-
-    <!-- 底部抽屜（Bottom Sheet：支援 前往海雲臺 / L7海雲臺 / Urban Groove Hotel） -->
-    <div class="bottom-sheet-overlay" id="haeundaeSheetOverlay">
-        <div class="bottom-sheet-backdrop" id="haeundaeSheetBackdrop" onclick="closeBottomSheet()"></div>
-        <div class="bottom-sheet-panel" id="haeundaeSheetPanel">
-            <div class="sheet-drag-zone" id="sheetDragZone">
-                <div class="sheet-handle"></div>
-            </div>
-
-            <!-- 內容 1：前往海雲臺 (機場巴士) -->
-            <div class="sheet-view" id="sheet-view-haeundae">
-                <div class="sheet-header sheet-stagger-item">
-                    <div class="sheet-meta-row">
-                        <div class="sheet-meta-left">
-                            <span class="sheet-cat-box">TRANSPORT</span>
-                            <span class="sheet-time-label">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                12:15
-                            </span>
-                        </div>
-                        <button type="button" class="sheet-close-btn" onclick="closeBottomSheet()">✕</button>
-                    </div>
-                    <div class="sheet-title">前往海雲臺 (機場巴士)</div>
-                </div>
-
-                <div class="sheet-scroll-body">
-                    <!-- 乘車摘要卡 -->
-                    <div class="sheet-ticket-card sheet-stagger-item">
-                        <div class="sheet-ticket-section">
-                            <div>
-                                <div class="sheet-ticket-label">BOARDING PLATFORM</div>
-                                <div class="sheet-ticket-val">金海機場 國際線 1F · 3號月台</div>
-                            </div>
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C59B7D" stroke-width="1.6"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>
-                        </div>
-                        <div class="sheet-ticket-section">
-                            <div>
-                                <div class="sheet-ticket-label">TICKET & FARE</div>
-                                <div class="sheet-ticket-val">票價 ₩ 9,500 / 人（Gate 4 旁巴士售票處購票）</div>
-                            </div>
-                        </div>
-                        <div class="sheet-ticket-footer">GIMHAE AIRPORT LIMOUSINE BUS</div>
-                    </div>
-
-                    <!-- 金海機場交通月台示意圖 -->
-                    <div class="sheet-subhead sheet-stagger-item">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
-                        乘車位置示意圖 (AIRPORT BUS MAP)
-                    </div>
-                    <div class="airport-map-card sheet-stagger-item">
-                        <div class="airport-map-caption">
-                            <span>金海國際機場 1F 外部乘車區</span>
-                            <span style="color:var(--primary-coral);">★ 國際線 Gate 3 外【3 機場大巴】</span>
-                        </div>
-                        <svg width="100%" viewBox="0 0 680 280" style="display:block; border-radius:6px; background:#E6E4DF;">
-                            <g transform="translate(95, 8)">
-                                <rect x="0" y="0" width="22" height="22" rx="4" fill="#FFF" stroke="#222" stroke-width="2"/>
-                                <text x="11" y="17" font-size="15" font-weight="700" text-anchor="middle" fill="#222">P</text>
-                                <text x="11" y="34" font-size="9.5" text-anchor="middle" fill="#333">P2 旅客停車場</text>
-                            </g>
-                            <g transform="translate(515, 8)">
-                                <rect x="0" y="0" width="22" height="22" rx="4" fill="#FFF" stroke="#222" stroke-width="2"/>
-                                <text x="11" y="17" font-size="15" font-weight="700" text-anchor="middle" fill="#222">P</text>
-                                <text x="11" y="34" font-size="9.5" text-anchor="middle" fill="#333">P1 旅客停車場</text>
-                            </g>
-                            <rect x="8" y="48" width="295" height="28" rx="14" fill="#8C8C8C"/>
-                            <rect x="315" y="48" width="357" height="28" rx="14" fill="#8C8C8C"/>
-                            <rect x="326" y="52" width="14" height="18" rx="2" fill="#FFF"/>
-                            <rect x="328" y="54" width="10" height="7" fill="#8C8C8C"/>
-                            <text x="346" y="66" font-size="10.5" fill="#FFF" font-weight="600">輕軌</text>
-
-                            <g fill="#8C8C8C">
-                                <rect x="52" y="79" width="22" height="4"/><rect x="52" y="86" width="22" height="4"/><rect x="52" y="93" width="22" height="4"/><rect x="52" y="100" width="22" height="4"/><rect x="52" y="107" width="22" height="4"/>
-                                <rect x="150" y="79" width="22" height="4"/><rect x="150" y="86" width="22" height="4"/><rect x="150" y="93" width="22" height="4"/><rect x="150" y="100" width="22" height="4"/><rect x="150" y="107" width="22" height="4"/>
-                                <rect x="242" y="79" width="22" height="4"/><rect x="242" y="86" width="22" height="4"/><rect x="242" y="93" width="22" height="4"/><rect x="242" y="100" width="22" height="4"/><rect x="242" y="107" width="22" height="4"/>
-                                <rect x="365" y="79" width="22" height="4"/><rect x="365" y="86" width="22" height="4"/><rect x="365" y="93" width="22" height="4"/><rect x="365" y="100" width="22" height="4"/><rect x="365" y="107" width="22" height="4"/>
-                                <rect x="525" y="79" width="22" height="4"/><rect x="525" y="86" width="22" height="4"/><rect x="525" y="93" width="22" height="4"/><rect x="525" y="100" width="22" height="4"/><rect x="525" y="107" width="22" height="4"/>
-                            </g>
-                            <g transform="translate(194, 80)">
-                                <rect x="2" y="5" width="18" height="12" rx="3" fill="#222"/>
-                                <rect x="5" y="2" width="12" height="4" rx="1" fill="#222"/>
-                                <rect x="4" y="7" width="14" height="4" fill="#FFF"/>
-                                <text x="11" y="29" font-size="9" text-anchor="middle" fill="#222" font-weight="600">出租車</text>
-                            </g>
-
-                            <rect x="8" y="115" width="295" height="28" rx="14" fill="#8C8C8C"/>
-                            <rect x="315" y="115" width="357" height="28" rx="14" fill="#8C8C8C"/>
-                            <g fill="#8C8C8C">
-                                <rect x="52" y="146" width="22" height="4"/><rect x="52" y="153" width="22" height="4"/><rect x="52" y="160" width="22" height="4"/><rect x="52" y="167" width="22" height="4"/><rect x="52" y="174" width="22" height="4"/>
-                                <rect x="150" y="146" width="22" height="4"/><rect x="150" y="153" width="22" height="4"/><rect x="150" y="160" width="22" height="4"/><rect x="150" y="167" width="22" height="4"/><rect x="150" y="174" width="22" height="4"/>
-                                <rect x="242" y="146" width="22" height="4"/><rect x="242" y="153" width="22" height="4"/><rect x="242" y="160" width="22" height="4"/><rect x="242" y="167" width="22" height="4"/><rect x="242" y="174" width="22" height="4"/>
-                                <rect x="365" y="146" width="22" height="4"/><rect x="365" y="153" width="22" height="4"/><rect x="365" y="160" width="22" height="4"/><rect x="365" y="167" width="22" height="4"/><rect x="365" y="174" width="22" height="4"/>
-                                <rect x="525" y="146" width="22" height="4"/><rect x="525" y="153" width="22" height="4"/><rect x="525" y="160" width="22" height="4"/><rect x="525" y="167" width="22" height="4"/><rect x="525" y="174" width="22" height="4"/>
-                            </g>
-
-                            <rect x="8" y="182" width="295" height="90" fill="#D5D3CE"/>
-                            <g transform="translate(22, 190)">
-                                <rect x="0" y="2" width="14" height="16" rx="2" fill="#222"/><rect x="2" y="4" width="10" height="6" fill="#FFF"/>
-                                <text x="23" y="17" font-size="19" font-weight="700" fill="#222">1</text>
-                                <text x="16" y="30" font-size="8.5" text-anchor="middle" fill="#333">機場擺渡車</text>
-                            </g>
-                            <g transform="translate(76, 190)">
-                                <rect x="0" y="2" width="14" height="16" rx="2" fill="#222"/><rect x="2" y="4" width="10" height="6" fill="#FFF"/>
-                                <text x="23" y="17" font-size="19" font-weight="700" fill="#222">2</text>
-                                <text x="16" y="30" font-size="8.5" text-anchor="middle" fill="#333">市內公交車</text>
-                            </g>
-                            <g transform="translate(126, 185)">
-                                <rect x="-5" y="-2" width="48" height="39" rx="6" fill="#FFF5EE" stroke="#D97A6C" stroke-width="2"/>
-                                <rect x="2" y="5" width="14" height="16" rx="2" fill="#D97A6C"/><rect x="4" y="7" width="10" height="6" fill="#FFF"/>
-                                <text x="26" y="20" font-size="19" font-weight="700" fill="#D97A6C">3</text>
-                                <text x="19" y="33" font-size="8.5" font-weight="700" text-anchor="middle" fill="#D97A6C">機場大巴</text>
-                            </g>
-                            <g transform="translate(186, 190)">
-                                <rect x="0" y="2" width="14" height="16" rx="2" fill="#222"/><rect x="2" y="4" width="10" height="6" fill="#FFF"/>
-                                <text x="23" y="17" font-size="19" font-weight="700" fill="#222">4</text>
-                                <text x="16" y="30" font-size="8.5" text-anchor="middle" fill="#333">市外公交車</text>
-                            </g>
-                            <g transform="translate(242, 190)">
-                                <rect x="0" y="2" width="14" height="16" rx="2" fill="#222"/><rect x="2" y="4" width="10" height="6" fill="#FFF"/>
-                                <text x="23" y="17" font-size="19" font-weight="700" fill="#222">5</text>
-                                <text x="16" y="30" font-size="8.5" text-anchor="middle" fill="#333">市外公交車</text>
-                            </g>
-                            <rect x="14" y="232" width="283" height="38" fill="#C2C0BB"/>
-                            <g transform="translate(42, 224)"><rect x="0" y="0" width="38" height="14" rx="3" fill="#7D7B76"/><text x="19" y="10.5" font-size="8.5" fill="#FFF" text-anchor="middle">Gate 1</text></g>
-                            <g transform="translate(96, 224)"><rect x="0" y="0" width="38" height="14" rx="3" fill="#7D7B76"/><text x="19" y="10.5" font-size="8.5" fill="#FFF" text-anchor="middle">Gate 2</text></g>
-                            <g transform="translate(150, 224)"><rect x="0" y="0" width="38" height="14" rx="3" fill="#D97A6C"/><text x="19" y="10.5" font-size="8.5" font-weight="700" fill="#FFF" text-anchor="middle">Gate 3</text></g>
-                            <g transform="translate(206, 224)"><rect x="0" y="0" width="38" height="14" rx="3" fill="#7D7B76"/><text x="19" y="10.5" font-size="8.5" fill="#FFF" text-anchor="middle">Gate 4</text></g>
-                            <text x="150" y="253" font-size="11" fill="#555">✈</text>
-                            <text x="155" y="264" font-size="9.5" fill="#444" text-anchor="middle" font-weight="600">國際航班 1號到達區</text>
-                            <g transform="translate(262, 236)">
-                                <rect x="0" y="0" width="14" height="16" rx="1.5" fill="none" stroke="#222" stroke-width="1.5"/>
-                                <line x1="3" y1="5" x2="11" y2="5" stroke="#222" stroke-width="1.5"/>
-                                <text x="7" y="26" font-size="8.5" fill="#222" text-anchor="middle" font-weight="600">巴士售票處</text>
-                            </g>
-
-                            <rect x="315" y="182" width="357" height="90" fill="#D5D3CE"/>
-                            <g transform="translate(528, 190)"><rect x="0" y="2" width="12" height="15" rx="2" fill="#222"/><rect x="2" y="4" width="8" height="5" fill="#FFF"/><text x="19" y="16" font-size="17" font-weight="700" fill="#222">1</text><text x="13" y="29" font-size="7.5" text-anchor="middle" fill="#333">機場擺渡車</text></g>
-                            <g transform="translate(566, 190)"><rect x="0" y="2" width="12" height="15" rx="2" fill="#222"/><rect x="2" y="4" width="8" height="5" fill="#FFF"/><text x="19" y="16" font-size="17" font-weight="700" fill="#222">2</text><text x="13" y="29" font-size="7.5" text-anchor="middle" fill="#333">市內公交車</text></g>
-                            <g transform="translate(604, 190)"><rect x="0" y="2" width="12" height="15" rx="2" fill="#222"/><rect x="2" y="4" width="8" height="5" fill="#FFF"/><text x="19" y="16" font-size="17" font-weight="700" fill="#222">3</text><text x="13" y="29" font-size="7.5" text-anchor="middle" fill="#333">機場大巴</text></g>
-                            <g transform="translate(640, 190)"><rect x="0" y="2" width="12" height="15" rx="2" fill="#222"/><rect x="2" y="4" width="8" height="5" fill="#FFF"/><text x="19" y="16" font-size="17" font-weight="700" fill="#222">4</text><text x="13" y="29" font-size="7.5" text-anchor="middle" fill="#333">市外公交車</text></g>
-                            <rect x="322" y="232" width="342" height="38" fill="#C2C0BB"/>
-                            <g transform="translate(360, 224)"><rect x="0" y="0" width="38" height="14" rx="3" fill="#7D7B76"/><text x="19" y="10.5" font-size="8.5" fill="#FFF" text-anchor="middle">Gate 1</text></g>
-                            <g transform="translate(445, 224)"><rect x="0" y="0" width="38" height="14" rx="3" fill="#7D7B76"/><text x="19" y="10.5" font-size="8.5" fill="#FFF" text-anchor="middle">Gate 2</text></g>
-                            <g transform="translate(530, 224)"><rect x="0" y="0" width="38" height="14" rx="3" fill="#7D7B76"/><text x="19" y="10.5" font-size="8.5" fill="#FFF" text-anchor="middle">Gate 3</text></g>
-                            <g transform="translate(605, 224)"><rect x="0" y="0" width="38" height="14" rx="3" fill="#7D7B76"/><text x="19" y="10.5" font-size="8.5" fill="#FFF" text-anchor="middle">Gate 4</text></g>
-                            <text x="488" y="253" font-size="11" fill="#555">✈</text>
-                            <text x="493" y="264" font-size="9.5" fill="#444" text-anchor="middle" font-weight="600">國內航班到達區</text>
-                            <g transform="translate(646, 236)"><rect x="0" y="0" width="12" height="15" rx="1.5" fill="none" stroke="#222" stroke-width="1.5"/><text x="6" y="25" font-size="7.5" fill="#222" text-anchor="middle">巴士售票處</text></g>
-                        </svg>
-                    </div>
-
-                    <!-- 韓文手指會話 -->
-                    <div class="sheet-subhead sheet-stagger-item">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
-                        손가락 회화 (POINT & SPEAK)
-                    </div>
-                    <div class="point-speak-card sheet-stagger-item">
-                        <span class="ps-zh">海雲臺 3張成人票</span>
-                        <span class="ps-kr">해운대 성인 3장 주세요</span>
-                    </div>
-                    <div class="point-speak-card sheet-stagger-item">
-                        <span class="ps-zh">在 海雲台海水浴場 下車</span>
-                        <span class="ps-kr">해운대 해수욕장에서 내려주세요</span>
-                    </div>
-
-                    <!-- 關於此處 -->
-                    <div class="sheet-subhead sheet-stagger-item" style="margin-top:18px;">
-                        <span>ⓘ</span> 關於此處 (ABOUT)
-                    </div>
-                    <div class="sheet-about-box sheet-stagger-item">
-                        <div>
-                            【乘車指南】從金海機場國際線 1 樓入境大廳出來後，先至 Gate 4 旁的「巴士售票處」購買前往海雲臺的機場巴士車票（₩9,500/人），接著從 <b>Gate 3</b> 走出航廈外即可看到 <b>3號月台（機場大巴）</b> 排隊上車。
-                        </div>
-                        <div style="margin-top: 12px; padding-top: 10px; border-top: 1px dashed #E5DFC9;">
-                            <div style="font-weight: 700; color: var(--ink-color); margin-bottom: 4px;">往機張（Gijang）</div>
-                            <div style="font-size: 0.78rem; line-height: 1.6;">
-                                國際航站樓 → 國內航站樓 → 南川洞 → The Beach PRUGIO Summit → 新世界 Centum City → BEXCO → 遊艇中心 → 釜山柏悅酒店 → 韓華度假村海雲臺 → 冬柏島入口 → <b style="color: var(--primary-coral);">海雲臺海水浴場</b> → 海雲臺溫泉十字路口 → 萇山站（5號出口） → 東岩後門（Ananti Cove） → 海雲臺釜山悅榕莊
-                            </div>
-                            <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 2px; font-size: 0.78rem; color: var(--ink-color);">
-                                <div><span style="color: var(--ink-muted);">發車時間　</span><b>11:30 / 12:19 / 12:30 / 13:10</b></div>
-                                <div><span style="color: var(--ink-muted);">班次間隔　</span>約 60 分鐘</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 內容 2：Day 1 L7 海雲臺 (L7 HAEUNDAE by LOTTE HOTELS) -->
-            <div class="sheet-view" id="sheet-view-l7hotel" style="display:none;">
-                <div class="sheet-header sheet-stagger-item" style="border-left-color: #7FA98B;">
-                    <div class="sheet-meta-row">
-                        <div class="sheet-meta-left">
-                            <span class="sheet-cat-box" style="border-color:#7FA98B; color:#557C60; background:rgba(127,169,139,0.1);">HOTEL</span>
-                            <span class="sheet-time-label">住宿資訊 · 2晚</span>
-                        </div>
-                        <button type="button" class="sheet-close-btn" onclick="closeBottomSheet()">✕</button>
-                    </div>
-                    <div class="sheet-title">L7 HAEUNDAE by LOTTE HOTELS</div>
-                    <div style="font-size:0.82rem; color:var(--ink-muted); margin-top:2px;">L7 해운대 바이 롯데호텔 · ★★★★</div>
-                </div>
-
-                <div class="sheet-scroll-body">
-                    <div class="sheet-ticket-card sheet-stagger-item">
-                        <div class="sheet-ticket-section" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                            <div style="border-right:1px solid #F2EDE4; padding-right:10px;">
-                                <div class="sheet-ticket-label">入住日期 (CHECK-IN)</div>
-                                <div class="sheet-ticket-val" style="font-size:0.86rem;">2027年1月13日 (三)</div>
-                                <div style="font-size:0.75rem; color:var(--ink-muted); font-weight:600; margin-top:2px;">下午 3:00 後</div>
-                            </div>
-                            <div style="padding-left:4px;">
-                                <div class="sheet-ticket-label">退房日期 (CHECK-OUT)</div>
-                                <div class="sheet-ticket-val" style="font-size:0.86rem;">2027年1月15日 (五)</div>
-                                <div style="font-size:0.75rem; color:var(--primary-coral); font-weight:600; margin-top:2px;">上午 11:00 前</div>
-                            </div>
-                        </div>
-                        <div class="sheet-ticket-section" style="flex-direction:column; align-items:flex-start; gap:6px;">
-                            <div class="sheet-ticket-label">ADDRESS (韓文 / 英文地址)</div>
-                            <div id="sheetAddrL7" style="font-size:0.86rem; font-weight:700; color:var(--ink-color);">부산광역시 해운대구 해운대로570번길 55, 부산, 대한민국, 48094</div>
-                            <div style="font-size:0.76rem; color:var(--ink-muted); line-height:1.45;">55, Haeun-daero 570beon-gil, Haeundae-gu, Busan, Republic of Korea, 釜山, 韓國, 48094</div>
-                            <div style="display:flex; gap:8px; margin-top:6px;">
-                                <button type="button" class="btn-copy-addr" onclick="copyText('sheetAddrL7')">複製韓文地址</button>
-                                <a href="https://naver.me/xUZ2MLSG" target="_blank" style="background:#FAF6F0; color:var(--ink-color); border:1px solid #E5DFC9; padding:6px 14px; border-radius:8px; font-size:0.75rem; text-decoration:none; font-weight:600;">開啟 Naver Map 導航 🔗</a>
-                            </div>
-                        </div>
-                        <div class="sheet-ticket-footer">L7 HAEUNDAE · HAEUNDAE BEACH</div>
-                    </div>
-
-                    <div class="sheet-subhead sheet-stagger-item">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
-                        손가락 회화 (POINT & SPEAK)
-                    </div>
-                    <div class="point-speak-card sheet-stagger-item">
-                        <span class="ps-zh">請載我到海雲臺 L7 飯店</span>
-                        <span class="ps-kr">해운대 L7 호텔로 가주세요</span>
-                    </div>
-                    <div class="point-speak-card sheet-stagger-item">
-                        <span class="ps-zh">我要辦理入住 (Check-in)</span>
-                        <span class="ps-kr">체크인 부탁합니다</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 內容 3：Day 3 Urban Groove Hotel (Busan Seomyeon Urban Groove Hotel) -->
-            <div class="sheet-view" id="sheet-view-urbangroove" style="display:none;">
-                <div class="sheet-header sheet-stagger-item" style="border-left-color: #7FA98B;">
-                    <div class="sheet-meta-row">
-                        <div class="sheet-meta-left">
-                            <span class="sheet-cat-box" style="border-color:#7FA98B; color:#557C60; background:rgba(127,169,139,0.1);">HOTEL</span>
-                            <span class="sheet-time-label">住宿資訊 · 3晚</span>
-                        </div>
-                        <button type="button" class="sheet-close-btn" onclick="closeBottomSheet()">✕</button>
-                    </div>
-                    <div class="sheet-title">Busan Seomyeon Urban Groove Hotel</div>
-                    <div style="font-size:0.82rem; color:var(--ink-muted); margin-top:2px;">부산 서면 어반 그루브 호텔</div>
-                </div>
-
-                <div class="sheet-scroll-body">
-                    <div class="sheet-ticket-card sheet-stagger-item">
-                        <div class="sheet-ticket-section" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-                            <div style="border-right:1px solid #F2EDE4; padding-right:10px;">
-                                <div class="sheet-ticket-label">入住日期 (CHECK-IN)</div>
-                                <div class="sheet-ticket-val" style="font-size:0.86rem;">2027年1月15日 (五)</div>
-                                <div style="font-size:0.75rem; color:var(--ink-muted); font-weight:600; margin-top:2px;">下午 5:00 後</div>
-                            </div>
-                            <div style="padding-left:4px;">
-                                <div class="sheet-ticket-label">退房日期 (CHECK-OUT)</div>
-                                <div class="sheet-ticket-val" style="font-size:0.86rem;">2027年1月18日 (一)</div>
-                                <div style="font-size:0.75rem; color:var(--primary-coral); font-weight:600; margin-top:2px;">中午 12:00 前</div>
-                            </div>
-                        </div>
-                        <div class="sheet-ticket-section" style="flex-direction:column; align-items:flex-start; gap:6px;">
-                            <div class="sheet-ticket-label">ADDRESS (韓文 / 英文地址)</div>
-                            <div id="sheetAddrUrban" style="font-size:0.86rem; font-weight:700; color:var(--ink-color);">부산광역시 부산진구 황령대로17번길 18, 부산, 대한민국, 47353</div>
-                            <div style="font-size:0.76rem; color:var(--ink-muted); line-height:1.45;">18, Hwangnyeong-daero 17beon-gil, Busanjin-gu, 釜山, 韓國, 47353</div>
-                            <div style="display:flex; gap:8px; margin-top:6px;">
-                                <button type="button" class="btn-copy-addr" onclick="copyText('sheetAddrUrban')">複製韓文地址</button>
-                                <a href="https://naver.me/xwoh8zFn" target="_blank" style="background:#FAF6F0; color:var(--ink-color); border:1px solid #E5DFC9; padding:6px 14px; border-radius:8px; font-size:0.75rem; text-decoration:none; font-weight:600;">開啟 Naver Map 導航 🔗</a>
-                            </div>
-                        </div>
-                        <div class="sheet-ticket-footer">URBAN GROOVE HOTEL · SEOMYEON</div>
-                    </div>
-
-                    <div class="sheet-subhead sheet-stagger-item">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
-                        손가락 회화 (POINT & SPEAK)
-                    </div>
-                    <div class="point-speak-card sheet-stagger-item">
-                        <span class="ps-zh">請載我到西面 Urban Groove 飯店</span>
-                        <span class="ps-kr">서면 어반그루브 호텔로 가주세요</span>
-                    </div>
-                    <div class="point-speak-card sheet-stagger-item">
-                        <span class="ps-zh">我要辦理入住 / 寄放行李</span>
-                        <span class="ps-kr">체크인 / 짐 보관을 부탁합니다</span>
-                    </div>
-                </div>
-            </div>
+    <!-- 全螢幕放大對話字卡 Modal（點擊任意處關閉） -->
+    <div class="flashcard-overlay" id="flashcardOverlay" onclick="closeFlashcard()">
+        <div class="flashcard-tap-hint">TAP TO CLOSE</div>
+        <div class="flashcard-frame" id="flashcardFrame">
+            <div class="flashcard-stamp"><span>釜</span><span>山</span></div>
+            <div class="flashcard-kr-huge" id="flashcardKrText">영수증 주세요.</div>
+            <div class="flashcard-zh-sub" id="flashcardZhText">(請給我收據)</div>
         </div>
     </div>
 
@@ -2857,12 +2710,12 @@
 
             const typingEl = document.getElementById('typingText');
             const cursorEl = document.getElementById('typingCursor');
-            const targetPhrase = "Bu想San班，就去釜山";
+            const part1 = "Bu想San班，";
+            const part2 = "就去釜山";
+            const fullPhrase = part1 + part2;
             if (window.gsap && typingEl) {
-                gsap.to(typingEl, {
-                    duration: targetPhrase.length * 0.5,
-                    text: { value: targetPhrase, delimiter: "" },
-                    ease: "none",
+                typingEl.textContent = "";
+                const typingTl = gsap.timeline({
                     onComplete: () => {
                         if (cursorEl) {
                             cursorEl.style.animation = 'none';
@@ -2870,6 +2723,16 @@
                         }
                     }
                 });
+                typingTl.to(typingEl, {
+                    duration: part1.length * 0.3,
+                    text: { value: part1, delimiter: "" },
+                    ease: "none"
+                })
+                .to(typingEl, {
+                    duration: part2.length * 0.3,
+                    text: { value: fullPhrase, delimiter: "" },
+                    ease: "none"
+                }, "+=0.5");
             }
 
             updateStickyHeaderOffset();
@@ -3036,11 +2899,51 @@
             TRANSPORT: '#7BAAC8',
             FOOD: '#E0B456',
             SIGHTSEEING: '#A78EC2',
-            ENTERTAINMENT: '#D98A6C',
-            EXPERIENCE: '#6BA6A8',
+            ENTERTAINMENT: '#E07A5F',
+            EXPERIENCE: '#C87A5B',
             HOTEL: '#7FA98B',
             SHOPPING: '#E0959E'
         };
+
+        function openFlashcard(krText, zhText) {
+            const overlay = document.getElementById('flashcardOverlay');
+            const frame = document.getElementById('flashcardFrame');
+            const krEl = document.getElementById('flashcardKrText');
+            const zhEl = document.getElementById('flashcardZhText');
+            if (!overlay || !krEl || !zhEl) return;
+
+            krEl.textContent = krText;
+            zhEl.textContent = zhText || '';
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+
+            if (window.gsap) {
+                gsap.fromTo(overlay, { opacity: 0 }, { opacity: 1, duration: 0.22, ease: "power2.out" });
+                if (frame) {
+                    gsap.fromTo(frame, { scale: 0.94, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "back.out(1.4)" });
+                }
+            }
+        }
+
+        function closeFlashcard() {
+            const overlay = document.getElementById('flashcardOverlay');
+            if (!overlay) return;
+
+            if (window.gsap) {
+                gsap.to(overlay, {
+                    opacity: 0,
+                    duration: 0.18,
+                    ease: "power2.in",
+                    onComplete: () => {
+                        overlay.classList.remove('open');
+                        document.body.style.overflow = '';
+                    }
+                });
+            } else {
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        }
 
         const stations = ["尾浦 Mipo", "青沙浦 Cheongsapo", "松亭 Songjeong"];
         const stationPositions = [25, 145, 265];
