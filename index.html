@@ -103,6 +103,7 @@
             margin: 0 0 4px 0;
             padding: 0;
             line-height: 1.4;
+            transform: translateY(1px); /* 視覺光學微調對齊 */
         }
 
         .title-group {
@@ -293,6 +294,98 @@
             font-size: 0.85rem;
             font-weight: 700;
             color: var(--primary-coral);
+        }
+
+        /* Day 6 回程意境圖（參考圖二精巧高度比例 ＆ 圖三內部排版） */
+        .day6-hero-wrap {
+            margin: 4px 0 22px 0;
+        }
+
+        .day6-card-figure {
+            position: relative;
+            width: 100%;
+            height: 168px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(42, 38, 35, 0.11);
+            background: #1C2532;
+        }
+
+        .day6-bg-svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .day6-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(20, 26, 36, 0.05) 0%, rgba(18, 22, 30, 0.25) 48%, rgba(15, 18, 24, 0.78) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 14px 16px;
+            pointer-events: none;
+        }
+
+        .day6-badge-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 5px;
+            white-space: nowrap;
+        }
+
+        .day6-pill-box {
+            border: 1px solid rgba(255, 255, 255, 0.58);
+            color: #FFFFFF;
+            font-family: 'Noto Serif TC', serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 1.4px;
+            padding: 1px 8px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(4px);
+            flex-shrink: 0;
+        }
+
+        .day6-loc-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 0.74rem;
+            font-weight: 500;
+            letter-spacing: 0.6px;
+            white-space: nowrap;
+        }
+
+        .day6-loc-pin {
+            width: 12px;
+            height: 12px;
+            flex-shrink: 0;
+            display: inline-block;
+        }
+
+        .day6-card-heading {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.16rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            letter-spacing: 1.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+            line-height: 1.3;
+        }
+
+        .day6-sparkle-icon {
+            position: absolute;
+            right: 13px;
+            bottom: 13px;
+            width: 13px;
+            height: 13px;
+            opacity: 0.78;
+            pointer-events: none;
         }
 
         /* 日期選擇 Tabs：與標題區一起凍結視窗 Sticky + 質感簡約風 + 連結底線滑入動態效果 */
@@ -2182,7 +2275,7 @@
     <div class="container">
         <!-- 標題區 -->
         <header class="hero-banner">
-            <div class="hero-subhead">2027·FAMILY TRIP</div>
+            <div class="hero-subhead">FAMILY TRIP · 2027</div>
             <div class="title-group">
                 <h1 class="hero-title" id="floatTitle">
                     <span class="bounce-char">釜</span><span class="bounce-char">山</span><span class="bounce-char">·</span><span class="bounce-char">冬</span><span class="bounce-char">日</span><span class="bounce-char">遊</span>
@@ -2192,7 +2285,7 @@
                     <span class="karaoke-char">부</span><span class="karaoke-char">산</span><span class="karaoke-char"> </span><span class="karaoke-char">·</span><span class="karaoke-char"> </span><span class="karaoke-char">B</span><span class="karaoke-char">U</span><span class="karaoke-char">S</span><span class="karaoke-char">A</span><span class="karaoke-char">N</span>
                 </span>
             </div>
-            <div class="hero-date">2027.01.13 (三) - 01.18 (一)</div>
+            <div class="hero-date">2027.01.13 (三) - 01.18 (一) · 六天五夜</div>
             <div class="hero-badge-tag">
                 <span id="typingText"></span><span class="typing-cursor" id="typingCursor">|</span>
             </div>
@@ -3352,6 +3445,75 @@
             `;
         }
 
+        function getDay6ReturnIllustrationHtml() {
+            return `
+                <div class="day6-hero-wrap">
+                    <div class="day6-card-figure">
+                        <svg class="day6-bg-svg" viewBox="0 0 420 185" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="d6SkyGrad" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#1A2434"/>
+                                    <stop offset="48%" stop-color="#353E52"/>
+                                    <stop offset="82%" stop-color="#8A6153"/>
+                                    <stop offset="100%" stop-color="#C98D6B"/>
+                                </linearGradient>
+                                <radialGradient id="d6SunGlow" cx="72%" cy="62%" r="36%">
+                                    <stop offset="0%" stop-color="#F6D0A8" stop-opacity="0.72"/>
+                                    <stop offset="55%" stop-color="#D98B6C" stop-opacity="0.28"/>
+                                    <stop offset="100%" stop-color="#353E52" stop-opacity="0"/>
+                                </radialGradient>
+                            </defs>
+                            <rect width="420" height="185" fill="url(#d6SkyGrad)"/>
+                            <rect width="420" height="185" fill="url(#d6SunGlow)"/>
+
+                            <circle cx="72" cy="28" r="1" fill="#FFF" opacity="0.55"/>
+                            <circle cx="155" cy="22" r="1.2" fill="#FFF" opacity="0.4"/>
+                            <circle cx="348" cy="30" r="1" fill="#FFF" opacity="0.5"/>
+
+                            <circle cx="300" cy="112" r="18" fill="#F7DFC2" opacity="0.75"/>
+
+                            <path d="M 225 78 Q 290 70 365 78" stroke="#F4DCD0" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.24"/>
+
+                            <path d="M 105 96 Q 190 66 258 44" stroke="#F6E6D4" stroke-width="1.2" stroke-dasharray="3 4" fill="none" opacity="0.6"/>
+                            <g transform="translate(260, 41) rotate(-17)">
+                                <path d="M -9 0 L 8 0 L 12 -2 L 8 -2.5 L 1 -1.8 L -4 -8 L -6.5 -7.5 L -3.5 -1.5 L -9 -1 L -11.5 -4.5 L -13 -4.2 L -11 0.5 Z" fill="#FFF8EE" opacity="0.92"/>
+                            </g>
+
+                            <path d="M 0 132 L 68 118 L 136 127 L 210 112 L 288 126 L 358 116 L 420 124 L 420 185 L 0 185 Z" fill="#1E2532" opacity="0.88"/>
+                            <rect x="0" y="132" width="420" height="53" fill="#141923"/>
+
+                            <line x1="158" y1="185" x2="245" y2="136" stroke="#C59B7D" stroke-width="1" stroke-dasharray="4 5" opacity="0.45"/>
+                            <line x1="365" y1="185" x2="292" y2="136" stroke="#C59B7D" stroke-width="1" stroke-dasharray="4 5" opacity="0.45"/>
+
+                            <g stroke="#0D1118" stroke-opacity="0.42" stroke-width="2.2">
+                                <line x1="108" y1="0" x2="94" y2="185"/>
+                                <line x1="312" y1="0" x2="326" y2="185"/>
+                                <line x1="0" y1="62" x2="420" y2="62" stroke-width="1.4"/>
+                            </g>
+                        </svg>
+
+                        <div class="day6-card-overlay">
+                            <div class="day6-badge-row">
+                                <span class="day6-pill-box">DAY 6</span>
+                                <span class="day6-loc-text">
+                                    <svg class="day6-loc-pin" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                    金海國際機場 (PUS)
+                                </span>
+                            </div>
+                            <div class="day6-card-heading">滿載回憶，準備賦歸</div>
+                        </div>
+
+                        <svg class="day6-sparkle-icon" width="13" height="13" viewBox="0 0 24 24" fill="#E5DFC9">
+                            <path d="M12 1 L14.8 9.2 L23 12 L14.8 14.8 L12 23 L9.2 14.8 L1 12 L9.2 9.2 Z"/>
+                        </svg>
+                    </div>
+                </div>
+            `;
+        }
+
         const itineraryData = {
             1: [
                 { time: '05:30', category: 'TRANSPORT', icon: SVG_ICONS.train, title: '家 ➔ 台中機場', desc: '機場接送' },
@@ -3426,6 +3588,8 @@
 
             if (dayNum === 2) {
                 html += getTrainIllustrationHtml();
+            } else if (dayNum === 6) {
+                html += getDay6ReturnIllustrationHtml();
             }
 
             html += '<div class="elegant-timeline">';
