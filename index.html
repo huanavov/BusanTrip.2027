@@ -56,6 +56,11 @@
             letter-spacing: 0.2px;
         }
 
+        /* 防止手機版 input 點擊自動放大 (字體需大於等於 16px) */
+        input, select, textarea {
+            font-size: 16px !important;
+        }
+
         html {
             background-color: var(--bg-color);
             width: 100%;
